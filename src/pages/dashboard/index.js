@@ -18,7 +18,7 @@ const Dashboard = () => {
             to="/poi/new"
             className="w-full lg:col-span-2 cursor-pointer dashboard-corner-card flex"
           >
-            <h2 className="text-[#28557b] m-auto text-center text-3xl justify-center">
+            <h2 className="text-[#5A5A5A] m-auto text-center text-3xl justify-center">
               Neuen POI erstellen
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -42,7 +42,7 @@ const Dashboard = () => {
                   id="_"
                   data-name="+"
                   transform="translate(10.5 37)"
-                  fill="#28557b"
+                  fill="#5A5A5A"
                   fontSize="39"
                   fontFamily="Calibri"
                 >
@@ -58,7 +58,7 @@ const Dashboard = () => {
             to="/tour/new"
             className="lg:col-span-2 cursor-pointer dashboard-corner-card flex"
           >
-            <h2 className="text-[#28557b] m-auto text-center text-3xl justify-center">
+            <h2 className="text-[#5A5A5A] m-auto text-center text-3xl justify-center">
               Neue Tour erstellen
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -82,7 +82,7 @@ const Dashboard = () => {
                   id="_"
                   data-name="+"
                   transform="translate(10.5 37)"
-                  fill="#28557b"
+                  fill="#5A5A5A"
                   fontSize="39"
                   fontFamily="Calibri"
                 >
@@ -99,7 +99,7 @@ const Dashboard = () => {
             to="/poi"
             className="lg:col-span-2 cursor-pointer dashboard-card flex"
           >
-            <h2 className="text-[#28557b] m-auto text-center text-3xl justify-center">
+            <h2 className="text-[#5A5A5A] m-auto text-center text-3xl justify-center">
               POI Übersicht
             </h2>
           </Link>
@@ -107,7 +107,7 @@ const Dashboard = () => {
             to="/tour"
             className="lg:col-span-2 cursor-pointer dashboard-card flex"
           >
-            <h2 className="text-[#28557b] m-auto text-center text-3xl justify-center">
+            <h2 className="text-[#5A5A5A] m-auto text-center text-3xl justify-center">
               Touren Übersicht
             </h2>
           </Link>
@@ -117,7 +117,7 @@ const Dashboard = () => {
             to="/offersnews"
             className="lg:col-span-2 cursor-pointer dashboard-card flex"
           >
-            <h2 className="text-[#28557b] m-auto text-center text-3xl justify-center">
+            <h2 className="text-[#5A5A5A] m-auto text-center text-3xl justify-center">
               Home Screen
             </h2>
           </Link>
@@ -125,7 +125,7 @@ const Dashboard = () => {
             to="/page"
             className="lg:col-span-2 cursor-pointer dashboard-card flex"
           >
-            <h2 className="text-[#28557b] m-auto text-center text-3xl justify-center">
+            <h2 className="text-[#5A5A5A] m-auto text-center text-3xl justify-center">
               Info Screen
             </h2>
           </Link>

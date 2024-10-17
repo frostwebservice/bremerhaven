@@ -1,10 +1,10 @@
 .login-headline h1 {
-  color: #28557b;
+  color: #5a5a5a;
   margin-top: 1.875rem;
   font-size: 2.5rem;
 }
 .login-headline h2 {
-  color: #28557b;
+  color: #5a5a5a;
   font-weight: 200;
   margin-bottom: 1.5625rem;
   font-size: 2rem;
@@ -21,14 +21,14 @@
   width: 8.75rem;
 }
 .has-special-corners:before {
-  border-left: 3px solid #28557b;
-  border-top: 3px solid #28557b;
+  border-left: 3px solid #5a5a5a;
+  border-top: 3px solid #5a5a5a;
   left: 0.3125rem;
   top: 0.3125rem;
 }
 .has-special-corners:after {
-  border-bottom: 3px solid #28557b;
-  border-right: 3px solid #28557b;
+  border-bottom: 3px solid #5a5a5a;
+  border-right: 3px solid #5a5a5a;
   bottom: 0.3125rem;
   right: 0.3125rem;
 }
@@ -42,14 +42,14 @@
   width: 1.25rem;
 }
 .login-btn:before {
-  border-left: 1px solid #28557b;
-  border-top: 1px solid #28557b;
+  border-left: 1px solid #5a5a5a;
+  border-top: 1px solid #5a5a5a;
   left: 0.3125rem;
   top: 0.3125rem;
 }
 .login-btn:after {
-  border-bottom: 1px solid #28557b;
-  border-right: 1px solid #28557b;
+  border-bottom: 1px solid #5a5a5a;
+  border-right: 1px solid #5a5a5a;
   bottom: 0.3125rem;
   right: 0.3125rem;
 }
@@ -57,7 +57,7 @@
   background: none;
   border: none;
   border-radius: 0;
-  color: #28557b;
+  color: #5a5a5a;
   font-weight: 700;
   padding: 10px 20px;
   position: relative;

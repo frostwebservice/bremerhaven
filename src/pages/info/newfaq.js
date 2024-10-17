@@ -160,9 +160,9 @@ const NewFaqPage = () => {
           <Spinner size="3xl" color="white" />
         </div>
       )}
-      <div className="border-b-4 border-[#28557b] mx-5">
+      <div className="border-b-4 border-[#5A5A5A] mx-5">
         <div className="container m-auto mt-20 pb-12">
-          <h1 className="text-[#28557b] text-3xl font-medium">FAQ-Eintrag</h1>
+          <h1 className="text-[#5A5A5A] text-3xl font-medium">FAQ-Eintrag</h1>
         </div>
       </div>
       <div className="container m-auto mt-12">
@@ -172,7 +172,7 @@ const NewFaqPage = () => {
               <img src={DeuFlagImg} className="m-auto" />
               <h1 className="text-3xl">Neuer FAQ-Eintrag</h1>
             </div>
-            <h1 className="text-[#28557b] text-3xl font-normal mb-12">
+            <h1 className="text-[#5A5A5A] text-3xl font-normal mb-12">
               Einleitung
             </h1>
             <div className="grid grid-cols-12 gap-4 items-center mb-6">
@@ -180,13 +180,13 @@ const NewFaqPage = () => {
                 <Tooltip content="Frage, max. 100 Zeichen" placement="top">
                   <InformationCircleIcon
                     strokeWidth={2}
-                    className="h-10 w-10 text-[#28557b]"
+                    className="h-10 w-10 text-[#5A5A5A]"
                   ></InformationCircleIcon>
                 </Tooltip>
               </div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     Überschrift
                   </div>
                   <div className="col-span-9">
@@ -216,13 +216,13 @@ const NewFaqPage = () => {
                 >
                   <InformationCircleIcon
                     strokeWidth={2}
-                    className="h-10 w-10 text-[#28557b]"
+                    className="h-10 w-10 text-[#5A5A5A]"
                   ></InformationCircleIcon>
                 </Tooltip>
               </div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     Text
                   </div>
                   <div className="col-span-9">
@@ -252,18 +252,18 @@ const NewFaqPage = () => {
                 >
                   <InformationCircleIcon
                     strokeWidth={2}
-                    className="h-10 w-10 text-[#28557b]"
+                    className="h-10 w-10 text-[#5A5A5A]"
                   ></InformationCircleIcon>
                 </Tooltip>
               </div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     Audio
                   </div>
                   <div className="col-span-9">
                     <FileInput
-                      className="text-[#28557b]"
+                      className="text-[#5A5A5A]"
                       id="file-upload"
                       onChange={handleFileDeChange}
                     />
@@ -279,13 +279,13 @@ const NewFaqPage = () => {
                 >
                   <InformationCircleIcon
                     strokeWidth={2}
-                    className="h-10 w-10 text-[#28557b]"
+                    className="h-10 w-10 text-[#5A5A5A]"
                   ></InformationCircleIcon>
                 </Tooltip>
               </div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     Links
                   </div>
                   <div className="col-span-9 gap-8">
@@ -308,13 +308,13 @@ const NewFaqPage = () => {
             </div>
             <div className="text-center mt-2">
               <div
-                className="text-[#28557b] text-xl text-center mt-2 inline-flex items-center cursor-pointer"
+                className="text-[#5A5A5A] text-xl text-center mt-2 inline-flex items-center cursor-pointer"
                 onClick={addNewLink}
               >
                 Neuen Link hinzufügen
                 <PlusCircleIcon
                   strokeWidth={2}
-                  color="#28557b"
+                  color="#5A5A5A"
                   className="h-6 w-6"
                 >
                   {" "}
@@ -327,14 +327,14 @@ const NewFaqPage = () => {
               <img src={AMFlagImg} className="m-auto" />
               <h1 className="text-3xl">New FAQ entry</h1>
             </div>
-            <h1 className="text-[#28557b] text-3xl font-normal mb-12">
+            <h1 className="text-[#5A5A5A] text-3xl font-normal mb-12">
               <br />
             </h1>
             <div className="grid grid-cols-12 gap-4 items-center mb-6">
               <div className="col-span-1"></div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     Überschrift
                   </div>
                   <div className="col-span-9">
@@ -360,7 +360,7 @@ const NewFaqPage = () => {
               <div className="col-span-1"></div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     Text
                   </div>
                   <div className="col-span-9">
@@ -386,12 +386,12 @@ const NewFaqPage = () => {
               <div className="col-span-1"></div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     Audio
                   </div>
                   <div className="col-span-9">
                     <FileInput
-                      className="text-[#28557b]"
+                      className="text-[#5A5A5A]"
                       id="file-upload"
                       onChange={handleFileEnChange}
                     />
@@ -403,7 +403,7 @@ const NewFaqPage = () => {
               <div className="col-span-1"></div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     Links
                   </div>
                   <div className="col-span-9 gap-8">
@@ -426,13 +426,13 @@ const NewFaqPage = () => {
             </div>
             <div className="text-center mt-2">
               <div
-                className="text-[#28557b] text-xl text-center mt-2 inline-flex items-center"
+                className="text-[#5A5A5A] text-xl text-center mt-2 inline-flex items-center"
                 onClick={addNewEnLink}
               >
                 Neuen Link hinzufügen
                 <PlusCircleIcon
                   strokeWidth={2}
-                  color="#28557b"
+                  color="#5A5A5A"
                   className="h-6 w-6"
                 >
                   {" "}
@@ -442,7 +442,7 @@ const NewFaqPage = () => {
           </div>
         </div>
       </div>
-      <div className="border-b-4 border-[#28557b] mx-5 mb-40">
+      <div className="border-b-4 border-[#5A5A5A] mx-5 mb-40">
         <div className="container m-auto mt-20 pb-12"></div>
       </div>
       <div className="container m-auto mb-40">
@@ -452,7 +452,7 @@ const NewFaqPage = () => {
               checked={published}
               onChange={(e) => setPublished(e.target.checked)}
               label={
-                <Typography className="flex font-semibold text-[#28557b]">
+                <Typography className="flex font-semibold text-[#5A5A5A]">
                   Veröffentlichen
                 </Typography>
               }
@@ -462,7 +462,7 @@ const NewFaqPage = () => {
             <Link to="/faq">
               <Button
                 variant="outlined"
-                className="text-[#28557b] px-10 bg-white border-none"
+                className="text-[#5A5A5A] px-10 bg-white border-none"
               >
                 Abbrechen
               </Button>
@@ -471,7 +471,7 @@ const NewFaqPage = () => {
           <div>
             <Button
               variant="outlined"
-              className="text-[#28557b] px-10 bg-white border-none hover:text-red-800"
+              className="text-[#5A5A5A] px-10 bg-white border-none hover:text-red-800"
               onClick={onSubmit}
             >
               Speichern

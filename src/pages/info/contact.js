@@ -150,22 +150,22 @@ const ContactPage = () => {
           <Spinner size="3xl" color="white" />
         </div>
       )}
-      <div className="border-b-4 border-[#28557b] mx-5">
+      <div className="border-b-4 border-[#5A5A5A] mx-5">
         <div className="container m-auto mt-20 pb-12">
-          <h1 className="text-[#28557b] text-3xl font-medium">
+          <h1 className="text-[#5A5A5A] text-3xl font-medium">
             Bearbeiten Contact
           </h1>
         </div>
       </div>
       <div className="container m-auto mt-12">
         <div>
-          <h1 className="text-[#28557b] text-3xl font-normal mb-12">
+          <h1 className="text-[#5A5A5A] text-3xl font-normal mb-12">
             Einleitung
           </h1>
           <div className="grid grid-cols-12 gap-4 items-center mb-6">
             <div className="col-span-12">
               <div className="grid grid-cols-12">
-                <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                   Überschrift
                 </div>
                 <div className="col-span-9">
@@ -182,7 +182,7 @@ const ContactPage = () => {
           <div className="grid grid-cols-12 gap-4 items-center mb-6">
             <div className="col-span-12">
               <div className="grid grid-cols-12">
-                <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                   Adresse
                 </div>
                 <div className="col-span-9">
@@ -205,7 +205,7 @@ const ContactPage = () => {
           <div className="grid grid-cols-12 gap-4 items-center mb-6">
             <div className="col-span-12">
               <div className="grid grid-cols-12">
-                <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                   Kontaktperson
                 </div>
                 <div className="col-span-9">
@@ -228,7 +228,7 @@ const ContactPage = () => {
           <div className="grid grid-cols-12 gap-4 items-center mb-6">
             <div className="col-span-12">
               <div className="grid grid-cols-12">
-                <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                   E-Mail
                 </div>
                 <div className="col-span-9">
@@ -253,7 +253,7 @@ const ContactPage = () => {
           <div className="grid grid-cols-12 gap-4 items-center mb-6">
             <div className="col-span-12">
               <div className="grid grid-cols-12">
-                <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                   Fax
                 </div>
                 <div className="col-span-9">
@@ -276,7 +276,7 @@ const ContactPage = () => {
           <div className="grid grid-cols-12 gap-4 items-center mb-6">
             <div className="col-span-12">
               <div className="grid grid-cols-12">
-                <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                   Telefonnummer
                 </div>
                 <div className="col-span-9">
@@ -299,7 +299,7 @@ const ContactPage = () => {
           <div className="grid grid-cols-12 gap-4 items-center mb-2">
             <div className="col-span-12">
               <div className="grid grid-cols-12">
-                <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                   Website
                 </div>
                 <div className="col-span-9 gap-8">
@@ -320,13 +320,13 @@ const ContactPage = () => {
           </div>
           <div className="text-center mt-2">
             <div
-              className="text-[#28557b] text-xl text-center mt-2 inline-flex items-center cursor-pointer"
+              className="text-[#5A5A5A] text-xl text-center mt-2 inline-flex items-center cursor-pointer"
               onClick={addNewLink}
             >
               Neuen Link hinzufügen
               <PlusCircleIcon
                 strokeWidth={2}
-                color="#28557b"
+                color="#5A5A5A"
                 className="h-6 w-6"
               >
                 {" "}
@@ -335,7 +335,7 @@ const ContactPage = () => {
           </div>
         </div>
       </div>
-      <div className="border-b-4 border-[#28557b] mx-5 mb-40">
+      <div className="border-b-4 border-[#5A5A5A] mx-5 mb-40">
         <div className="container m-auto mt-20 pb-12"></div>
       </div>
       <div className="container m-auto mb-40">
@@ -345,7 +345,7 @@ const ContactPage = () => {
               checked={published}
               onChange={(e) => setPublished(e.target.checked)}
               label={
-                <Typography className="flex font-semibold text-[#28557b]">
+                <Typography className="flex font-semibold text-[#5A5A5A]">
                   Veröffentlichen
                 </Typography>
               }
@@ -355,7 +355,7 @@ const ContactPage = () => {
             <Link to="/page">
               <Button
                 variant="outlined"
-                className="text-[#28557b] px-10 bg-white border-none"
+                className="text-[#5A5A5A] px-10 bg-white border-none"
               >
                 Abbrechen
               </Button>
@@ -364,7 +364,7 @@ const ContactPage = () => {
           <div>
             <Button
               variant="outlined"
-              className="text-[#28557b] px-10 bg-white border-none hover:text-red-800"
+              className="text-[#5A5A5A] px-10 bg-white border-none hover:text-red-800"
               onClick={onSubmit}
             >
               Speichern

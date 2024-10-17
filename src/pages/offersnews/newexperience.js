@@ -167,9 +167,9 @@ const NewExperience = () => {
           <Spinner size="3xl" color="white" />
         </div>
       )}
-      <div className="border-b-4 border-[#28557b] mx-5">
+      <div className="border-b-4 border-[#5A5A5A] mx-5">
         <div className="container m-auto mt-20 pb-12">
-          <h1 className="text-[#28557b] text-3xl font-medium">
+          <h1 className="text-[#5A5A5A] text-3xl font-medium">
             Neuen Entdecken-Eintrag erstellen
           </h1>
         </div>
@@ -184,7 +184,7 @@ const NewExperience = () => {
               <div className="col-span-1"></div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     Überschrift
                   </div>
                   <div className="col-span-9">
@@ -214,18 +214,18 @@ const NewExperience = () => {
                 >
                   <InformationCircleIcon
                     strokeWidth={2}
-                    className="h-10 w-10 text-[#28557b]"
+                    className="h-10 w-10 text-[#5A5A5A]"
                   ></InformationCircleIcon>
                 </Tooltip>
               </div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     Bild
                   </div>
                   <div className="col-span-9">
                     <FileInput
-                      className="text-[#28557b]"
+                      className="text-[#5A5A5A]"
                       id="file-upload"
                       onChange={handleBildDeChange}
                     />
@@ -241,13 +241,13 @@ const NewExperience = () => {
                 >
                   <InformationCircleIcon
                     strokeWidth={2}
-                    className="h-10 w-10 text-[#28557b]"
+                    className="h-10 w-10 text-[#5A5A5A]"
                   ></InformationCircleIcon>
                 </Tooltip>
               </div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     Text
                   </div>
                   <div className="col-span-9">
@@ -277,18 +277,18 @@ const NewExperience = () => {
                 >
                   <InformationCircleIcon
                     strokeWidth={2}
-                    className="h-10 w-10 text-[#28557b]"
+                    className="h-10 w-10 text-[#5A5A5A]"
                   ></InformationCircleIcon>
                 </Tooltip>
               </div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     Audio
                   </div>
                   <div className="col-span-9">
                     <FileInput
-                      className="text-[#28557b]"
+                      className="text-[#5A5A5A]"
                       id="file-upload"
                       onChange={handleFileDeChange}
                     />
@@ -300,7 +300,7 @@ const NewExperience = () => {
               <div className="col-span-1"></div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     Button Name
                   </div>
                   <div className="col-span-9 gap-8">
@@ -320,7 +320,7 @@ const NewExperience = () => {
               <div className="col-span-1"></div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     Button Link
                   </div>
                   <div className="col-span-9 gap-8">
@@ -341,12 +341,12 @@ const NewExperience = () => {
             <div className="text-center m-auto mb-16">
               <img src={AMFlagImg} className="m-auto" />
             </div>
-            <h1 className="text-[#28557b] text-3xl font-normal mb-12"></h1>
+            <h1 className="text-[#5A5A5A] text-3xl font-normal mb-12"></h1>
             <div className="grid grid-cols-12 gap-4 items-center mb-6">
               <div className="col-span-1"></div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     Überschrift
                   </div>
                   <div className="col-span-9">
@@ -372,12 +372,12 @@ const NewExperience = () => {
               <div className="col-span-1"></div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     Bild
                   </div>
                   <div className="col-span-9">
                     <FileInput
-                      className="text-[#28557b]"
+                      className="text-[#5A5A5A]"
                       id="file-upload"
                       onChange={handleBildEnChange}
                     />
@@ -389,7 +389,7 @@ const NewExperience = () => {
               <div className="col-span-1"></div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     Text
                   </div>
                   <div className="col-span-9">
@@ -415,12 +415,12 @@ const NewExperience = () => {
               <div className="col-span-1"></div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     Audio
                   </div>
                   <div className="col-span-9">
                     <FileInput
-                      className="text-[#28557b]"
+                      className="text-[#5A5A5A]"
                       id="file-upload"
                       onChange={handleFileEnChange}
                     />
@@ -432,7 +432,7 @@ const NewExperience = () => {
               <div className="col-span-1"></div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     Button Name
                   </div>
                   <div className="col-span-9 gap-8">
@@ -452,7 +452,7 @@ const NewExperience = () => {
               <div className="col-span-1"></div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     Button Link
                   </div>
                   <div className="col-span-9 gap-8">
@@ -471,7 +471,7 @@ const NewExperience = () => {
           </div>
         </div>
       </div>
-      <div className="border-b-4 border-[#28557b] mx-5 mb-40">
+      <div className="border-b-4 border-[#5A5A5A] mx-5 mb-40">
         <div className="container m-auto mt-20 pb-12"></div>
       </div>
       <div className="container m-auto mb-40">
@@ -481,7 +481,7 @@ const NewExperience = () => {
               checked={published}
               onChange={(e) => setPublished(e.target.checked)}
               label={
-                <Typography className="flex font-semibold text-[#28557b]">
+                <Typography className="flex font-semibold text-[#5A5A5A]">
                   Veröffentlichen
                 </Typography>
               }
@@ -491,7 +491,7 @@ const NewExperience = () => {
             <Link to="/offersnews">
               <Button
                 variant="outlined"
-                className="text-[#28557b] px-10 bg-white border-none"
+                className="text-[#5A5A5A] px-10 bg-white border-none"
               >
                 Abbrechen
               </Button>
@@ -500,7 +500,7 @@ const NewExperience = () => {
           <div>
             <Button
               variant="outlined"
-              className="text-[#28557b] px-10 bg-white border-none hover:text-red-800"
+              className="text-[#5A5A5A] px-10 bg-white border-none hover:text-red-800"
               onClick={onSubmit}
             >
               Speichern

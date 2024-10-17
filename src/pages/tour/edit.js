@@ -99,7 +99,7 @@ const EditTourPage = () => {
           <Link to={"/poi/" + item.id}>
             <PencilSquareIcon
               strokeWidth={2}
-              className="h-6 w-6 text-[#28557b]  cursor-pointer m-auto"
+              className="h-6 w-6 text-[#5A5A5A]  cursor-pointer m-auto"
             ></PencilSquareIcon>
           </Link>
         </div>
@@ -107,7 +107,7 @@ const EditTourPage = () => {
           <TrashIcon
             onClick={() => removePoi(item.id)}
             strokeWidth={2}
-            className="h-6 w-6 text-[#28557b]  cursor-pointer m-auto"
+            className="h-6 w-6 text-[#5A5A5A]  cursor-pointer m-auto"
           ></TrashIcon>
         </div>
       </div>
@@ -468,9 +468,9 @@ const EditTourPage = () => {
             <Spinner size="3xl" color="white" />
           </div>
         )}
-        <div className="border-b-4 border-[#28557b] mx-5">
+        <div className="border-b-4 border-[#5A5A5A] mx-5">
           <div className="container m-auto mt-20 pb-12">
-            <h1 className="text-[#28557b] text-3xl font-medium">
+            <h1 className="text-[#5A5A5A] text-3xl font-medium">
               Neuen Tour erstellen
             </h1>
           </div>
@@ -481,7 +481,7 @@ const EditTourPage = () => {
               <div className="text-center m-auto mb-16">
                 <img src={DeuFlagImg} className="m-auto" />
               </div>
-              <h1 className="text-[#28557b] text-3xl font-normal mb-12">
+              <h1 className="text-[#5A5A5A] text-3xl font-normal mb-12">
                 Tour Overview
               </h1>
 
@@ -490,13 +490,13 @@ const EditTourPage = () => {
                   <Tooltip content="Max. 18 Zeichen" placement="top">
                     <InformationCircleIcon
                       strokeWidth={2}
-                      className="h-10 w-10 text-[#28557b]"
+                      className="h-10 w-10 text-[#5A5A5A]"
                     ></InformationCircleIcon>
                   </Tooltip>
                 </div>
                 <div className="col-span-11">
                   <div className="grid grid-cols-12">
-                    <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                       Name
                     </div>
                     <div className="col-span-9">
@@ -526,13 +526,13 @@ const EditTourPage = () => {
                   >
                     <InformationCircleIcon
                       strokeWidth={2}
-                      className="h-10 w-10 text-[#28557b]"
+                      className="h-10 w-10 text-[#5A5A5A]"
                     ></InformationCircleIcon>
                   </Tooltip>
                 </div>
                 <div className="col-span-11">
                   <div className="grid grid-cols-12">
-                    <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                       Kurztext
                     </div>
                     <div className="col-span-9">
@@ -562,13 +562,13 @@ const EditTourPage = () => {
                   >
                     <InformationCircleIcon
                       strokeWidth={2}
-                      className="h-10 w-10 text-[#28557b]"
+                      className="h-10 w-10 text-[#5A5A5A]"
                     ></InformationCircleIcon>
                   </Tooltip>
                 </div>
                 <div className="col-span-11">
                   <div className="grid grid-cols-12">
-                    <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                       Audio(Kurztext)
                     </div>
                     {isDescAudioFileDe ? (
@@ -587,7 +587,7 @@ const EditTourPage = () => {
                         <div className="col-span-1 items-center flex">
                           <TrashIcon
                             strokeWidth={2}
-                            className="h-6 w-6 text-[#28557b]  cursor-pointer m-auto"
+                            className="h-6 w-6 text-[#5A5A5A]  cursor-pointer m-auto"
                             onClick={(e) => {
                               setDescAudioFileDeUrl("");
                               setIsDescAudioFileDe(false);
@@ -598,7 +598,7 @@ const EditTourPage = () => {
                     ) : (
                       <div className="col-span-9">
                         <FileInput
-                          className="text-[#28557b]"
+                          className="text-[#5A5A5A]"
                           id="file-upload"
                           onChange={handleDescAudioDeChange}
                         />
@@ -607,7 +607,7 @@ const EditTourPage = () => {
                   </div>
                 </div>
               </div>
-              <h1 className="text-[#28557b] text-3xl font-normal mb-12 mt-12">
+              <h1 className="text-[#5A5A5A] text-3xl font-normal mb-12 mt-12">
                 Tour Details
               </h1>
 
@@ -619,13 +619,13 @@ const EditTourPage = () => {
                   >
                     <InformationCircleIcon
                       strokeWidth={2}
-                      className="h-10 w-10 text-[#28557b]"
+                      className="h-10 w-10 text-[#5A5A5A]"
                     ></InformationCircleIcon>
                   </Tooltip>
                 </div>
                 <div className="col-span-11">
                   <div className="grid grid-cols-12">
-                    <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                       Text
                     </div>
                     <div className="col-span-9">
@@ -649,13 +649,13 @@ const EditTourPage = () => {
                   >
                     <InformationCircleIcon
                       strokeWidth={2}
-                      className="h-10 w-10 text-[#28557b]"
+                      className="h-10 w-10 text-[#5A5A5A]"
                     ></InformationCircleIcon>
                   </Tooltip>
                 </div>
                 <div className="col-span-11">
                   <div className="grid grid-cols-12">
-                    <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                       Audio
                     </div>
                     {isFirstAudioFileDe ? (
@@ -674,7 +674,7 @@ const EditTourPage = () => {
                         <div className="col-span-1 items-center flex">
                           <TrashIcon
                             strokeWidth={2}
-                            className="h-6 w-6 text-[#28557b]  cursor-pointer m-auto"
+                            className="h-6 w-6 text-[#5A5A5A]  cursor-pointer m-auto"
                             onClick={(e) => {
                               setFirstAudioFileDeUrl("");
                               setIsFirstAudioFileDe(false);
@@ -685,7 +685,7 @@ const EditTourPage = () => {
                     ) : (
                       <div className="col-span-9">
                         <FileInput
-                          className="text-[#28557b]"
+                          className="text-[#5A5A5A]"
                           id="file-upload"
                           onChange={handleFileDeChange}
                         />
@@ -702,13 +702,13 @@ const EditTourPage = () => {
                   >
                     <InformationCircleIcon
                       strokeWidth={2}
-                      className="h-10 w-10 text-[#28557b]"
+                      className="h-10 w-10 text-[#5A5A5A]"
                     ></InformationCircleIcon>
                   </Tooltip>
                 </div>
                 <div className="col-span-11">
                   <div className="grid grid-cols-12">
-                    <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                       AudioStory
                     </div>
                     {isStoryFileDe ? (
@@ -727,7 +727,7 @@ const EditTourPage = () => {
                         <div className="col-span-1 items-center flex">
                           <TrashIcon
                             strokeWidth={2}
-                            className="h-6 w-6 text-[#28557b]  cursor-pointer m-auto"
+                            className="h-6 w-6 text-[#5A5A5A]  cursor-pointer m-auto"
                             onClick={(e) => {
                               setStoryFileDeUrl("");
                               setIsStoryFileDe(false);
@@ -738,7 +738,7 @@ const EditTourPage = () => {
                     ) : (
                       <div className="col-span-9">
                         <FileInput
-                          className="text-[#28557b]"
+                          className="text-[#5A5A5A]"
                           id="file-upload"
                           onChange={handleAudioStoryDeChange}
                         />
@@ -752,13 +752,13 @@ const EditTourPage = () => {
                   <Tooltip content="Video Name" placement="top">
                     <InformationCircleIcon
                       strokeWidth={2}
-                      className="h-10 w-10 text-[#28557b]"
+                      className="h-10 w-10 text-[#5A5A5A]"
                     ></InformationCircleIcon>
                   </Tooltip>
                 </div>
                 <div className="col-span-11">
                   <div className="grid grid-cols-12">
-                    <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                       Video Überschrift
                     </div>
                     <div className="col-span-9">
@@ -779,13 +779,13 @@ const EditTourPage = () => {
                   <Tooltip content="Vimeo Weblink" placement="top">
                     <InformationCircleIcon
                       strokeWidth={2}
-                      className="h-10 w-10 text-[#28557b]"
+                      className="h-10 w-10 text-[#5A5A5A]"
                     ></InformationCircleIcon>
                   </Tooltip>
                 </div>
                 <div className="col-span-11">
                   <div className="grid grid-cols-12">
-                    <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                       Video Link
                     </div>
                     <div className="col-span-9">
@@ -806,7 +806,7 @@ const EditTourPage = () => {
               <div className="text-center m-auto mb-16">
                 <img src={AMFlagImg} className="m-auto" />
               </div>
-              <h1 className="text-[#28557b] text-3xl font-normal mb-12">
+              <h1 className="text-[#5A5A5A] text-3xl font-normal mb-12">
                 <br />
               </h1>
 
@@ -814,7 +814,7 @@ const EditTourPage = () => {
                 <div className="col-span-1"></div>
                 <div className="col-span-11">
                   <div className="grid grid-cols-12">
-                    <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                       Name
                     </div>
                     <div className="col-span-9">
@@ -840,7 +840,7 @@ const EditTourPage = () => {
                 <div className="col-span-1"></div>
                 <div className="col-span-11">
                   <div className="grid grid-cols-12">
-                    <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                       Kurztext
                     </div>
                     <div className="col-span-9">
@@ -866,7 +866,7 @@ const EditTourPage = () => {
                 <div className="col-span-1"></div>
                 <div className="col-span-11">
                   <div className="grid grid-cols-12">
-                    <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                       Audio(Kurztext)
                     </div>
                     {isDescAudioFileEn ? (
@@ -885,7 +885,7 @@ const EditTourPage = () => {
                         <div className="col-span-1 items-center flex">
                           <TrashIcon
                             strokeWidth={2}
-                            className="h-6 w-6 text-[#28557b]  cursor-pointer m-auto"
+                            className="h-6 w-6 text-[#5A5A5A]  cursor-pointer m-auto"
                             onClick={(e) => {
                               setDescAudioFileEnUrl("");
                               setIsDescAudioFileEn(false);
@@ -896,7 +896,7 @@ const EditTourPage = () => {
                     ) : (
                       <div className="col-span-9">
                         <FileInput
-                          className="text-[#28557b]"
+                          className="text-[#5A5A5A]"
                           id="file-upload"
                           onChange={handleDescAudioEnChange}
                         />
@@ -905,7 +905,7 @@ const EditTourPage = () => {
                   </div>
                 </div>
               </div>
-              <h1 className="text-[#28557b] text-3xl font-normal mb-12 mt-12">
+              <h1 className="text-[#5A5A5A] text-3xl font-normal mb-12 mt-12">
                 <br />
               </h1>
 
@@ -913,7 +913,7 @@ const EditTourPage = () => {
                 <div className="col-span-1"></div>
                 <div className="col-span-11">
                   <div className="grid grid-cols-12">
-                    <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                       Text
                     </div>
                     <div className="col-span-9">
@@ -933,7 +933,7 @@ const EditTourPage = () => {
                 <div className="col-span-1"></div>
                 <div className="col-span-11">
                   <div className="grid grid-cols-12">
-                    <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                       Audio
                     </div>
                     {isFirstAudioFileEn ? (
@@ -952,7 +952,7 @@ const EditTourPage = () => {
                         <div className="col-span-1 items-center flex">
                           <TrashIcon
                             strokeWidth={2}
-                            className="h-6 w-6 text-[#28557b]  cursor-pointer m-auto"
+                            className="h-6 w-6 text-[#5A5A5A]  cursor-pointer m-auto"
                             onClick={(e) => {
                               setFirstAudioFileEnUrl("");
                               setIsFirstAudioFileEn(false);
@@ -963,7 +963,7 @@ const EditTourPage = () => {
                     ) : (
                       <div className="col-span-9">
                         <FileInput
-                          className="text-[#28557b]"
+                          className="text-[#5A5A5A]"
                           id="file-upload"
                           onChange={handleFileEnChange}
                         />
@@ -976,7 +976,7 @@ const EditTourPage = () => {
                 <div className="col-span-1"></div>
                 <div className="col-span-11">
                   <div className="grid grid-cols-12">
-                    <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                       AudioStory
                     </div>
                     {isStoryFileEn ? (
@@ -995,7 +995,7 @@ const EditTourPage = () => {
                         <div className="col-span-1 items-center flex">
                           <TrashIcon
                             strokeWidth={2}
-                            className="h-6 w-6 text-[#28557b]  cursor-pointer m-auto"
+                            className="h-6 w-6 text-[#5A5A5A]  cursor-pointer m-auto"
                             onClick={(e) => {
                               setStoryFileEnUrl("");
                               setIsStoryFileEn(false);
@@ -1006,7 +1006,7 @@ const EditTourPage = () => {
                     ) : (
                       <div className="col-span-9">
                         <FileInput
-                          className="text-[#28557b]"
+                          className="text-[#5A5A5A]"
                           id="file-upload"
                           onChange={handleAudioStoryEnChange}
                         />
@@ -1019,7 +1019,7 @@ const EditTourPage = () => {
                 <div className="col-span-1"></div>
                 <div className="col-span-11">
                   <div className="grid grid-cols-12">
-                    <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                       Video Überschrift
                     </div>
                     <div className="col-span-9">
@@ -1039,7 +1039,7 @@ const EditTourPage = () => {
                 <div className="col-span-1"></div>
                 <div className="col-span-11">
                   <div className="grid grid-cols-12">
-                    <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                       Video Link
                     </div>
                     <div className="col-span-9">
@@ -1058,12 +1058,12 @@ const EditTourPage = () => {
             </div>
           </div>
         </div>
-        <div className="border-b-4 border-[#28557b] mx-5 mb-20">
+        <div className="border-b-4 border-[#5A5A5A] mx-5 mb-20">
           <div className="container m-auto mt-20 pb-12"></div>
         </div>
         <div className="container m-auto mt-12">
           <div>
-            <h1 className="text-[#28557b] text-3xl font-normal mb-12">
+            <h1 className="text-[#5A5A5A] text-3xl font-normal mb-12">
               POIs zuweisen
             </h1>
             <div className="grid grid-cols-12 gap-4 items-center mb-6">
@@ -1099,7 +1099,7 @@ const EditTourPage = () => {
                       <PlusCircleIcon
                         onClick={plusNewPoi}
                         strokeWidth={2}
-                        color="#28557b"
+                        color="#5A5A5A"
                         className="h-6 w-6 cursor-pointer m-auto"
                       ></PlusCircleIcon>
                     </div>
@@ -1107,7 +1107,7 @@ const EditTourPage = () => {
                       <TrashIcon
                         onClick={cancelNewPoi}
                         strokeWidth={2}
-                        className="h-6 w-6 text-[#28557b]  cursor-pointer m-auto"
+                        className="h-6 w-6 text-[#5A5A5A]  cursor-pointer m-auto"
                       ></TrashIcon>
                     </div>
                   </div>
@@ -1116,13 +1116,13 @@ const EditTourPage = () => {
             ) : null}
             <div className="text-center mt-2">
               <div
-                className="text-[#28557b] text-xl text-center mt-2 inline-flex items-center"
+                className="text-[#5A5A5A] text-xl text-center mt-2 inline-flex items-center"
                 onClick={addNewPoi}
               >
                 POI hinzufügen
                 <PlusCircleIcon
                   strokeWidth={2}
-                  color="#28557b"
+                  color="#5A5A5A"
                   className="h-6 w-6"
                 >
                   {" "}
@@ -1131,18 +1131,18 @@ const EditTourPage = () => {
             </div>
           </div>
         </div>
-        <div className="border-b-4 border-[#28557b] mx-5 mb-20">
+        <div className="border-b-4 border-[#5A5A5A] mx-5 mb-20">
           <div className="container m-auto mt-20 pb-12"></div>
         </div>
         <div className="container m-auto mt-12">
-          <h1 className="text-[#28557b] text-3xl font-normal mb-12">Bilder</h1>
+          <h1 className="text-[#5A5A5A] text-3xl font-normal mb-12">Bilder</h1>
 
           <div className="grid grid-cols-12 gap-4 items-center mb-6">
             <div className="col-span-1">
               <Tooltip content="Tip Description" placement="top">
                 <InformationCircleIcon
                   strokeWidth={2}
-                  className="h-10 w-10 text-[#28557b]"
+                  className="h-10 w-10 text-[#5A5A5A]"
                 ></InformationCircleIcon>
               </Tooltip>
             </div>
@@ -1161,7 +1161,7 @@ const EditTourPage = () => {
                       <div className="mt-1">
                         <TrashIcon
                           strokeWidth={2}
-                          className="h-6 w-6 text-[#28557b]  cursor-pointer m-auto"
+                          className="h-6 w-6 text-[#5A5A5A]  cursor-pointer m-auto"
                           onClick={(e) => {
                             removeOldImage(index);
                           }}
@@ -1180,10 +1180,10 @@ const EditTourPage = () => {
                 return (
                   <>
                     <div className="grid grid-cols-12 mb-6">
-                      <div className="col-span-1 flex items-center justify-end pr-2 text-[#28557b] text-xl"></div>
+                      <div className="col-span-1 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl"></div>
                       <div className="col-span-11">
                         <FileInput
-                          className="text-[#28557b]"
+                          className="text-[#5A5A5A]"
                           id="file-upload"
                           onChange={(e) => handleBilderChange(index, e)}
                         />
@@ -1196,13 +1196,13 @@ const EditTourPage = () => {
           </div>
           <div className="text-center mt-2">
             <div
-              className="text-[#28557b] text-xl text-center mt-2 inline-flex items-center"
+              className="text-[#5A5A5A] text-xl text-center mt-2 inline-flex items-center"
               onClick={addNewImage}
             >
               Neues Bild hinzufügen
               <PlusCircleIcon
                 strokeWidth={2}
-                color="#28557b"
+                color="#5A5A5A"
                 className="h-6 w-6"
               >
                 {" "}
@@ -1210,11 +1210,11 @@ const EditTourPage = () => {
             </div>
           </div>
         </div>
-        <div className="border-b-4 border-[#28557b] mx-5 mb-20">
+        <div className="border-b-4 border-[#5A5A5A] mx-5 mb-20">
           <div className="container m-auto mt-20 pb-12"></div>
         </div>
         <div className="container m-auto mt-12">
-          <h1 className="text-[#28557b] text-3xl font-normal mb-12">
+          <h1 className="text-[#5A5A5A] text-3xl font-normal mb-12">
             Kurz Info
           </h1>
           <div className="grid grid-cols-12 gap-4 items-center mb-6">
@@ -1225,13 +1225,13 @@ const EditTourPage = () => {
               >
                 <InformationCircleIcon
                   strokeWidth={2}
-                  className="h-10 w-10 text-[#28557b]"
+                  className="h-10 w-10 text-[#5A5A5A]"
                 ></InformationCircleIcon>
               </Tooltip>
             </div>
             <div className="col-span-11">
               <div className="grid grid-cols-12">
-                <div className="col-span-3 flex items-center justify-center pr-2 text-[#28557b] text-xl">
+                <div className="col-span-3 flex items-center justify-center pr-2 text-[#5A5A5A] text-xl">
                   Dauer
                 </div>
                 <div className="col-span-9">
@@ -1256,13 +1256,13 @@ const EditTourPage = () => {
               >
                 <InformationCircleIcon
                   strokeWidth={2}
-                  className="h-10 w-10 text-[#28557b]"
+                  className="h-10 w-10 text-[#5A5A5A]"
                 ></InformationCircleIcon>
               </Tooltip>
             </div>
             <div className="col-span-11">
               <div className="grid grid-cols-12">
-                <div className="col-span-3 flex items-center justify-center pr-2 text-[#28557b] text-xl">
+                <div className="col-span-3 flex items-center justify-center pr-2 text-[#5A5A5A] text-xl">
                   Länge
                 </div>
                 <div className="col-span-9">
@@ -1283,13 +1283,13 @@ const EditTourPage = () => {
               <Tooltip content="Tour Vorschaubild" placement="top">
                 <InformationCircleIcon
                   strokeWidth={2}
-                  className="h-10 w-10 text-[#28557b]"
+                  className="h-10 w-10 text-[#5A5A5A]"
                 ></InformationCircleIcon>
               </Tooltip>
             </div>
             <div className="col-span-11">
               <div className="grid grid-cols-12">
-                <div className="col-span-3 flex items-center justify-center pr-2 text-[#28557b] text-xl">
+                <div className="col-span-3 flex items-center justify-center pr-2 text-[#5A5A5A] text-xl">
                   Tour Vorschaubild
                 </div>
                 {isTourBGFile ? (
@@ -1307,7 +1307,7 @@ const EditTourPage = () => {
                     <div className="col-span-1 items-center flex">
                       <TrashIcon
                         strokeWidth={2}
-                        className="h-6 w-6 text-[#28557b]  cursor-pointer m-auto"
+                        className="h-6 w-6 text-[#5A5A5A]  cursor-pointer m-auto"
                         onClick={(e) => {
                           setTourBGFileUrl("");
                           setIsTourBGFile(false);
@@ -1318,7 +1318,7 @@ const EditTourPage = () => {
                 ) : (
                   <div className="col-span-9">
                     <FileInput
-                      className="text-[#28557b]"
+                      className="text-[#5A5A5A]"
                       id="file-upload"
                       onChange={handleBGImageChange}
                     />
@@ -1332,13 +1332,13 @@ const EditTourPage = () => {
               <Tooltip content="Video Vorschaubild" placement="top">
                 <InformationCircleIcon
                   strokeWidth={2}
-                  className="h-10 w-10 text-[#28557b]"
+                  className="h-10 w-10 text-[#5A5A5A]"
                 ></InformationCircleIcon>
               </Tooltip>
             </div>
             <div className="col-span-11">
               <div className="grid grid-cols-12">
-                <div className="col-span-3 flex items-center justify-center pr-2 text-[#28557b] text-xl">
+                <div className="col-span-3 flex items-center justify-center pr-2 text-[#5A5A5A] text-xl">
                   Video Vorschaubild
                 </div>
                 {isThumbFile ? (
@@ -1356,7 +1356,7 @@ const EditTourPage = () => {
                     <div className="col-span-1 items-center flex">
                       <TrashIcon
                         strokeWidth={2}
-                        className="h-6 w-6 text-[#28557b]  cursor-pointer m-auto"
+                        className="h-6 w-6 text-[#5A5A5A]  cursor-pointer m-auto"
                         onClick={(e) => {
                           setThumbFileUrl("");
                           setIsThumbFile(false);
@@ -1367,7 +1367,7 @@ const EditTourPage = () => {
                 ) : (
                   <div className="col-span-9">
                     <FileInput
-                      className="text-[#28557b]"
+                      className="text-[#5A5A5A]"
                       id="file-upload"
                       onChange={handleThumbChange}
                     />
@@ -1377,7 +1377,7 @@ const EditTourPage = () => {
             </div>
           </div>
         </div>
-        <div className="border-b-4 border-[#28557b] mx-5 mb-20">
+        <div className="border-b-4 border-[#5A5A5A] mx-5 mb-20">
           <div className="container m-auto mt-20 pb-12"></div>
         </div>
 
@@ -1388,7 +1388,7 @@ const EditTourPage = () => {
                 checked={published}
                 onChange={(e) => setPublished(e.target.checked)}
                 label={
-                  <Typography className="flex font-semibold text-[#28557b]">
+                  <Typography className="flex font-semibold text-[#5A5A5A]">
                     Veröffentlichen
                   </Typography>
                 }
@@ -1398,7 +1398,7 @@ const EditTourPage = () => {
               <Link to="/tour">
                 <Button
                   variant="outlined"
-                  className="text-[#28557b] px-10 bg-white border-none"
+                  className="text-[#5A5A5A] px-10 bg-white border-none"
                 >
                   Abbrechen
                 </Button>
@@ -1407,7 +1407,7 @@ const EditTourPage = () => {
             <div>
               <Button
                 variant="outlined"
-                className="text-[#28557b] px-10 bg-white border-none hover:text-red-800"
+                className="text-[#5A5A5A] px-10 bg-white border-none hover:text-red-800"
                 onClick={onSubmit}
               >
                 Speichern

@@ -83,13 +83,13 @@ const TourPage = () => {
         className={`tour-card p-20 ${isDragging ? "opacity-50" : ""}`}
         style={{ cursor: "move" }}
       >
-        <h2 className="text-[#28557b] m-auto text-center text-md my-10">
+        <h2 className="text-[#5A5A5A] m-auto text-center text-md my-10">
           {item.languages.de.name}
         </h2>
         <div className="grid grid-cols-3 flex justify-items-center mb-4">
           <div>
             <Square2StackIcon
-              color="#28557b"
+              color="#5A5A5A"
               strokeWidth={2.5}
               className="h-6 w-6 cursor-pointer"
               onClick={() => cloneItem(item.id)}
@@ -98,7 +98,7 @@ const TourPage = () => {
           <div>
             <Link to={"/tour/" + item.id}>
               <PencilSquareIcon
-                color="#28557b"
+                color="#5A5A5A"
                 strokeWidth={2.5}
                 className="h-6 w-6 cursor-pointer"
               ></PencilSquareIcon>
@@ -106,7 +106,7 @@ const TourPage = () => {
           </div>
           <div>
             <TrashIcon
-              color="#28557b"
+              color="#5A5A5A"
               strokeWidth={2.5}
               className="h-6 w-6 cursor-pointer"
               onClick={() => removeItem(item.id)}
@@ -216,9 +216,9 @@ const TourPage = () => {
             <Spinner size="3xl" color="white" />
           </div>
         )}
-        <div className="border-b-4 border-[#28557b] mx-5">
+        <div className="border-b-4 border-[#5A5A5A] mx-5">
           <div className="container m-auto mt-20 pb-12">
-            <h1 className="text-[#28557b] text-3xl font-medium">
+            <h1 className="text-[#5A5A5A] text-3xl font-medium">
               Touren Übersicht
             </h1>
           </div>
@@ -231,13 +231,13 @@ const TourPage = () => {
           </div>
           <div className="text-center mt-12 mb-20">
             <Link
-              className="text-[#28557b] text-2xl text-center mt-12 inline-flex items-center"
+              className="text-[#5A5A5A] text-2xl text-center mt-12 inline-flex items-center"
               to={"/tour/new"}
             >
               Neuen Tour erstellen
               <PlusCircleIcon
                 strokeWidth={2}
-                color="#28557b"
+                color="#5A5A5A"
                 className="h-7 w-7"
               >
                 {" "}

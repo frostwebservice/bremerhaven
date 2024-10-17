@@ -127,9 +127,9 @@ const PoiPage = () => {
           <Spinner size="3xl" color="white" />
         </div>
       )}
-      <div className="border-b-4 border-[#28557b] mx-5">
+      <div className="border-b-4 border-[#5A5A5A] mx-5">
         <div className="container m-auto mt-20 pb-12">
-          <h1 className="text-[#28557b] text-3xl font-medium">POI Übersicht</h1>
+          <h1 className="text-[#5A5A5A] text-3xl font-medium">POI Übersicht</h1>
         </div>
       </div>
       <div className="container m-auto mt-12">
@@ -140,17 +140,17 @@ const PoiPage = () => {
                 className="grid grid-cols-12 gap-8 items-center mb-6"
                 key={index}
               >
-                <div className="text-[#28557b]">{index}.</div>
+                <div className="text-[#5A5A5A]">{index}.</div>
                 <div className="col-span-8">
                   <input
-                    className="rounded-lg text-xl focus:outline-none px-4 py-2 w-full text-[#28557b]"
+                    className="rounded-lg text-xl focus:outline-none px-4 py-2 w-full text-[#5A5A5A]"
                     value={item.languages.de.name}
                     readOnly
                   />
                 </div>
                 <div>
                   <Square2StackIcon
-                    color="#28557b"
+                    color="#5A5A5A"
                     strokeWidth={2.5}
                     className="h-6 w-6 cursor-pointer"
                     onClick={() => cloneItem(item.id)}
@@ -159,7 +159,7 @@ const PoiPage = () => {
                 <div>
                   <Link to={"/poi/" + item.id}>
                     <PencilSquareIcon
-                      color="#28557b"
+                      color="#5A5A5A"
                       strokeWidth={2.5}
                       className="h-6 w-6 cursor-pointer"
                     ></PencilSquareIcon>
@@ -167,7 +167,7 @@ const PoiPage = () => {
                 </div>
                 <div>
                   <TrashIcon
-                    color="#28557b"
+                    color="#5A5A5A"
                     strokeWidth={2.5}
                     className="h-6 w-6 cursor-pointer"
                     onClick={() => removeItem(item.id)}
@@ -179,13 +179,13 @@ const PoiPage = () => {
 
           <div className="text-center my-12">
             <Link
-              className="text-[#28557b] text-2xl text-center mt-12 inline-flex items-center"
+              className="text-[#5A5A5A] text-2xl text-center mt-12 inline-flex items-center"
               to={"/poi/new"}
             >
               Neuen POI erstellen
               <PlusCircleIcon
                 strokeWidth={2}
-                color="#28557b"
+                color="#5A5A5A"
                 className="h-7 w-7"
               >
                 {" "}

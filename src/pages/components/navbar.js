@@ -85,7 +85,7 @@ function NavListMenu1() {
           <Typography
             variant="h6"
             color="blue-gray"
-            className="flex items-center text-sm font-bold"
+            className="flex items-center text-sm font-bold text-[#5A5A5A]"
           >
             {title}
           </Typography>
@@ -106,7 +106,7 @@ function NavListMenu1() {
         <MenuHandler>
           <Typography as="div" variant="small" className="font-medium">
             <ListItem
-              className="flex items-center gap-2 py-2 pr-4 font-medium text-gray-900"
+              className="flex items-center gap-2 py-2 pr-4 font-medium text-[#5A5A5A]"
               selected={isMenuOpen || isMobileMenuOpen}
               onClick={() => setIsMobileMenuOpen((cur) => !cur)}
             >
@@ -148,7 +148,7 @@ function NavListMenu2() {
           <Typography
             variant="h6"
             color="blue-gray"
-            className="flex items-center text-sm font-bold"
+            className="flex items-center text-sm font-bold text-[#5A5A5A]"
           >
             {title}
           </Typography>
@@ -169,7 +169,7 @@ function NavListMenu2() {
         <MenuHandler>
           <Typography as="div" variant="small" className="font-medium">
             <ListItem
-              className="flex items-center gap-2 py-2 pr-4 font-medium text-gray-900"
+              className="flex items-center gap-2 py-2 pr-4 font-medium text-[#5A5A5A]"
               selected={isMenuOpen || isMobileMenuOpen}
               onClick={() => setIsMobileMenuOpen((cur) => !cur)}
             >
@@ -211,7 +211,7 @@ function NavListMenu3() {
           <Typography
             variant="h6"
             color="blue-gray"
-            className="flex items-center text-sm font-bold"
+            className="flex items-center text-sm font-bold text-[#5A5A5A]"
           >
             {title}
           </Typography>
@@ -232,7 +232,7 @@ function NavListMenu3() {
         <MenuHandler>
           <Typography as="div" variant="small" className="font-medium">
             <ListItem
-              className="flex items-center gap-2 py-2 pr-4 font-medium text-gray-900"
+              className="flex items-center gap-2 py-2 pr-4 font-medium text-[#5A5A5A]"
               selected={isMenuOpen || isMobileMenuOpen}
               onClick={() => setIsMobileMenuOpen((cur) => !cur)}
             >
@@ -274,7 +274,7 @@ function NavListMenu4() {
           <Typography
             variant="h6"
             color="blue-gray"
-            className="flex items-center text-sm font-bold"
+            className="flex items-center text-sm font-bold text-[#5A5A5A]"
           >
             {title}
           </Typography>
@@ -295,7 +295,7 @@ function NavListMenu4() {
         <MenuHandler>
           <Typography as="div" variant="small" className="font-medium">
             <ListItem
-              className="flex items-center gap-2 py-2 pr-4 font-medium text-gray-900"
+              className="flex items-center gap-2 py-2 pr-4 font-medium text-[#5A5A5A]"
               selected={isMenuOpen || isMobileMenuOpen}
               onClick={() => setIsMobileMenuOpen((cur) => !cur)}
             >
@@ -351,7 +351,7 @@ function NavList() {
           color="blue-gray"
           className="font-medium"
         >
-          <ListItem className="flex items-center gap-2 py-2 pr-4">
+          <ListItem className="flex items-center gap-2 py-2 pr-4 text-[#5A5A5A]">
             Start
           </ListItem>
         </Typography>
@@ -368,10 +368,10 @@ function NavList() {
         className="font-medium"
         onClick={logout}
       >
-        <ListItem className="flex items-center py-2 pr-4 font-semibold text-[#28557b] leading-normal">
+        <ListItem className="flex items-center py-2 pr-4 font-semibold text-[#5A5A5A] leading-normal">
           <ArrowLeftEndOnRectangleIcon
             strokeWidth={2.5}
-            className={`block h-4 w-6 transition-transform text-[#28557b]`}
+            className={`block h-4 w-6 transition-transform text-[#5A5A5A]`}
           ></ArrowLeftEndOnRectangleIcon>
           Abmelden
         </ListItem>

@@ -89,10 +89,10 @@ const OffersNews = () => {
         }`}
         style={{ cursor: "move" }}
       >
-        <div className="text-[#28557b]">{index}.</div>
+        <div className="text-[#5A5A5A]">{index}.</div>
         <div className="col-span-8">
           <input
-            className="rounded-lg text-xl focus:outline-none px-4 py-1 w-full text-[#28557b]"
+            className="rounded-lg text-xl focus:outline-none px-4 py-1 w-full text-[#5A5A5A]"
             value={item.languages.de.title}
             readOnly
           />
@@ -100,7 +100,7 @@ const OffersNews = () => {
         <div>
           <Link to={"/events/" + item.id}>
             <PencilSquareIcon
-              color="#28557b"
+              color="#5A5A5A"
               strokeWidth={2.5}
               className="h-6 w-6"
             ></PencilSquareIcon>
@@ -111,7 +111,7 @@ const OffersNews = () => {
             onClick={() => {
               removeEvent(item.id);
             }}
-            color="#28557b"
+            color="#5A5A5A"
             strokeWidth={2.5}
             className="h-6 w-6 cursor-pointer"
           ></TrashIcon>
@@ -164,10 +164,10 @@ const OffersNews = () => {
         }`}
         style={{ cursor: "move" }}
       >
-        <div className="text-[#28557b]">{index}.</div>
+        <div className="text-[#5A5A5A]">{index}.</div>
         <div className="col-span-8">
           <input
-            className="rounded-lg text-xl focus:outline-none px-4 py-1 w-full text-[#28557b]"
+            className="rounded-lg text-xl focus:outline-none px-4 py-1 w-full text-[#5A5A5A]"
             value={item.languages.de.title}
             readOnly
           />
@@ -175,7 +175,7 @@ const OffersNews = () => {
         <div>
           <Link to={"/experiences/" + item.id}>
             <PencilSquareIcon
-              color="#28557b"
+              color="#5A5A5A"
               strokeWidth={2.5}
               className="h-6 w-6"
             ></PencilSquareIcon>
@@ -186,7 +186,7 @@ const OffersNews = () => {
             onClick={() => {
               removeExperience(item.id);
             }}
-            color="#28557b"
+            color="#5A5A5A"
             strokeWidth={2.5}
             className="h-6 w-6 cursor-pointer"
           ></TrashIcon>
@@ -271,9 +271,9 @@ const OffersNews = () => {
             <Spinner size="3xl" color="white" />
           </div>
         )}
-        <div className="border-b-4 border-[#28557b] mx-5">
+        <div className="border-b-4 border-[#5A5A5A] mx-5">
           <div className="container m-auto mt-20 pb-12">
-            <h1 className="text-[#28557b] text-3xl font-medium">
+            <h1 className="text-[#5A5A5A] text-3xl font-medium">
               Home Screen bearbeiten
             </h1>
           </div>
@@ -281,7 +281,7 @@ const OffersNews = () => {
         <div className="container m-auto mt-12 mb-20">
           <div className="grid lg:grid-cols-2">
             <div>
-              <h1 className="text-[#28557b] text-3xl font-normal mb-12">
+              <h1 className="text-[#5A5A5A] text-3xl font-normal mb-12">
                 Erlebnis-Einträge
               </h1>
               {events.map((event, index) => {
@@ -290,13 +290,13 @@ const OffersNews = () => {
 
               <div className="text-center mt-12">
                 <Link
-                  className="text-[#28557b] text-2xl text-center mt-12 inline-flex items-center"
+                  className="text-[#5A5A5A] text-2xl text-center mt-12 inline-flex items-center"
                   to={"/events/new"}
                 >
                   Neuen Erlebnis-Eintrag erstellen
                   <PlusCircleIcon
                     strokeWidth={2}
-                    color="#28557b"
+                    color="#5A5A5A"
                     className="h-7 w-7"
                   >
                     {" "}
@@ -306,7 +306,7 @@ const OffersNews = () => {
             </div>
             <div>
               {" "}
-              <h1 className="text-[#28557b] text-3xl font-normal mb-12">
+              <h1 className="text-[#5A5A5A] text-3xl font-normal mb-12">
                 Entdecken-Einträge
               </h1>
               {experiences.map((experience, index) => {
@@ -316,13 +316,13 @@ const OffersNews = () => {
               })}
               <div className="text-center mt-12">
                 <Link
-                  className="text-[#28557b] text-2xl mt-12 inline-flex items-center"
+                  className="text-[#5A5A5A] text-2xl mt-12 inline-flex items-center"
                   to={"/experiences/new"}
                 >
                   Neuen Entdecken-Eintrag erstellen
                   <PlusCircleIcon
                     strokeWidth={2}
-                    color="#28557b"
+                    color="#5A5A5A"
                     className="h-7 w-7"
                   >
                     {" "}

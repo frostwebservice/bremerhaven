@@ -303,9 +303,9 @@ const NewPoiPage = () => {
           <Spinner size="3xl" color="white" />
         </div>
       )}
-      <div className="border-b-4 border-[#28557b] mx-5">
+      <div className="border-b-4 border-[#5A5A5A] mx-5">
         <div className="container m-auto mt-20 pb-12">
-          <h1 className="text-[#28557b] text-3xl font-medium">
+          <h1 className="text-[#5A5A5A] text-3xl font-medium">
             Neuen POI erstellen
           </h1>
         </div>
@@ -324,13 +324,13 @@ const NewPoiPage = () => {
                 >
                   <InformationCircleIcon
                     strokeWidth={2}
-                    className="h-10 w-10 text-[#28557b]"
+                    className="h-10 w-10 text-[#5A5A5A]"
                   ></InformationCircleIcon>
                 </Tooltip>
               </div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     Überschrift
                   </div>
                   <div className="col-span-9">
@@ -357,13 +357,13 @@ const NewPoiPage = () => {
                 <Tooltip content="Max. 18 Zeichen" placement="top">
                   <InformationCircleIcon
                     strokeWidth={2}
-                    className="h-10 w-10 text-[#28557b]"
+                    className="h-10 w-10 text-[#5A5A5A]"
                   ></InformationCircleIcon>
                 </Tooltip>
               </div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     Name
                   </div>
                   <div className="col-span-9">
@@ -393,13 +393,13 @@ const NewPoiPage = () => {
                 >
                   <InformationCircleIcon
                     strokeWidth={2}
-                    className="h-10 w-10 text-[#28557b]"
+                    className="h-10 w-10 text-[#5A5A5A]"
                   ></InformationCircleIcon>
                 </Tooltip>
               </div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     Adresse
                   </div>
                   <div className="col-span-9">
@@ -423,13 +423,13 @@ const NewPoiPage = () => {
                 >
                   <InformationCircleIcon
                     strokeWidth={2}
-                    className="h-10 w-10 text-[#28557b]"
+                    className="h-10 w-10 text-[#5A5A5A]"
                   ></InformationCircleIcon>
                 </Tooltip>
               </div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     Text
                   </div>
                   <div className="col-span-9">
@@ -459,18 +459,18 @@ const NewPoiPage = () => {
                 >
                   <InformationCircleIcon
                     strokeWidth={2}
-                    className="h-10 w-10 text-[#28557b]"
+                    className="h-10 w-10 text-[#5A5A5A]"
                   ></InformationCircleIcon>
                 </Tooltip>
               </div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     Audio
                   </div>
                   <div className="col-span-9">
                     <FileInput
-                      className="text-[#28557b]"
+                      className="text-[#5A5A5A]"
                       id="file-upload"
                       onChange={handleFileDeChange}
                     />
@@ -486,18 +486,18 @@ const NewPoiPage = () => {
                 >
                   <InformationCircleIcon
                     strokeWidth={2}
-                    className="h-10 w-10 text-[#28557b]"
+                    className="h-10 w-10 text-[#5A5A5A]"
                   ></InformationCircleIcon>
                 </Tooltip>
               </div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     AudioStory
                   </div>
                   <div className="col-span-9">
                     <FileInput
-                      className="text-[#28557b]"
+                      className="text-[#5A5A5A]"
                       id="file-upload"
                       onChange={handleAudioStoryDeChange}
                     />
@@ -510,13 +510,13 @@ const NewPoiPage = () => {
                 <Tooltip content="Video Name" placement="top">
                   <InformationCircleIcon
                     strokeWidth={2}
-                    className="h-10 w-10 text-[#28557b]"
+                    className="h-10 w-10 text-[#5A5A5A]"
                   ></InformationCircleIcon>
                 </Tooltip>
               </div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     Video Überschrift
                   </div>
                   <div className="col-span-9">
@@ -537,18 +537,18 @@ const NewPoiPage = () => {
                 <Tooltip content="Video Vorschaubild" placement="top">
                   <InformationCircleIcon
                     strokeWidth={2}
-                    className="h-10 w-10 text-[#28557b]"
+                    className="h-10 w-10 text-[#5A5A5A]"
                   ></InformationCircleIcon>
                 </Tooltip>
               </div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     Video Vorschaubild
                   </div>
                   <div className="col-span-9">
                     <FileInput
-                      className="text-[#28557b]"
+                      className="text-[#5A5A5A]"
                       id="file-upload"
                       onChange={handleThumbDeChange}
                     />
@@ -561,13 +561,13 @@ const NewPoiPage = () => {
                 <Tooltip content="Vimeo Weblink" placement="top">
                   <InformationCircleIcon
                     strokeWidth={2}
-                    className="h-10 w-10 text-[#28557b]"
+                    className="h-10 w-10 text-[#5A5A5A]"
                   ></InformationCircleIcon>
                 </Tooltip>
               </div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     Video Link
                   </div>
                   <div className="col-span-9">
@@ -593,7 +593,7 @@ const NewPoiPage = () => {
               <div className="col-span-1"></div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     Überschrift
                   </div>
                   <div className="col-span-9">
@@ -619,7 +619,7 @@ const NewPoiPage = () => {
               <div className="col-span-1"></div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     Name
                   </div>
                   <div className="col-span-9">
@@ -645,7 +645,7 @@ const NewPoiPage = () => {
               <div className="col-span-1"></div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     Adresse
                   </div>
                   <div className="col-span-9">
@@ -665,7 +665,7 @@ const NewPoiPage = () => {
               <div className="col-span-1"></div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     Text
                   </div>
                   <div className="col-span-9">
@@ -691,12 +691,12 @@ const NewPoiPage = () => {
               <div className="col-span-1"></div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     Audio
                   </div>
                   <div className="col-span-9">
                     <FileInput
-                      className="text-[#28557b]"
+                      className="text-[#5A5A5A]"
                       id="file-upload"
                       onChange={handleFileEnChange}
                     />
@@ -708,12 +708,12 @@ const NewPoiPage = () => {
               <div className="col-span-1"></div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     AudioStory
                   </div>
                   <div className="col-span-9">
                     <FileInput
-                      className="text-[#28557b]"
+                      className="text-[#5A5A5A]"
                       id="file-upload"
                       onChange={handleAudioStoryEnChange}
                     />
@@ -725,7 +725,7 @@ const NewPoiPage = () => {
               <div className="col-span-1"></div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     Video Überschrift
                   </div>
                   <div className="col-span-9">
@@ -745,14 +745,14 @@ const NewPoiPage = () => {
               <div className="col-span-1"></div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     {/* Video Vorschaubild */}
                     <br />
                     <br />
                   </div>
                   <div className="col-span-9">
                     {/* <FileInput
-                      className="text-[#28557b]"
+                      className="text-[#5A5A5A]"
                       id="file-upload"
                       onChange={handleThumbEnChange}
                     /> */}
@@ -764,7 +764,7 @@ const NewPoiPage = () => {
               <div className="col-span-1"></div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     Video Link
                   </div>
                   <div className="col-span-9">
@@ -783,13 +783,13 @@ const NewPoiPage = () => {
           </div>
         </div>
       </div>
-      <div className="border-b-4 border-[#28557b] mx-5 mb-20">
+      <div className="border-b-4 border-[#5A5A5A] mx-5 mb-20">
         <div className="container m-auto mt-20 pb-12"></div>
       </div>
       <div className="container m-auto mt-12">
         <div className="grid lg:grid-cols-2 gap-6">
           <div>
-            <h1 className="text-[#28557b] text-3xl font-normal mb-12">
+            <h1 className="text-[#5A5A5A] text-3xl font-normal mb-12">
               Social Medien Links
             </h1>
             <div className="grid grid-cols-12 gap-4 items-center mb-6">
@@ -797,13 +797,13 @@ const NewPoiPage = () => {
                 <Tooltip content="Facebook-Link (ID Link)" placement="top">
                   <InformationCircleIcon
                     strokeWidth={2}
-                    className="h-10 w-10 text-[#28557b]"
+                    className="h-10 w-10 text-[#5A5A5A]"
                   ></InformationCircleIcon>
                 </Tooltip>
               </div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     Facebook
                   </div>
                   <div className="col-span-9">
@@ -824,13 +824,13 @@ const NewPoiPage = () => {
                 <Tooltip content="Instagram-Link (ID Link)" placement="top">
                   <InformationCircleIcon
                     strokeWidth={2}
-                    className="h-10 w-10 text-[#28557b]"
+                    className="h-10 w-10 text-[#5A5A5A]"
                   ></InformationCircleIcon>
                 </Tooltip>
               </div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     Instagram
                   </div>
                   <div className="col-span-9">
@@ -851,13 +851,13 @@ const NewPoiPage = () => {
                 <Tooltip content="Weblink (ID Link)" placement="top">
                   <InformationCircleIcon
                     strokeWidth={2}
-                    className="h-10 w-10 text-[#28557b]"
+                    className="h-10 w-10 text-[#5A5A5A]"
                   ></InformationCircleIcon>
                 </Tooltip>
               </div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     Weblink
                   </div>
                   <div className="col-span-9">
@@ -875,14 +875,14 @@ const NewPoiPage = () => {
             </div>
           </div>
           <div>
-            <h1 className="text-[#28557b] text-3xl font-normal mb-12">
+            <h1 className="text-[#5A5A5A] text-3xl font-normal mb-12">
               <br />
             </h1>
             <div className="grid grid-cols-12 gap-4 items-center mb-6">
               <div className="col-span-1"></div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     Facebook
                   </div>
                   <div className="col-span-9">
@@ -902,7 +902,7 @@ const NewPoiPage = () => {
               <div className="col-span-1"></div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     Instagram
                   </div>
                   <div className="col-span-9">
@@ -922,7 +922,7 @@ const NewPoiPage = () => {
               <div className="col-span-1"></div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     Weblink
                   </div>
                   <div className="col-span-9">
@@ -941,17 +941,17 @@ const NewPoiPage = () => {
           </div>
         </div>
       </div>
-      <div className="border-b-4 border-[#28557b] mx-5 mb-20">
+      <div className="border-b-4 border-[#5A5A5A] mx-5 mb-20">
         <div className="container m-auto mt-20 pb-12"></div>
       </div>
       <div className="container m-auto mt-12">
-        <h1 className="text-[#28557b] text-3xl font-normal mb-12">Bilder</h1>
+        <h1 className="text-[#5A5A5A] text-3xl font-normal mb-12">Bilder</h1>
         <div className="grid grid-cols-12 gap-4 items-center mb-6">
           <div className="col-span-1">
             <Tooltip content="Tip Description" placement="top">
               <InformationCircleIcon
                 strokeWidth={2}
-                className="h-10 w-10 text-[#28557b]"
+                className="h-10 w-10 text-[#5A5A5A]"
               ></InformationCircleIcon>
             </Tooltip>
           </div>
@@ -964,7 +964,7 @@ const NewPoiPage = () => {
               return (
                 <>
                   <div className="grid grid-cols-12 mb-6">
-                    <div className="col-span-1 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    <div className="col-span-1 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                       Text
                     </div>
                     <div className="col-span-5">
@@ -977,7 +977,7 @@ const NewPoiPage = () => {
                         }}
                       />
                     </div>
-                    <div className="col-span-1 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    <div className="col-span-1 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                       Text
                     </div>
                     <div className="col-span-5">
@@ -992,10 +992,10 @@ const NewPoiPage = () => {
                     </div>
                   </div>
                   <div className="grid grid-cols-12 mb-6">
-                    <div className="col-span-1 flex items-center justify-end pr-2 text-[#28557b] text-xl"></div>
+                    <div className="col-span-1 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl"></div>
                     <div className="col-span-11">
                       <FileInput
-                        className="text-[#28557b]"
+                        className="text-[#5A5A5A]"
                         id="file-upload"
                         onChange={(e) => handleBilderChange(index, e)}
                       />
@@ -1008,23 +1008,23 @@ const NewPoiPage = () => {
         </div>
         <div className="text-center mt-2">
           <div
-            className="text-[#28557b] text-xl text-center mt-2 inline-flex items-center"
+            className="text-[#5A5A5A] text-xl text-center mt-2 inline-flex items-center"
             onClick={addNewImage}
           >
             Neues Bild hinzufügen
-            <PlusCircleIcon strokeWidth={2} color="#28557b" className="h-6 w-6">
+            <PlusCircleIcon strokeWidth={2} color="#5A5A5A" className="h-6 w-6">
               {" "}
             </PlusCircleIcon>
           </div>
         </div>
       </div>
-      <div className="border-b-4 border-[#28557b] mx-5 mb-20">
+      <div className="border-b-4 border-[#5A5A5A] mx-5 mb-20">
         <div className="container m-auto mt-20 pb-12"></div>
       </div>
       <div className="container m-auto mt-12">
         <div className="grid lg:grid-cols-2 gap-6">
           <div>
-            <h1 className="text-[#28557b] text-3xl font-normal mb-12">
+            <h1 className="text-[#5A5A5A] text-3xl font-normal mb-12">
               Tipp hinzufugen
             </h1>
             <div className="grid grid-cols-12 gap-4 items-center mb-6">
@@ -1032,13 +1032,13 @@ const NewPoiPage = () => {
                 <Tooltip content="Tip Description" placement="top">
                   <InformationCircleIcon
                     strokeWidth={2}
-                    className="h-10 w-10 text-[#28557b]"
+                    className="h-10 w-10 text-[#5A5A5A]"
                   ></InformationCircleIcon>
                 </Tooltip>
               </div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     Beschreibung
                   </div>
                   <div className="col-span-9">
@@ -1060,13 +1060,13 @@ const NewPoiPage = () => {
                 <Tooltip content="Tip Link" placement="top">
                   <InformationCircleIcon
                     strokeWidth={2}
-                    className="h-10 w-10 text-[#28557b]"
+                    className="h-10 w-10 text-[#5A5A5A]"
                   ></InformationCircleIcon>
                 </Tooltip>
               </div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     Link
                   </div>
                   <div className="col-span-9">
@@ -1087,18 +1087,18 @@ const NewPoiPage = () => {
                 <Tooltip content="Tip Image" placement="top">
                   <InformationCircleIcon
                     strokeWidth={2}
-                    className="h-10 w-10 text-[#28557b]"
+                    className="h-10 w-10 text-[#5A5A5A]"
                   ></InformationCircleIcon>
                 </Tooltip>
               </div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     Bild
                   </div>
                   <div className="col-span-9">
                     <FileInput
-                      className="text-[#28557b]"
+                      className="text-[#5A5A5A]"
                       id="file-upload"
                       onChange={handleTipDeChange}
                     />
@@ -1108,7 +1108,7 @@ const NewPoiPage = () => {
             </div>
           </div>
           <div>
-            <h1 className="text-[#28557b] text-3xl font-normal mb-12">
+            <h1 className="text-[#5A5A5A] text-3xl font-normal mb-12">
               <br />
             </h1>
 
@@ -1116,7 +1116,7 @@ const NewPoiPage = () => {
               <div className="col-span-1"></div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     Beschreibung
                   </div>
                   <div className="col-span-9">
@@ -1137,7 +1137,7 @@ const NewPoiPage = () => {
               <div className="col-span-1"></div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     Link
                   </div>
                   <div className="col-span-9">
@@ -1157,12 +1157,12 @@ const NewPoiPage = () => {
               <div className="col-span-1"></div>
               <div className="col-span-11">
                 <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                     <br />
                   </div>
                   <div className="col-span-9">
                     {/* <FileInput
-                      className="text-[#28557b]"
+                      className="text-[#5A5A5A]"
                       id="file-upload"
                       onChange={handleTipEnChange}
                     /> */}
@@ -1173,13 +1173,13 @@ const NewPoiPage = () => {
           </div>
         </div>
       </div>
-      <div className="border-b-4 border-[#28557b] mx-5 mb-20">
+      <div className="border-b-4 border-[#5A5A5A] mx-5 mb-20">
         <div className="container m-auto mt-20 pb-12"></div>
       </div>
       <div className="container m-auto">
         <div className="grid gap-6">
           <div>
-            <h1 className="text-[#28557b] text-3xl font-normal mb-12">
+            <h1 className="text-[#5A5A5A] text-3xl font-normal mb-12">
               AR Scene eingeben
             </h1>
             <div className="grid grid-cols-12 gap-4 items-center mb-6">
@@ -1190,17 +1190,17 @@ const NewPoiPage = () => {
                 >
                   <InformationCircleIcon
                     strokeWidth={2}
-                    className="h-10 w-10 text-[#28557b]"
+                    className="h-10 w-10 text-[#5A5A5A]"
                   ></InformationCircleIcon>
                 </Tooltip>
               </div>
-              <div className="col-span-2 flex items-center justify-center pr-2 text-[#28557b] text-xl"></div>
+              <div className="col-span-2 flex items-center justify-center pr-2 text-[#5A5A5A] text-xl"></div>
               <div className="col-span-9">
                 <Checkbox
                   checked={isAR}
                   onChange={(e) => setIsAR(e.target.checked)}
                   label={
-                    <Typography className="flex font-semibold text-[#28557b]">
+                    <Typography className="flex font-semibold text-[#5A5A5A]">
                       AR
                     </Typography>
                   }
@@ -1215,17 +1215,17 @@ const NewPoiPage = () => {
                 >
                   <InformationCircleIcon
                     strokeWidth={2}
-                    className="h-10 w-10 text-[#28557b]"
+                    className="h-10 w-10 text-[#5A5A5A]"
                   ></InformationCircleIcon>
                 </Tooltip>
               </div>
-              <div className="col-span-2 flex items-center justify-center pr-2 text-[#28557b] text-xl"></div>
+              <div className="col-span-2 flex items-center justify-center pr-2 text-[#5A5A5A] text-xl"></div>
               <div className="col-span-9">
                 <Checkbox
                   checked={isPanorama}
                   onChange={(e) => setIsPanorama(e.target.checked)}
                   label={
-                    <Typography className="flex font-semibold text-[#28557b]">
+                    <Typography className="flex font-semibold text-[#5A5A5A]">
                       Panorama
                     </Typography>
                   }
@@ -1237,16 +1237,16 @@ const NewPoiPage = () => {
                 <Tooltip content="Zugewiesene Datei hochladen" placement="top">
                   <InformationCircleIcon
                     strokeWidth={2}
-                    className="h-10 w-10 text-[#28557b]"
+                    className="h-10 w-10 text-[#5A5A5A]"
                   ></InformationCircleIcon>
                 </Tooltip>
               </div>
-              <div className="col-span-2 flex items-center justify-center pr-2 text-[#28557b] text-xl">
+              <div className="col-span-2 flex items-center justify-center pr-2 text-[#5A5A5A] text-xl">
                 AR Standort
               </div>
               <div className="col-span-9">
                 <FileInput
-                  className="text-[#28557b]"
+                  className="text-[#5A5A5A]"
                   id="file-upload"
                   onChange={handleFileARImageChange}
                 />
@@ -1257,16 +1257,16 @@ const NewPoiPage = () => {
                 <Tooltip content="Zugewiesene Datei hochladen" placement="top">
                   <InformationCircleIcon
                     strokeWidth={2}
-                    className="h-10 w-10 text-[#28557b]"
+                    className="h-10 w-10 text-[#5A5A5A]"
                   ></InformationCircleIcon>
                 </Tooltip>
               </div>
-              <div className="col-span-2 flex items-center justify-center pr-2 text-[#28557b] text-xl">
+              <div className="col-span-2 flex items-center justify-center pr-2 text-[#5A5A5A] text-xl">
                 Panorama Image
               </div>
               <div className="col-span-9">
                 <FileInput
-                  className="text-[#28557b]"
+                  className="text-[#5A5A5A]"
                   id="file-upload"
                   onChange={handleFilePanoramaImageChange}
                 />
@@ -1275,11 +1275,11 @@ const NewPoiPage = () => {
           </div>
         </div>
       </div>
-      <div className="border-b-4 border-[#28557b] mx-5 mb-20">
+      <div className="border-b-4 border-[#5A5A5A] mx-5 mb-20">
         <div className="container m-auto mt-20 pb-12"></div>
       </div>
       <div className="container m-auto mb-40">
-        <h1 className="text-[#28557b] text-3xl font-normal mb-12">Weiteres</h1>
+        <h1 className="text-[#5A5A5A] text-3xl font-normal mb-12">Weiteres</h1>
         <div className="grid grid-cols-12 gap-4 items-center mb-6">
           <div className="col-span-1">
             <Tooltip
@@ -1288,7 +1288,7 @@ const NewPoiPage = () => {
             >
               <InformationCircleIcon
                 strokeWidth={2}
-                className="h-10 w-10 text-[#28557b]"
+                className="h-10 w-10 text-[#5A5A5A]"
               ></InformationCircleIcon>
             </Tooltip>
           </div>
@@ -1298,7 +1298,7 @@ const NewPoiPage = () => {
               checked={willbeHidden}
               onChange={(e) => setWillbeHidden(e.target.checked)}
               label={
-                <Typography className="flex font-semibold text-[#28557b]">
+                <Typography className="flex font-semibold text-[#5A5A5A]">
                   Ausblenden in POI Übersicht
                 </Typography>
               }
@@ -1313,11 +1313,11 @@ const NewPoiPage = () => {
             >
               <InformationCircleIcon
                 strokeWidth={2}
-                className="h-10 w-10 text-[#28557b]"
+                className="h-10 w-10 text-[#5A5A5A]"
               ></InformationCircleIcon>
             </Tooltip>
           </div>
-          <div className="col-span-2 text-[#28557b] text-xl">GPS</div>
+          <div className="col-span-2 text-[#5A5A5A] text-xl">GPS</div>
           <div className="col-span-9">
             <Input
               className="bg-white"
@@ -1339,7 +1339,7 @@ const NewPoiPage = () => {
               checked={published}
               onChange={(e) => setPublished(e.target.checked)}
               label={
-                <Typography className="flex font-semibold text-[#28557b]">
+                <Typography className="flex font-semibold text-[#5A5A5A]">
                   Veröffentlichen
                 </Typography>
               }
@@ -1349,7 +1349,7 @@ const NewPoiPage = () => {
             <Link to="/poi">
               <Button
                 variant="outlined"
-                className="text-[#28557b] px-10 bg-white border-none"
+                className="text-[#5A5A5A] px-10 bg-white border-none"
               >
                 Abbrechen
               </Button>
@@ -1358,7 +1358,7 @@ const NewPoiPage = () => {
           <div>
             <Button
               variant="outlined"
-              className="text-[#28557b] px-10 bg-white border-none hover:text-red-800"
+              className="text-[#5A5A5A] px-10 bg-white border-none hover:text-red-800"
               onClick={onSubmit}
             >
               Speichern

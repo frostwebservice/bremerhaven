@@ -19,14 +19,14 @@
   width: 11.25rem;
 }
 .dashboard-corner-card:before {
-  border-left: 3px solid #28557b;
-  border-top: 3px solid #28557b;
+  border-left: 3px solid #5a5a5a;
+  border-top: 3px solid #5a5a5a;
   left: 0.3125rem;
   top: 0.3125rem;
 }
 .dashboard-corner-card:after {
-  border-bottom: 3px solid #28557b;
-  border-right: 3px solid #28557b;
+  border-bottom: 3px solid #5a5a5a;
+  border-right: 3px solid #5a5a5a;
   bottom: 0.3125rem;
   right: 0.3125rem;
 }

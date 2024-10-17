@@ -151,9 +151,9 @@ const ImprintPage = () => {
           <Spinner size="3xl" color="white" />
         </div>
       )}
-      <div className="border-b-4 border-[#28557b] mx-5">
+      <div className="border-b-4 border-[#5A5A5A] mx-5">
         <div className="container m-auto mt-20 pb-12">
-          <h1 className="text-[#28557b] text-3xl font-medium">
+          <h1 className="text-[#5A5A5A] text-3xl font-medium">
             Bearbeiten Imprint
           </h1>
         </div>
@@ -164,7 +164,7 @@ const ImprintPage = () => {
             <div className="text-center m-auto mb-16">
               <img src={DeuFlagImg} className="m-auto" />
             </div>
-            <h1 className="text-[#28557b] text-3xl font-normal mb-12">
+            <h1 className="text-[#5A5A5A] text-3xl font-normal mb-12">
               Einleitung
             </h1>
             {DeItems.map((item, index) => {
@@ -173,7 +173,7 @@ const ImprintPage = () => {
                   <div className="grid grid-cols-12 gap-4 items-center mb-6">
                     <div className="col-span-11">
                       <div className="grid grid-cols-12">
-                        <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                        <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                           Überschrift
                         </div>
                         <div className="col-span-9">
@@ -195,7 +195,7 @@ const ImprintPage = () => {
                     <div className="col-span-1">
                       <TrashIcon
                         strokeWidth={2}
-                        className="h-6 w-6 text-[#28557b]  cursor-pointer m-auto"
+                        className="h-6 w-6 text-[#5A5A5A]  cursor-pointer m-auto"
                         onClick={(e) => {
                           handleRemoveDeElement(index);
                         }}
@@ -205,7 +205,7 @@ const ImprintPage = () => {
                   <div className="grid grid-cols-12 gap-4 items-center mb-6">
                     <div className="col-span-11">
                       <div className="grid grid-cols-12">
-                        <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                        <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                           Beschreibung
                         </div>
                         <div className="col-span-9">
@@ -232,13 +232,13 @@ const ImprintPage = () => {
 
             <div className="text-center mt-2">
               <div
-                className="text-[#28557b] text-xl text-center mt-2 inline-flex items-center cursor-pointer"
+                className="text-[#5A5A5A] text-xl text-center mt-2 inline-flex items-center cursor-pointer"
                 onClick={addNewLink}
               >
                 Neuen Eintrag hinzufügen
                 <PlusCircleIcon
                   strokeWidth={2}
-                  color="#28557b"
+                  color="#5A5A5A"
                   className="h-6 w-6"
                 >
                   {" "}
@@ -250,7 +250,7 @@ const ImprintPage = () => {
             <div className="text-center m-auto mb-16">
               <img src={AMFlagImg} className="m-auto" />
             </div>
-            <h1 className="text-[#28557b] text-3xl font-normal mb-12">
+            <h1 className="text-[#5A5A5A] text-3xl font-normal mb-12">
               <br />
             </h1>
             {EnItems.map((item, index) => {
@@ -259,7 +259,7 @@ const ImprintPage = () => {
                   <div className="grid grid-cols-12 gap-4 items-center mb-6">
                     <div className="col-span-11">
                       <div className="grid grid-cols-12">
-                        <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                        <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                           Überschrift
                         </div>
                         <div className="col-span-9">
@@ -281,7 +281,7 @@ const ImprintPage = () => {
                     <div className="col-span-1">
                       <TrashIcon
                         strokeWidth={2}
-                        className="h-6 w-6 text-[#28557b]  cursor-pointer m-auto"
+                        className="h-6 w-6 text-[#5A5A5A]  cursor-pointer m-auto"
                         onClick={(e) => {
                           handleRemoveEnElement(index);
                         }}
@@ -291,7 +291,7 @@ const ImprintPage = () => {
                   <div className="grid grid-cols-12 gap-4 items-center mb-6">
                     <div className="col-span-11">
                       <div className="grid grid-cols-12">
-                        <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                        <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
                           Beschreibung
                         </div>
                         <div className="col-span-9">
@@ -318,13 +318,13 @@ const ImprintPage = () => {
 
             <div className="text-center mt-2">
               <div
-                className="text-[#28557b] text-xl text-center mt-2 inline-flex items-center"
+                className="text-[#5A5A5A] text-xl text-center mt-2 inline-flex items-center"
                 onClick={addNewEnLink}
               >
                 Neuen Eintrag hinzufügen
                 <PlusCircleIcon
                   strokeWidth={2}
-                  color="#28557b"
+                  color="#5A5A5A"
                   className="h-6 w-6"
                 >
                   {" "}
@@ -334,7 +334,7 @@ const ImprintPage = () => {
           </div>
         </div>
       </div>
-      <div className="border-b-4 border-[#28557b] mx-5 mb-40">
+      <div className="border-b-4 border-[#5A5A5A] mx-5 mb-40">
         <div className="container m-auto mt-20 pb-12"></div>
       </div>
       <div className="container m-auto mb-40">
@@ -344,7 +344,7 @@ const ImprintPage = () => {
               checked={published}
               onChange={(e) => setPublished(e.target.checked)}
               label={
-                <Typography className="flex font-semibold text-[#28557b]">
+                <Typography className="flex font-semibold text-[#5A5A5A]">
                   Veröffentlichen
                 </Typography>
               }
@@ -354,7 +354,7 @@ const ImprintPage = () => {
             <Link to="/page">
               <Button
                 variant="outlined"
-                className="text-[#28557b] px-10 bg-white border-none"
+                className="text-[#5A5A5A] px-10 bg-white border-none"
               >
                 Abbrechen
               </Button>
@@ -363,7 +363,7 @@ const ImprintPage = () => {
           <div>
             <Button
               variant="outlined"
-              className="text-[#28557b] px-10 bg-white border-none hover:text-red-800"
+              className="text-[#5A5A5A] px-10 bg-white border-none hover:text-red-800"
               onClick={onSubmit}
             >
               Speichern
