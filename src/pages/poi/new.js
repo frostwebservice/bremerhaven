@@ -1,0 +1,1373 @@
+import React from "react";
+import { Helmet } from "react-helmet";
+import { NavbarWithMegaMenu } from "../components/navbar";
+import { Link, Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import {
+  TrashIcon,
+  PencilSquareIcon,
+  PlusCircleIcon,
+  InformationCircleIcon,
+} from "@heroicons/react/24/outline";
+import {
+  Button,
+  Checkbox,
+  Typography,
+  Tooltip,
+  Textarea,
+  Spinner,
+  Input,
+} from "@material-tailwind/react";
+import { FileInput } from "flowbite-react";
+import DeuFlagImg from "../../images/flags/deuflage.png";
+import AMFlagImg from "../../images/flags/amflag.png";
+import { useState, useEffect } from "react";
+import {
+  collection,
+  getDocs,
+  doc,
+  getDoc,
+  addDoc,
+  query,
+  limit,
+  orderBy,
+  deleteDoc,
+} from "firebase/firestore";
+import { db, auth, storage } from "../../config/firebase-config";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+const NewPoiPage = () => {
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
+  const [firstTextHeadingDe, setFirstTextHeadingDe] = useState("");
+  const [firstTextHeadingEn, setFirstTextHeadingEn] = useState("");
+  const [nameDe, setNameDe] = useState("");
+  const [nameEn, setNameEn] = useState("");
+  const [addressDe, setAddressDe] = useState("");
+  const [addressEn, setAddressEn] = useState("");
+  const [descEn, setDescEn] = useState("");
+  const [descDe, setDescDe] = useState("");
+  const [published, setPublished] = useState(false);
+
+  const [linksDe, setLinksDe] = useState([]);
+  const [linksEn, setLinksEn] = useState([]);
+  const [firstTextHeadingDeError, setFirstTextHeadingDeError] = useState(false);
+  const [firstTextHeadingEnError, setFirstTextHeadingEnError] = useState(false);
+  const [nameDeError, setNameDeError] = useState(false);
+  const [nameEnError, setNameEnError] = useState(false);
+  const [descDeError, setDescDeError] = useState(false);
+  const [descEnError, setDescEnError] = useState(false);
+
+  const [tipDescDe, setTipDescDe] = useState("");
+  const [tipDescEn, setTipDescEn] = useState("");
+  const [tipLinkDe, setTipLinkDe] = useState("");
+  const [tipLinkEn, setTipLinkEn] = useState("");
+
+  const [willbeHidden, setWillbeHidden] = useState(false);
+  const [isAR, setIsAR] = useState(false);
+  const [isPanorama, setIsPanorama] = useState(false);
+  const [GPS, setGPS] = useState("");
+  const [GPSError, setGPSError] = useState(false);
+  const [facebookDe, setFacebookDe] = useState("");
+  const [facebookEn, setFacebookEn] = useState("");
+  const [instagramDe, setInstagramDe] = useState("");
+  const [instagramEn, setInstagramEn] = useState("");
+  const [weblinkDe, setWeblinkDe] = useState("");
+  const [weblinkEn, setWeblinkEn] = useState("");
+  const [videoNameDe, setVideoNameDe] = useState("");
+  const [videoNameEn, setVideoNameEn] = useState("");
+  const [videoLinkDe, setVideoLinkDe] = useState("");
+  const [videoLinkEn, setVideoLinkEn] = useState("");
+
+  const [fileDe, setFileDe] = useState(null);
+  const [fileEn, setFileEn] = useState(null);
+  const [tipDe, setTipDe] = useState(null);
+  const [tipEn, setTipEn] = useState(null);
+  const [storyDe, setStoryDe] = useState(null);
+  const [storyEn, setStoryEn] = useState(null);
+  const [thumbDe, setThumbDe] = useState(null);
+  // const [thumbEn, setThumbEn] = useState(null);
+  const [fileARImage, setFileARImage] = useState(null);
+  const [filePanoramaImage, setFilePanoramaImage] = useState(null);
+
+  const [images, setImages] = useState([]);
+
+  const handleFileDeChange = (event) => {
+    const selectedFile = event.target.files[0];
+    setFileDe(selectedFile);
+  };
+  const handleFileEnChange = (event) => {
+    const selectedFile = event.target.files[0];
+    setFileEn(selectedFile);
+  };
+  const handleBilderChange = (index, event) => {
+    const selectedFile = event.target.files[0];
+    const newImages = [...images]; // Create a copy of the state array
+    newImages[index].imageFile = selectedFile; // Update the specific index with the new value
+    setImages(newImages);
+  };
+  const handleTipDeChange = (event) => {
+    const selectedFile = event.target.files[0];
+    setTipDe(selectedFile);
+  };
+  const handleTipEnChange = (event) => {
+    const selectedFile = event.target.files[0];
+    setTipEn(selectedFile);
+  };
+
+  const handleThumbDeChange = (event) => {
+    const selectedFile = event.target.files[0];
+    setThumbDe(selectedFile);
+  };
+  // const handleThumbEnChange = (event) => {
+  //   const selectedFile = event.target.files[0];
+  //   setThumbEn(selectedFile);
+  // };
+  const handleAudioStoryDeChange = (event) => {
+    const selectedFile = event.target.files[0];
+    setStoryDe(selectedFile);
+  };
+  const handleAudioStoryEnChange = (event) => {
+    const selectedFile = event.target.files[0];
+    setStoryEn(selectedFile);
+  };
+  const handleFileARImageChange = (event) => {
+    const selectedFile = event.target.files[0];
+    setFileARImage(selectedFile);
+  };
+  const handleFilePanoramaImageChange = (event) => {
+    const selectedFile = event.target.files[0];
+    setFilePanoramaImage(selectedFile);
+  };
+
+  // Function to add a new item to the linksDe array
+  const addNewImage = () => {
+    setImages([
+      ...images,
+      {
+        imageUrl: "",
+        imageFile: null,
+        imageDescriptionDe: "",
+        imageDescriptionEn: "",
+      },
+    ]); // Add a new empty string to the array
+  };
+  const handleInputDeChange = (index, event) => {
+    const newImages = [...images]; // Create a copy of the state array
+    newImages[index].imageDescriptionDe = event.target.value; // Update the specific index with the new value
+    setImages(newImages); // Update the state
+  };
+  const handleInputEnChange = (index, event) => {
+    const newImages = [...images]; // Create a copy of the state array
+    newImages[index].imageDescriptionEn = event.target.value; // Update the specific index with the new value
+    setImages(newImages); // Update the state
+  };
+
+  const [fileDeUrl, setFileDeUrl] = useState("");
+  const [fileEnUrl, setFileEnUrl] = useState("");
+
+  const onSubmit = async () => {
+    if (!firstTextHeadingDe) {
+      setFirstTextHeadingDeError(true);
+      return;
+    }
+    if (!firstTextHeadingEn) {
+      setFirstTextHeadingEnError(true);
+      return;
+    }
+    if (!nameDe) {
+      setNameDeError(true);
+      return;
+    }
+    if (!nameEn) {
+      setNameEnError(true);
+      return;
+    }
+    if (!descDe) {
+      setDescDeError(true);
+      return;
+    }
+    if (!descEn) {
+      setDescEnError(true);
+      return;
+    }
+
+    setLoading(true);
+
+    const filteredImages = images.filter(
+      (image) => image.imageDescriptionDe.trim() !== ""
+    );
+
+    const uploadFile = async (file) => {
+      if (file) {
+        const timestamp = Date.now(); // Get the current timestamp
+        const fileNameWithTimestamp = `${timestamp}_${file.name}`;
+        const storageRef = ref(storage, fileNameWithTimestamp);
+        await uploadBytes(storageRef, file);
+        return getDownloadURL(storageRef);
+      }
+      return null;
+    };
+
+    const imageUploadPromises = filteredImages.map(async (image) => {
+      if (image.imageFile) {
+        return uploadFile(image.imageFile).then((url) => {
+          image.imageUrl = url; // Directly set the image URL
+        });
+      }
+    });
+
+    // Collect all other uploads
+    const additionalUploads = [
+      uploadFile(fileARImage),
+      uploadFile(filePanoramaImage),
+      uploadFile(storyDe),
+      uploadFile(storyEn),
+      uploadFile(fileDe),
+      uploadFile(thumbDe),
+      uploadFile(tipDe),
+      uploadFile(fileEn),
+    ];
+
+    // Await all uploads
+    await Promise.all([...imageUploadPromises, ...additionalUploads]);
+
+    const imageUrls = filteredImages.map((image) => image.imageUrl);
+    const imageDescriptionsDe = filteredImages.map(
+      (image) => image.imageDescriptionDe
+    );
+    const imageDescriptionsEn = filteredImages.map(
+      (image) => image.imageDescriptionEn
+    );
+
+    const poiData = {
+      ARImage: await uploadFile(fileARImage),
+      PanoramaImage: await uploadFile(filePanoramaImage),
+      ThumbnailImage: await uploadFile(thumbDe),
+      TipImage: await uploadFile(tipDe),
+      arActive: isAR,
+      arScenelsPanorama: isPanorama,
+      gps: GPS,
+      images: imageUrls,
+      hideInOverview: willbeHidden,
+      languages: {
+        de: {
+          FirstTextHeading: firstTextHeadingDe,
+          POIAddress: addressDe,
+          TipDescription: tipDescDe,
+          TipLink: tipLinkDe,
+          VideoName: videoNameDe,
+          audiostory: await uploadFile(storyDe),
+          firstAudio: await uploadFile(fileDe),
+          firstText: descDe,
+          imagesDescription: imageDescriptionsDe,
+          name: nameDe,
+          videoLink: videoLinkDe,
+          facebookLink: facebookDe,
+          instagramLink: instagramDe,
+          weblink: weblinkDe,
+        },
+        en: {
+          FirstTextHeading: firstTextHeadingEn,
+          POIAddress: addressEn,
+          TipDescription: tipDescEn,
+          TipLink: tipLinkEn,
+          VideoName: videoNameEn,
+          audiostory: await uploadFile(storyEn),
+          firstAudio: await uploadFile(fileEn),
+          firstText: descEn,
+          imagesDescription: imageDescriptionsEn,
+          name: nameEn,
+          videoLink: videoLinkEn,
+          facebookLink: facebookEn,
+          instagramLink: instagramEn,
+          weblink: weblinkEn,
+        },
+      },
+      published: published,
+    };
+
+    await addDoc(collection(db, "poi"), poiData);
+    setLoading(false);
+    navigate("/poi");
+  };
+  return (
+    <>
+      <Helmet>
+        <title>Neuen POI erstellen | BremerhavenGuide</title>
+        <meta name="description" content="BremerhavenGuide Home Screen" />
+      </Helmet>
+      <NavbarWithMegaMenu />
+      {loading && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-75">
+          <Spinner size="3xl" color="white" />
+        </div>
+      )}
+      <div className="border-b-4 border-[#28557b] mx-5">
+        <div className="container m-auto mt-20 pb-12">
+          <h1 className="text-[#28557b] text-3xl font-medium">
+            Neuen POI erstellen
+          </h1>
+        </div>
+      </div>
+      <div className="container m-auto mt-12">
+        <div className="grid lg:grid-cols-2 gap-6">
+          <div>
+            <div className="text-center m-auto mb-16">
+              <img src={DeuFlagImg} className="m-auto" />
+            </div>
+            <div className="grid grid-cols-12 gap-4 items-center mb-6">
+              <div className="col-span-1">
+                <Tooltip
+                  content="Unbegrenzte Anzahl an Zeichen"
+                  placement="top"
+                >
+                  <InformationCircleIcon
+                    strokeWidth={2}
+                    className="h-10 w-10 text-[#28557b]"
+                  ></InformationCircleIcon>
+                </Tooltip>
+              </div>
+              <div className="col-span-11">
+                <div className="grid grid-cols-12">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    Überschrift
+                  </div>
+                  <div className="col-span-9">
+                    <Input
+                      className="bg-white"
+                      icon={<PencilSquareIcon />}
+                      value={firstTextHeadingDe}
+                      onChange={(e) => {
+                        setFirstTextHeadingDe(e.target.value);
+                        setFirstTextHeadingDeError(false);
+                      }}
+                    />
+                    {firstTextHeadingDeError ? (
+                      <p className="text-red-800">
+                        Please fill out this field.
+                      </p>
+                    ) : null}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-12 gap-4 items-center mb-6">
+              <div className="col-span-1">
+                <Tooltip content="Max. 18 Zeichen" placement="top">
+                  <InformationCircleIcon
+                    strokeWidth={2}
+                    className="h-10 w-10 text-[#28557b]"
+                  ></InformationCircleIcon>
+                </Tooltip>
+              </div>
+              <div className="col-span-11">
+                <div className="grid grid-cols-12">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    Name
+                  </div>
+                  <div className="col-span-9">
+                    <Input
+                      className="bg-white"
+                      icon={<PencilSquareIcon />}
+                      value={nameDe}
+                      onChange={(e) => {
+                        setNameDe(e.target.value);
+                        setNameDeError(false);
+                      }}
+                    />
+                    {nameDeError ? (
+                      <p className="text-red-800">
+                        Please fill out this field.
+                      </p>
+                    ) : null}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-12 gap-4 items-center mb-6">
+              <div className="col-span-1">
+                <Tooltip
+                  content="Unbegrenzte Anzahl an Zeichen"
+                  placement="top"
+                >
+                  <InformationCircleIcon
+                    strokeWidth={2}
+                    className="h-10 w-10 text-[#28557b]"
+                  ></InformationCircleIcon>
+                </Tooltip>
+              </div>
+              <div className="col-span-11">
+                <div className="grid grid-cols-12">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    Adresse
+                  </div>
+                  <div className="col-span-9">
+                    <Input
+                      className="bg-white"
+                      icon={<PencilSquareIcon />}
+                      value={addressDe}
+                      onChange={(e) => {
+                        setAddressDe(e.target.value);
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-12 gap-4 items-center mb-6">
+              <div className="col-span-1">
+                <Tooltip
+                  content="Unbegrenzte Anzahl an Zeichen"
+                  placement="top"
+                >
+                  <InformationCircleIcon
+                    strokeWidth={2}
+                    className="h-10 w-10 text-[#28557b]"
+                  ></InformationCircleIcon>
+                </Tooltip>
+              </div>
+              <div className="col-span-11">
+                <div className="grid grid-cols-12">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    Text
+                  </div>
+                  <div className="col-span-9">
+                    <Textarea
+                      className="bg-white"
+                      icon={<PencilSquareIcon />}
+                      value={descDe}
+                      onChange={(e) => {
+                        setDescDeError(false);
+                        setDescDe(e.target.value);
+                      }}
+                    />
+                    {descDeError ? (
+                      <p className="text-red-800">
+                        Please fill out this field.
+                      </p>
+                    ) : null}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-12 gap-4 items-center mb-6">
+              <div className="col-span-1">
+                <Tooltip
+                  content="Vorlesetext für Barrierefreiheit, Audioformat: mp3, max. Dateigröße: 200kB"
+                  placement="top"
+                >
+                  <InformationCircleIcon
+                    strokeWidth={2}
+                    className="h-10 w-10 text-[#28557b]"
+                  ></InformationCircleIcon>
+                </Tooltip>
+              </div>
+              <div className="col-span-11">
+                <div className="grid grid-cols-12">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    Audio
+                  </div>
+                  <div className="col-span-9">
+                    <FileInput
+                      className="text-[#28557b]"
+                      id="file-upload"
+                      onChange={handleFileDeChange}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-12 gap-4 items-center mb-6">
+              <div className="col-span-1">
+                <Tooltip
+                  content="Audiostory, Audioformat: mp3, max. Dateigröße: 200kB"
+                  placement="top"
+                >
+                  <InformationCircleIcon
+                    strokeWidth={2}
+                    className="h-10 w-10 text-[#28557b]"
+                  ></InformationCircleIcon>
+                </Tooltip>
+              </div>
+              <div className="col-span-11">
+                <div className="grid grid-cols-12">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    AudioStory
+                  </div>
+                  <div className="col-span-9">
+                    <FileInput
+                      className="text-[#28557b]"
+                      id="file-upload"
+                      onChange={handleAudioStoryDeChange}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-12 gap-4 items-center mb-6">
+              <div className="col-span-1">
+                <Tooltip content="Video Name" placement="top">
+                  <InformationCircleIcon
+                    strokeWidth={2}
+                    className="h-10 w-10 text-[#28557b]"
+                  ></InformationCircleIcon>
+                </Tooltip>
+              </div>
+              <div className="col-span-11">
+                <div className="grid grid-cols-12">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    Video Überschrift
+                  </div>
+                  <div className="col-span-9">
+                    <Input
+                      className="bg-white"
+                      icon={<PencilSquareIcon />}
+                      value={videoNameDe}
+                      onChange={(e) => {
+                        setVideoNameDe(e.target.value);
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-12 gap-4 items-center mb-6">
+              <div className="col-span-1">
+                <Tooltip content="Video Vorschaubild" placement="top">
+                  <InformationCircleIcon
+                    strokeWidth={2}
+                    className="h-10 w-10 text-[#28557b]"
+                  ></InformationCircleIcon>
+                </Tooltip>
+              </div>
+              <div className="col-span-11">
+                <div className="grid grid-cols-12">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    Video Vorschaubild
+                  </div>
+                  <div className="col-span-9">
+                    <FileInput
+                      className="text-[#28557b]"
+                      id="file-upload"
+                      onChange={handleThumbDeChange}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-12 gap-4 items-center mb-6">
+              <div className="col-span-1">
+                <Tooltip content="Vimeo Weblink" placement="top">
+                  <InformationCircleIcon
+                    strokeWidth={2}
+                    className="h-10 w-10 text-[#28557b]"
+                  ></InformationCircleIcon>
+                </Tooltip>
+              </div>
+              <div className="col-span-11">
+                <div className="grid grid-cols-12">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    Video Link
+                  </div>
+                  <div className="col-span-9">
+                    <Input
+                      className="bg-white"
+                      icon={<PencilSquareIcon />}
+                      value={videoLinkDe}
+                      onChange={(e) => {
+                        setVideoLinkDe(e.target.value);
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div className="text-center m-auto mb-16">
+              <img src={AMFlagImg} className="m-auto" />
+            </div>
+
+            <div className="grid grid-cols-12 gap-4 items-center mb-6">
+              <div className="col-span-1"></div>
+              <div className="col-span-11">
+                <div className="grid grid-cols-12">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    Überschrift
+                  </div>
+                  <div className="col-span-9">
+                    <Input
+                      className="bg-white"
+                      icon={<PencilSquareIcon />}
+                      value={firstTextHeadingEn}
+                      onChange={(e) => {
+                        setFirstTextHeadingEnError(false);
+                        setFirstTextHeadingEn(e.target.value);
+                      }}
+                    />
+                    {firstTextHeadingEnError ? (
+                      <p className="text-red-800">
+                        Please fill out this field.
+                      </p>
+                    ) : null}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-12 gap-4 items-center mb-6">
+              <div className="col-span-1"></div>
+              <div className="col-span-11">
+                <div className="grid grid-cols-12">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    Name
+                  </div>
+                  <div className="col-span-9">
+                    <Input
+                      className="bg-white"
+                      icon={<PencilSquareIcon />}
+                      value={nameEn}
+                      onChange={(e) => {
+                        setNameEnError(false);
+                        setNameEn(e.target.value);
+                      }}
+                    />
+                    {nameEnError ? (
+                      <p className="text-red-800">
+                        Please fill out this field.
+                      </p>
+                    ) : null}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-12 gap-4 items-center mb-6">
+              <div className="col-span-1"></div>
+              <div className="col-span-11">
+                <div className="grid grid-cols-12">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    Adresse
+                  </div>
+                  <div className="col-span-9">
+                    <Input
+                      className="bg-white"
+                      icon={<PencilSquareIcon />}
+                      value={addressEn}
+                      onChange={(e) => {
+                        setAddressEn(e.target.value);
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-12 gap-4 items-center mb-6">
+              <div className="col-span-1"></div>
+              <div className="col-span-11">
+                <div className="grid grid-cols-12">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    Text
+                  </div>
+                  <div className="col-span-9">
+                    <Textarea
+                      className="bg-white"
+                      icon={<PencilSquareIcon />}
+                      value={descEn}
+                      onChange={(e) => {
+                        setDescEnError(false);
+                        setDescEn(e.target.value);
+                      }}
+                    />
+                    {descEnError ? (
+                      <p className="text-red-800">
+                        Please fill out this field.
+                      </p>
+                    ) : null}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-12 gap-4 items-center mb-6">
+              <div className="col-span-1"></div>
+              <div className="col-span-11">
+                <div className="grid grid-cols-12">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    Audio
+                  </div>
+                  <div className="col-span-9">
+                    <FileInput
+                      className="text-[#28557b]"
+                      id="file-upload"
+                      onChange={handleFileEnChange}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-12 gap-4 items-center mb-6">
+              <div className="col-span-1"></div>
+              <div className="col-span-11">
+                <div className="grid grid-cols-12">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    AudioStory
+                  </div>
+                  <div className="col-span-9">
+                    <FileInput
+                      className="text-[#28557b]"
+                      id="file-upload"
+                      onChange={handleAudioStoryEnChange}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-12 gap-4 items-center mb-6">
+              <div className="col-span-1"></div>
+              <div className="col-span-11">
+                <div className="grid grid-cols-12">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    Video Überschrift
+                  </div>
+                  <div className="col-span-9">
+                    <Input
+                      className="bg-white"
+                      icon={<PencilSquareIcon />}
+                      value={videoNameEn}
+                      onChange={(e) => {
+                        setVideoNameEn(e.target.value);
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-12 gap-4 items-center mb-6">
+              <div className="col-span-1"></div>
+              <div className="col-span-11">
+                <div className="grid grid-cols-12">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    {/* Video Vorschaubild */}
+                    <br />
+                    <br />
+                  </div>
+                  <div className="col-span-9">
+                    {/* <FileInput
+                      className="text-[#28557b]"
+                      id="file-upload"
+                      onChange={handleThumbEnChange}
+                    /> */}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-12 gap-4 items-center mb-6">
+              <div className="col-span-1"></div>
+              <div className="col-span-11">
+                <div className="grid grid-cols-12">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    Video Link
+                  </div>
+                  <div className="col-span-9">
+                    <Input
+                      className="bg-white"
+                      icon={<PencilSquareIcon />}
+                      value={videoLinkEn}
+                      onChange={(e) => {
+                        setVideoLinkEn(e.target.value);
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="border-b-4 border-[#28557b] mx-5 mb-20">
+        <div className="container m-auto mt-20 pb-12"></div>
+      </div>
+      <div className="container m-auto mt-12">
+        <div className="grid lg:grid-cols-2 gap-6">
+          <div>
+            <h1 className="text-[#28557b] text-3xl font-normal mb-12">
+              Social Medien Links
+            </h1>
+            <div className="grid grid-cols-12 gap-4 items-center mb-6">
+              <div className="col-span-1">
+                <Tooltip content="Facebook-Link (ID Link)" placement="top">
+                  <InformationCircleIcon
+                    strokeWidth={2}
+                    className="h-10 w-10 text-[#28557b]"
+                  ></InformationCircleIcon>
+                </Tooltip>
+              </div>
+              <div className="col-span-11">
+                <div className="grid grid-cols-12">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    Facebook
+                  </div>
+                  <div className="col-span-9">
+                    <Input
+                      className="bg-white"
+                      icon={<PencilSquareIcon />}
+                      value={facebookDe}
+                      onChange={(e) => {
+                        setFacebookDe(e.target.value);
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-12 gap-4 items-center mb-6">
+              <div className="col-span-1">
+                <Tooltip content="Instagram-Link (ID Link)" placement="top">
+                  <InformationCircleIcon
+                    strokeWidth={2}
+                    className="h-10 w-10 text-[#28557b]"
+                  ></InformationCircleIcon>
+                </Tooltip>
+              </div>
+              <div className="col-span-11">
+                <div className="grid grid-cols-12">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    Instagram
+                  </div>
+                  <div className="col-span-9">
+                    <Input
+                      className="bg-white"
+                      icon={<PencilSquareIcon />}
+                      value={instagramDe}
+                      onChange={(e) => {
+                        setInstagramDe(e.target.value);
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-12 gap-4 items-center mb-6">
+              <div className="col-span-1">
+                <Tooltip content="Weblink (ID Link)" placement="top">
+                  <InformationCircleIcon
+                    strokeWidth={2}
+                    className="h-10 w-10 text-[#28557b]"
+                  ></InformationCircleIcon>
+                </Tooltip>
+              </div>
+              <div className="col-span-11">
+                <div className="grid grid-cols-12">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    Weblink
+                  </div>
+                  <div className="col-span-9">
+                    <Input
+                      className="bg-white"
+                      icon={<PencilSquareIcon />}
+                      value={weblinkDe}
+                      onChange={(e) => {
+                        setWeblinkDe(e.target.value);
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h1 className="text-[#28557b] text-3xl font-normal mb-12">
+              <br />
+            </h1>
+            <div className="grid grid-cols-12 gap-4 items-center mb-6">
+              <div className="col-span-1"></div>
+              <div className="col-span-11">
+                <div className="grid grid-cols-12">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    Facebook
+                  </div>
+                  <div className="col-span-9">
+                    <Input
+                      className="bg-white"
+                      icon={<PencilSquareIcon />}
+                      value={facebookEn}
+                      onChange={(e) => {
+                        setFacebookEn(e.target.value);
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-12 gap-4 items-center mb-6">
+              <div className="col-span-1"></div>
+              <div className="col-span-11">
+                <div className="grid grid-cols-12">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    Instagram
+                  </div>
+                  <div className="col-span-9">
+                    <Input
+                      className="bg-white"
+                      icon={<PencilSquareIcon />}
+                      value={instagramEn}
+                      onChange={(e) => {
+                        setInstagramEn(e.target.value);
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-12 gap-4 items-center mb-6">
+              <div className="col-span-1"></div>
+              <div className="col-span-11">
+                <div className="grid grid-cols-12">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    Weblink
+                  </div>
+                  <div className="col-span-9">
+                    <Input
+                      className="bg-white"
+                      icon={<PencilSquareIcon />}
+                      value={weblinkEn}
+                      onChange={(e) => {
+                        setWeblinkEn(e.target.value);
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="border-b-4 border-[#28557b] mx-5 mb-20">
+        <div className="container m-auto mt-20 pb-12"></div>
+      </div>
+      <div className="container m-auto mt-12">
+        <h1 className="text-[#28557b] text-3xl font-normal mb-12">Bilder</h1>
+        <div className="grid grid-cols-12 gap-4 items-center mb-6">
+          <div className="col-span-1">
+            <Tooltip content="Tip Description" placement="top">
+              <InformationCircleIcon
+                strokeWidth={2}
+                className="h-10 w-10 text-[#28557b]"
+              ></InformationCircleIcon>
+            </Tooltip>
+          </div>
+          <div className="col-span-11"></div>
+        </div>
+        <div className="grid grid-cols-12 gap-4 items-center mb-6">
+          <div className="col-span-1"></div>
+          <div className="col-span-11">
+            {images.map((image, index) => {
+              return (
+                <>
+                  <div className="grid grid-cols-12 mb-6">
+                    <div className="col-span-1 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                      Text
+                    </div>
+                    <div className="col-span-5">
+                      <Input
+                        className="bg-white"
+                        icon={<PencilSquareIcon />}
+                        value={image.imageDescriptionDe}
+                        onChange={(e) => {
+                          handleInputDeChange(index, e);
+                        }}
+                      />
+                    </div>
+                    <div className="col-span-1 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                      Text
+                    </div>
+                    <div className="col-span-5">
+                      <Input
+                        className="bg-white"
+                        icon={<PencilSquareIcon />}
+                        value={image.imageDescriptionEn}
+                        onChange={(e) => {
+                          handleInputEnChange(index, e);
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-12 mb-6">
+                    <div className="col-span-1 flex items-center justify-end pr-2 text-[#28557b] text-xl"></div>
+                    <div className="col-span-11">
+                      <FileInput
+                        className="text-[#28557b]"
+                        id="file-upload"
+                        onChange={(e) => handleBilderChange(index, e)}
+                      />
+                    </div>
+                  </div>
+                </>
+              );
+            })}
+          </div>
+        </div>
+        <div className="text-center mt-2">
+          <div
+            className="text-[#28557b] text-xl text-center mt-2 inline-flex items-center"
+            onClick={addNewImage}
+          >
+            Neues Bild hinzufügen
+            <PlusCircleIcon strokeWidth={2} color="#28557b" className="h-6 w-6">
+              {" "}
+            </PlusCircleIcon>
+          </div>
+        </div>
+      </div>
+      <div className="border-b-4 border-[#28557b] mx-5 mb-20">
+        <div className="container m-auto mt-20 pb-12"></div>
+      </div>
+      <div className="container m-auto mt-12">
+        <div className="grid lg:grid-cols-2 gap-6">
+          <div>
+            <h1 className="text-[#28557b] text-3xl font-normal mb-12">
+              Tipp hinzufugen
+            </h1>
+            <div className="grid grid-cols-12 gap-4 items-center mb-6">
+              <div className="col-span-1">
+                <Tooltip content="Tip Description" placement="top">
+                  <InformationCircleIcon
+                    strokeWidth={2}
+                    className="h-10 w-10 text-[#28557b]"
+                  ></InformationCircleIcon>
+                </Tooltip>
+              </div>
+              <div className="col-span-11">
+                <div className="grid grid-cols-12">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    Beschreibung
+                  </div>
+                  <div className="col-span-9">
+                    <Input
+                      className="bg-white"
+                      icon={<PencilSquareIcon />}
+                      value={tipDescDe}
+                      onChange={(e) => {
+                        setTipDescDe(e.target.value);
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-12 gap-4 items-center mb-6">
+              <div className="col-span-1">
+                <Tooltip content="Tip Link" placement="top">
+                  <InformationCircleIcon
+                    strokeWidth={2}
+                    className="h-10 w-10 text-[#28557b]"
+                  ></InformationCircleIcon>
+                </Tooltip>
+              </div>
+              <div className="col-span-11">
+                <div className="grid grid-cols-12">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    Link
+                  </div>
+                  <div className="col-span-9">
+                    <Input
+                      className="bg-white"
+                      icon={<PencilSquareIcon />}
+                      value={tipLinkDe}
+                      onChange={(e) => {
+                        setTipLinkDe(e.target.value);
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-12 gap-4 items-center mb-6">
+              <div className="col-span-1">
+                <Tooltip content="Tip Image" placement="top">
+                  <InformationCircleIcon
+                    strokeWidth={2}
+                    className="h-10 w-10 text-[#28557b]"
+                  ></InformationCircleIcon>
+                </Tooltip>
+              </div>
+              <div className="col-span-11">
+                <div className="grid grid-cols-12">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    Bild
+                  </div>
+                  <div className="col-span-9">
+                    <FileInput
+                      className="text-[#28557b]"
+                      id="file-upload"
+                      onChange={handleTipDeChange}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h1 className="text-[#28557b] text-3xl font-normal mb-12">
+              <br />
+            </h1>
+
+            <div className="grid grid-cols-12 gap-4 items-center mb-6">
+              <div className="col-span-1"></div>
+              <div className="col-span-11">
+                <div className="grid grid-cols-12">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    Beschreibung
+                  </div>
+                  <div className="col-span-9">
+                    <Input
+                      className="bg-white"
+                      icon={<PencilSquareIcon />}
+                      value={tipDescEn}
+                      onChange={(e) => {
+                        setTipDescEn(e.target.value);
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-12 gap-4 items-center mb-6">
+              <div className="col-span-1"></div>
+              <div className="col-span-11">
+                <div className="grid grid-cols-12">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    Link
+                  </div>
+                  <div className="col-span-9">
+                    <Input
+                      className="bg-white"
+                      icon={<PencilSquareIcon />}
+                      value={tipLinkEn}
+                      onChange={(e) => {
+                        setTipLinkEn(e.target.value);
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-12 gap-4 items-center mb-6">
+              <div className="col-span-1"></div>
+              <div className="col-span-11">
+                <div className="grid grid-cols-12">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#28557b] text-xl">
+                    <br />
+                  </div>
+                  <div className="col-span-9">
+                    {/* <FileInput
+                      className="text-[#28557b]"
+                      id="file-upload"
+                      onChange={handleTipEnChange}
+                    /> */}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="border-b-4 border-[#28557b] mx-5 mb-20">
+        <div className="container m-auto mt-20 pb-12"></div>
+      </div>
+      <div className="container m-auto">
+        <div className="grid gap-6">
+          <div>
+            <h1 className="text-[#28557b] text-3xl font-normal mb-12">
+              AR Scene eingeben
+            </h1>
+            <div className="grid grid-cols-12 gap-4 items-center mb-6">
+              <div className="col-span-1">
+                <Tooltip
+                  content="Auswählen, wenn AR-Szene vorhanden"
+                  placement="top"
+                >
+                  <InformationCircleIcon
+                    strokeWidth={2}
+                    className="h-10 w-10 text-[#28557b]"
+                  ></InformationCircleIcon>
+                </Tooltip>
+              </div>
+              <div className="col-span-2 flex items-center justify-center pr-2 text-[#28557b] text-xl"></div>
+              <div className="col-span-9">
+                <Checkbox
+                  checked={isAR}
+                  onChange={(e) => setIsAR(e.target.checked)}
+                  label={
+                    <Typography className="flex font-semibold text-[#28557b]">
+                      AR
+                    </Typography>
+                  }
+                />
+              </div>
+            </div>
+            <div className="grid grid-cols-12 gap-4 items-center mb-6">
+              <div className="col-span-1">
+                <Tooltip
+                  content="Auswählen, wenn die AR-Szene ein Panorama ist"
+                  placement="top"
+                >
+                  <InformationCircleIcon
+                    strokeWidth={2}
+                    className="h-10 w-10 text-[#28557b]"
+                  ></InformationCircleIcon>
+                </Tooltip>
+              </div>
+              <div className="col-span-2 flex items-center justify-center pr-2 text-[#28557b] text-xl"></div>
+              <div className="col-span-9">
+                <Checkbox
+                  checked={isPanorama}
+                  onChange={(e) => setIsPanorama(e.target.checked)}
+                  label={
+                    <Typography className="flex font-semibold text-[#28557b]">
+                      Panorama
+                    </Typography>
+                  }
+                />
+              </div>
+            </div>
+            <div className="grid grid-cols-12 gap-4 items-center mb-6">
+              <div className="col-span-1">
+                <Tooltip content="Zugewiesene Datei hochladen" placement="top">
+                  <InformationCircleIcon
+                    strokeWidth={2}
+                    className="h-10 w-10 text-[#28557b]"
+                  ></InformationCircleIcon>
+                </Tooltip>
+              </div>
+              <div className="col-span-2 flex items-center justify-center pr-2 text-[#28557b] text-xl">
+                AR Standort
+              </div>
+              <div className="col-span-9">
+                <FileInput
+                  className="text-[#28557b]"
+                  id="file-upload"
+                  onChange={handleFileARImageChange}
+                />
+              </div>
+            </div>
+            <div className="grid grid-cols-12 gap-4 items-center mb-6">
+              <div className="col-span-1">
+                <Tooltip content="Zugewiesene Datei hochladen" placement="top">
+                  <InformationCircleIcon
+                    strokeWidth={2}
+                    className="h-10 w-10 text-[#28557b]"
+                  ></InformationCircleIcon>
+                </Tooltip>
+              </div>
+              <div className="col-span-2 flex items-center justify-center pr-2 text-[#28557b] text-xl">
+                Panorama Image
+              </div>
+              <div className="col-span-9">
+                <FileInput
+                  className="text-[#28557b]"
+                  id="file-upload"
+                  onChange={handleFilePanoramaImageChange}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="border-b-4 border-[#28557b] mx-5 mb-20">
+        <div className="container m-auto mt-20 pb-12"></div>
+      </div>
+      <div className="container m-auto mb-40">
+        <h1 className="text-[#28557b] text-3xl font-normal mb-12">Weiteres</h1>
+        <div className="grid grid-cols-12 gap-4 items-center mb-6">
+          <div className="col-span-1">
+            <Tooltip
+              content="Soll der POI in der App in der Übersicht ausgeblendet werden?"
+              placement="top"
+            >
+              <InformationCircleIcon
+                strokeWidth={2}
+                className="h-10 w-10 text-[#28557b]"
+              ></InformationCircleIcon>
+            </Tooltip>
+          </div>
+          <div className="col-span-2"></div>
+          <div className="col-span-9">
+            <Checkbox
+              checked={willbeHidden}
+              onChange={(e) => setWillbeHidden(e.target.checked)}
+              label={
+                <Typography className="flex font-semibold text-[#28557b]">
+                  Ausblenden in POI Übersicht
+                </Typography>
+              }
+            />
+          </div>
+        </div>
+        <div className="grid grid-cols-12 gap-4 items-center mb-20">
+          <div className="col-span-1">
+            <Tooltip
+              content="GPS-Koordinaten Schreibweise: Eingabe von Längen- und Breitengrad nach Google, mit Komma separiert (z.B. „53.5430895,8.5057031“)"
+              placement="top"
+            >
+              <InformationCircleIcon
+                strokeWidth={2}
+                className="h-10 w-10 text-[#28557b]"
+              ></InformationCircleIcon>
+            </Tooltip>
+          </div>
+          <div className="col-span-2 text-[#28557b] text-xl">GPS</div>
+          <div className="col-span-9">
+            <Input
+              className="bg-white"
+              icon={<PencilSquareIcon />}
+              value={GPS}
+              onChange={(e) => {
+                setGPS(e.target.value);
+                setGPSError(false);
+              }}
+            />
+            {GPSError ? (
+              <p className="text-red-800">Please fill out this field.</p>
+            ) : null}
+          </div>
+        </div>
+        <div className="grid lg:grid-cols-6">
+          <div className="col-span-4">
+            <Checkbox
+              checked={published}
+              onChange={(e) => setPublished(e.target.checked)}
+              label={
+                <Typography className="flex font-semibold text-[#28557b]">
+                  Veröffentlichen
+                </Typography>
+              }
+            />
+          </div>
+          <div>
+            <Link to="/poi">
+              <Button
+                variant="outlined"
+                className="text-[#28557b] px-10 bg-white border-none"
+              >
+                Abbrechen
+              </Button>
+            </Link>
+          </div>
+          <div>
+            <Button
+              variant="outlined"
+              className="text-[#28557b] px-10 bg-white border-none hover:text-red-800"
+              onClick={onSubmit}
+            >
+              Speichern
+            </Button>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default NewPoiPage;
