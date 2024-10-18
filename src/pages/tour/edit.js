@@ -53,6 +53,60 @@ const EditTourPage = () => {
     newSortedItems.splice(hoverIndex, 0, draggedItem);
     setSelectedPois(newSortedItems);
   };
+  const moveBilderItem = (dragIndex, hoverIndex) => {
+    const draggedItem = oldImages[dragIndex];
+    const newSortedItems = [...oldImages];
+    newSortedItems.splice(dragIndex, 1);
+    newSortedItems.splice(hoverIndex, 0, draggedItem);
+    setOldImages(newSortedItems);
+  };
+  const BilderItem = ({ item, index }) => {
+    const [{ isDragging }, drag] = useDrag({
+      type: ItemTypes.CARD,
+      item: { type: ItemTypes.CARD, index },
+      collect: (monitor) => ({
+        isDragging: monitor.isDragging(),
+      }),
+    });
+
+    const [, drop] = useDrop({
+      accept: ItemTypes.CARD,
+      hover: (item) => {
+        const dragIndex = item.index;
+        const hoverIndex = index;
+
+        if (dragIndex === hoverIndex) {
+          return;
+        }
+
+        moveBilderItem(dragIndex, hoverIndex);
+        item.index = hoverIndex;
+      },
+    });
+
+    const opacity = isDragging ? 0.5 : 1;
+
+    return (
+      <div
+        ref={(node) => drag(drop(node))}
+        className={`col-span-3 ${isDragging ? "opacity-50" : ""}`}
+        style={{ cursor: "move" }}
+      >
+        <div>
+          <img src={item} alt="" />
+        </div>
+        <div className="mt-1">
+          <TrashIcon
+            strokeWidth={2}
+            className="h-6 w-6 text-[#5A5A5A]  cursor-pointer m-auto"
+            onClick={(e) => {
+              removeOldImage(index);
+            }}
+          ></TrashIcon>
+        </div>
+      </div>
+    );
+  };
   const Item = ({ item, index }) => {
     const [{ isDragging }, drag] = useDrag({
       type: ItemTypes.CARD,
@@ -1152,23 +1206,8 @@ const EditTourPage = () => {
             <div className="col-span-1"></div>
             <div className="col-span-11">
               <div className="grid grid-cols-12 gap-4 items-center mb-6">
-                {oldImages.map((old, index) => {
-                  return (
-                    <div className="col-span-3" key={index}>
-                      <div>
-                        <img src={old} alt="" />
-                      </div>
-                      <div className="mt-1">
-                        <TrashIcon
-                          strokeWidth={2}
-                          className="h-6 w-6 text-[#5A5A5A]  cursor-pointer m-auto"
-                          onClick={(e) => {
-                            removeOldImage(index);
-                          }}
-                        ></TrashIcon>
-                      </div>
-                    </div>
-                  );
+                {oldImages.map((image, index) => {
+                  return <BilderItem key={index} item={image} index={index} />;
                 })}
               </div>
             </div>
