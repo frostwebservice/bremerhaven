@@ -43,6 +43,7 @@ const ItemTypes = {
   CARD: "card",
 };
 const EditPoiPage = () => {
+  const [error, setError] = useState(false);
   const moveItem = (dragIndex, hoverIndex) => {
     const draggedItem = oldImages[dragIndex];
     const newSortedItems = [...oldImages];
@@ -292,8 +293,29 @@ const EditPoiPage = () => {
   };
   const handleBilderChange = (index, event) => {
     const selectedFile = event.target.files[0];
+    if (selectedFile) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        // Update state only after the file is read
+        setImages((prevImages) => {
+          const newImages = [...prevImages];
+          newImages[index].imageFile = selectedFile;
+          newImages[index].previewUrl = reader.result;
+
+          return newImages;
+        });
+      };
+      reader.readAsDataURL(selectedFile);
+    }
+  };
+  const removeImage = (index) => {
     const newImages = [...images]; // Create a copy of the state array
-    newImages[index].imageFile = selectedFile; // Update the specific index with the new value
+    newImages[index].isHidden = true;
+    setImages(newImages);
+  };
+  const modalToggle = (index, isOpen) => {
+    const newImages = [...images]; // Create a copy of the state array
+    newImages[index].isModalOpen = isOpen;
     setImages(newImages);
   };
   const handleOldImageDeChange = (index, event) => {
@@ -368,6 +390,9 @@ const EditPoiPage = () => {
         imageFile: null,
         imageDescriptionDe: "",
         imageDescriptionEn: "",
+        previewUrl: null,
+        isModalOpen: false,
+        isHidden: false,
       },
     ]); // Add a new empty string to the array
   };
@@ -384,29 +409,39 @@ const EditPoiPage = () => {
 
   const onSubmit = async () => {
     if (firstTextHeadingDe === "") {
+      setError(true);
       setFirstTextHeadingDeError(true);
       return;
     } else if (firstTextHeadingEn === "") {
+      setError(true);
       setFirstTextHeadingEnError(true);
       return;
     } else if (nameDe === "") {
+      setError(true);
       setNameDeError(true);
       return;
     } else if (nameEn === "") {
+      setError(true);
       setNameEnError(true);
       return;
     } else if (descDe === "") {
+      setError(true);
       setDescDeError(true);
       return;
     } else if (descEn === "") {
+      setError(true);
       setDescEnError(true);
+      return;
+    } else if (GPS === "") {
+      setGPSError(true);
+      setError(true);
       return;
     }
 
     setLoading(true);
 
     const filteredImages = images.filter(
-      (image) => image.imageDescriptionDe.trim() !== ""
+      (image) => image.imageFile !== null && image.isHidden == false
     );
 
     const uploadFile = async (file) => {
@@ -566,6 +601,7 @@ const EditPoiPage = () => {
                         onChange={(e) => {
                           setFirstTextHeadingDe(e.target.value);
                           setFirstTextHeadingDeError(false);
+                          setError(false);
                         }}
                       />
                       {firstTextHeadingDeError ? (
@@ -599,6 +635,7 @@ const EditPoiPage = () => {
                         onChange={(e) => {
                           setNameDe(e.target.value);
                           setNameDeError(false);
+                          setError(false);
                         }}
                       />
                       {nameDeError ? (
@@ -664,6 +701,7 @@ const EditPoiPage = () => {
                         value={descDe}
                         onChange={(e) => {
                           setDescDeError(false);
+                          setError(false);
                           setDescDe(e.target.value);
                         }}
                       />
@@ -903,6 +941,7 @@ const EditPoiPage = () => {
                         value={firstTextHeadingEn}
                         onChange={(e) => {
                           setFirstTextHeadingEnError(false);
+                          setError(false);
                           setFirstTextHeadingEn(e.target.value);
                         }}
                       />
@@ -929,6 +968,7 @@ const EditPoiPage = () => {
                         value={nameEn}
                         onChange={(e) => {
                           setNameEnError(false);
+                          setError(false);
                           setNameEn(e.target.value);
                         }}
                       />
@@ -975,6 +1015,7 @@ const EditPoiPage = () => {
                         value={descEn}
                         onChange={(e) => {
                           setDescEnError(false);
+                          setError(false);
                           setDescEn(e.target.value);
                         }}
                       />
@@ -1316,7 +1357,7 @@ const EditPoiPage = () => {
             <div className="col-span-1"></div>
             <div className="col-span-11">
               {images.map((image, index) => {
-                return (
+                return !image.isHidden ? (
                   <>
                     <div className="grid grid-cols-12 mb-6" key={index}>
                       <div className="col-span-1 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
@@ -1352,12 +1393,46 @@ const EditPoiPage = () => {
                         <FileInput
                           className="text-[#5A5A5A]"
                           id="file-upload"
+                          accept="image/*"
                           onChange={(e) => handleBilderChange(index, e)}
                         />
+                        {image.previewUrl && (
+                          <div className="relative mt-2 w-[max-content]">
+                            {/* Thumbnail Preview */}
+                            <img
+                              src={image.previewUrl}
+                              alt="Preview"
+                              className="w-72 h-auto rounded-lg shadow-lg cursor-pointer transition-transform hover:scale-105"
+                              onClick={() => modalToggle(index, true)} // Open modal on click
+                            />
+
+                            {/* Full-Size Modal */}
+                            {image.isModalOpen && (
+                              <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                                <img
+                                  src={image.previewUrl}
+                                  alt="Full Size Preview"
+                                  className="max-w-full max-h-full rounded-lg shadow-xl"
+                                />
+                                <button
+                                  className="absolute top-4 right-4 bg-white text-black p-2 rounded-full shadow-md"
+                                  onClick={() => modalToggle(index, false)} // Close modal on click
+                                >
+                                  ✕
+                                </button>
+                              </div>
+                            )}
+                            <TrashIcon
+                              strokeWidth={2}
+                              className="h-6 w-6 text-[#5A5A5A]  cursor-pointer m-auto mt-2 transition"
+                              onClick={() => removeImage(index)}
+                            ></TrashIcon>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </>
-                );
+                ) : null;
               })}
             </div>
           </div>
@@ -1769,6 +1844,7 @@ const EditPoiPage = () => {
                 onChange={(e) => {
                   setGPS(e.target.value);
                   setGPSError(false);
+                  setError(false);
                 }}
               />
               {GPSError ? (
@@ -1806,6 +1882,11 @@ const EditPoiPage = () => {
               >
                 Speichern
               </Button>
+              {error ? (
+                <div className="text-red-800 mt-2">
+                  Bitte fülle alle Pflichtfelder aus.
+                </div>
+              ) : null}
             </div>
           </div>
         </div>

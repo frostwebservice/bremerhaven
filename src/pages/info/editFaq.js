@@ -40,7 +40,7 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 const EditFaqPage = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-
+  const [error, setError] = useState(false);
   const [faqID, setFaqID] = useState("");
   const [titleDe, setTitleDe] = useState("");
   const [priority, setPriority] = useState(0);
@@ -127,6 +127,9 @@ const EditFaqPage = () => {
     return decodeURIComponent(fileName); // Decodes the URL-encoded characters
   };
   const onSubmit = async () => {
+    if (titleDe === "" || titleEn === "" || descDe === "" || descEn === "") {
+      setError(true);
+    }
     if (titleDe === "") return setTitleDeError(true);
     if (descDe === "") return setDescDeError(true);
     if (titleEn === "") return setTitleEnError(true);
@@ -232,6 +235,7 @@ const EditFaqPage = () => {
                       onChange={(e) => {
                         setTitleDe(e.target.value);
                         setTitleDeError(false);
+                        setError(false);
                       }}
                     />
                     {titleDeError ? (
@@ -267,6 +271,7 @@ const EditFaqPage = () => {
                       value={descDe}
                       onChange={(e) => {
                         setDescDeError(false);
+                        setError(false);
                         setDescDe(e.target.value);
                       }}
                     />
@@ -405,6 +410,7 @@ const EditFaqPage = () => {
                       value={titleEn}
                       onChange={(e) => {
                         setTitleEnError(false);
+                        setError(false);
                         setTitleEn(e.target.value);
                       }}
                     />
@@ -431,6 +437,7 @@ const EditFaqPage = () => {
                       value={descEn}
                       onChange={(e) => {
                         setDescEnError(false);
+                        setError(false);
                         setDescEn(e.target.value);
                       }}
                     />
@@ -563,6 +570,11 @@ const EditFaqPage = () => {
             >
               Speichern
             </Button>
+            {error ? (
+              <div className="text-red-800 mt-2">
+                Bitte fülle alle Pflichtfelder aus.
+              </div>
+            ) : null}
           </div>
         </div>
       </div>

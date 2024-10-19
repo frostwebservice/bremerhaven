@@ -39,7 +39,7 @@ import { db, auth, storage } from "../../config/firebase-config";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 const EditEventPage = () => {
   const navigate = useNavigate();
-
+  const [error, setError] = useState(false);
   const [eventID, setEventID] = useState("");
   const [eventCreated, setEventCreated] = useState("");
   const [basicfileDeUrl, setFileDeUrl] = useState("");
@@ -146,6 +146,8 @@ const EditEventPage = () => {
     return decodeURIComponent(fileName); // Decodes the URL-encoded characters
   };
   const onSubmit = async () => {
+    if (titleDe === "" || titleEn === "" || descDe === "" || descEn === "")
+      setError(true);
     if (titleDe === "") {
       setTitleDeError(true);
       return;
@@ -271,6 +273,7 @@ const EditEventPage = () => {
                       onChange={(e) => {
                         setTitleDe(e.target.value);
                         setTitleDeError(false);
+                        setError(false);
                       }}
                     />
                     {titleDeError ? (
@@ -359,6 +362,7 @@ const EditEventPage = () => {
                       value={descDe}
                       onChange={(e) => {
                         setDescDeError(false);
+                        setError(false);
                         setDescDe(e.target.value);
                       }}
                     />
@@ -484,6 +488,7 @@ const EditEventPage = () => {
                       value={titleEn}
                       onChange={(e) => {
                         setTitleEnError(false);
+                        setError(false);
                         setTitleEn(e.target.value);
                       }}
                     />
@@ -553,6 +558,7 @@ const EditEventPage = () => {
                       value={descEn}
                       onChange={(e) => {
                         setDescEnError(false);
+                        setError(false);
                         setDescEn(e.target.value);
                       }}
                     />
@@ -685,6 +691,11 @@ const EditEventPage = () => {
             >
               Speichern
             </Button>
+            {error ? (
+              <div className="text-red-800 mt-2">
+                Bitte fülle alle Pflichtfelder aus.
+              </div>
+            ) : null}
           </div>
         </div>
       </div>

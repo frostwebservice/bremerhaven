@@ -38,6 +38,7 @@ import { db, auth, storage } from "../../config/firebase-config";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 const NewExperience = () => {
   const navigate = useNavigate();
+  const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [titleDe, setTitleDe] = useState("");
   const [titleEn, setTitleEn] = useState("");
@@ -78,6 +79,8 @@ const NewExperience = () => {
     return now.toISOString().split(".")[0] + "+00:00"; // Removes milliseconds
   };
   const onSubmit = async () => {
+    if (titleDe === "" || titleEn === "" || descDe === "" || descEn === "")
+      setError(true);
     if (titleDe === "") {
       setTitleDeError(true);
       return;
@@ -195,6 +198,7 @@ const NewExperience = () => {
                       onChange={(e) => {
                         setTitleDe(e.target.value);
                         setTitleDeError(false);
+                        setError(false);
                       }}
                     />
                     {titleDeError ? (
@@ -257,6 +261,7 @@ const NewExperience = () => {
                       value={descDe}
                       onChange={(e) => {
                         setDescDeError(false);
+                        setError(false);
                         setDescDe(e.target.value);
                       }}
                     />
@@ -356,6 +361,7 @@ const NewExperience = () => {
                       value={titleEn}
                       onChange={(e) => {
                         setTitleEnError(false);
+                        setError(false);
                         setTitleEn(e.target.value);
                       }}
                     />
@@ -399,6 +405,7 @@ const NewExperience = () => {
                       value={descEn}
                       onChange={(e) => {
                         setDescEnError(false);
+                        setError(false);
                         setDescEn(e.target.value);
                       }}
                     />
@@ -505,6 +512,11 @@ const NewExperience = () => {
             >
               Speichern
             </Button>
+            {error ? (
+              <div className="text-red-800 mt-2">
+                Bitte fülle alle Pflichtfelder aus.
+              </div>
+            ) : null}
           </div>
         </div>
       </div>

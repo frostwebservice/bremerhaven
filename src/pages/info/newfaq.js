@@ -38,6 +38,7 @@ import { db, auth, storage } from "../../config/firebase-config";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 const NewFaqPage = () => {
   const navigate = useNavigate();
+  const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [titleDe, setTitleDe] = useState("");
   const [titleEn, setTitleEn] = useState("");
@@ -83,6 +84,8 @@ const NewFaqPage = () => {
     setEnFile(selectedFile);
   };
   const onSubmit = async () => {
+    if (titleDe === "" || titleEn === "" || descDe === "" || descEn === "")
+      setError(true);
     if (titleDe === "") return setTitleDeError(true);
     if (descDe === "") return setDescDeError(true);
     if (titleEn === "") return setTitleEnError(true);
@@ -197,6 +200,7 @@ const NewFaqPage = () => {
                       onChange={(e) => {
                         setTitleDe(e.target.value);
                         setTitleDeError(false);
+                        setError(false);
                       }}
                     />
                     {titleDeError ? (
@@ -232,6 +236,7 @@ const NewFaqPage = () => {
                       value={descDe}
                       onChange={(e) => {
                         setDescDeError(false);
+                        setError(false);
                         setDescDe(e.target.value);
                       }}
                     />
@@ -344,6 +349,7 @@ const NewFaqPage = () => {
                       value={titleEn}
                       onChange={(e) => {
                         setTitleEnError(false);
+                        setError(false);
                         setTitleEn(e.target.value);
                       }}
                     />
@@ -370,6 +376,7 @@ const NewFaqPage = () => {
                       value={descEn}
                       onChange={(e) => {
                         setDescEnError(false);
+                        setError(false);
                         setDescEn(e.target.value);
                       }}
                     />
@@ -476,6 +483,11 @@ const NewFaqPage = () => {
             >
               Speichern
             </Button>
+            {error ? (
+              <div className="text-red-800 mt-2">
+                Bitte fülle alle Pflichtfelder aus.
+              </div>
+            ) : null}
           </div>
         </div>
       </div>

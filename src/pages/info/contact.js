@@ -40,6 +40,7 @@ import { db, auth, storage } from "../../config/firebase-config";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 const ContactPage = () => {
   const navigate = useNavigate();
+  const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState();
   const [title, setTitle] = useState("");
@@ -99,18 +100,23 @@ const ContactPage = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (address === "") {
       setAddressError(true);
+      setError(true);
       return;
     } else if (person === "") {
       setPersonError(true);
+      setError(true);
       return;
     } else if (email === "" || !emailRegex.test(email)) {
       setEmailError(true);
+      setError(true);
       return;
     } else if (fax === "") {
       setFaxError(true);
+      setError(true);
       return;
     } else if (phone === "") {
       setPhoneError(true);
+      setError(true);
       return;
     }
 
@@ -192,6 +198,7 @@ const ContactPage = () => {
                     value={address}
                     onChange={(e) => {
                       setAddress(e.target.value);
+                      setError(false);
                       setAddressError(false);
                     }}
                   />
@@ -215,6 +222,7 @@ const ContactPage = () => {
                     value={person}
                     onChange={(e) => {
                       setPerson(e.target.value);
+                      setError(false);
                       setPersonError(false);
                     }}
                   />
@@ -239,6 +247,7 @@ const ContactPage = () => {
                     onChange={(e) => {
                       setEmail(e.target.value);
                       setEmailError(false);
+                      setError(false);
                     }}
                   />
                   {emailError ? (
@@ -264,6 +273,7 @@ const ContactPage = () => {
                     onChange={(e) => {
                       setFax(e.target.value);
                       setFaxError(false);
+                      setError(false);
                     }}
                   />
                   {faxError ? (
@@ -287,6 +297,7 @@ const ContactPage = () => {
                     onChange={(e) => {
                       setPhone(e.target.value);
                       setPhoneError(false);
+                      setError(false);
                     }}
                   />
                   {phoneError ? (
@@ -369,6 +380,11 @@ const ContactPage = () => {
             >
               Speichern
             </Button>
+            {error ? (
+              <div className="text-red-800 mt-2">
+                Bitte fülle alle Pflichtfelder aus.
+              </div>
+            ) : null}
           </div>
         </div>
       </div>

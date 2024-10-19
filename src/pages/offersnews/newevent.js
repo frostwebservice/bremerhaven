@@ -38,6 +38,7 @@ import { db, auth, storage } from "../../config/firebase-config";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 const NewEvent = () => {
   const navigate = useNavigate();
+  const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [titleDe, setTitleDe] = useState("");
   const [titleEn, setTitleEn] = useState("");
@@ -78,6 +79,9 @@ const NewEvent = () => {
     return now.toISOString().split(".")[0] + "+00:00"; // Removes milliseconds
   };
   const onSubmit = async () => {
+    if (titleDe === "" || titleEn === "" || descDe === "" || descEn === "") {
+      setError(true);
+    }
     // Input validation
     if (titleDe === "") return setTitleDeError(true);
     if (descDe === "") return setDescDeError(true);
@@ -190,6 +194,7 @@ const NewEvent = () => {
                       onChange={(e) => {
                         setTitleDe(e.target.value);
                         setTitleDeError(false);
+                        setError(false);
                       }}
                     />
                     {titleDeError ? (
@@ -252,6 +257,7 @@ const NewEvent = () => {
                       value={descDe}
                       onChange={(e) => {
                         setDescDeError(false);
+                        setError(false);
                         setDescDe(e.target.value);
                       }}
                     />
@@ -351,6 +357,7 @@ const NewEvent = () => {
                       value={titleEn}
                       onChange={(e) => {
                         setTitleEnError(false);
+                        setError(false);
                         setTitleEn(e.target.value);
                       }}
                     />
@@ -394,6 +401,7 @@ const NewEvent = () => {
                       value={descEn}
                       onChange={(e) => {
                         setDescEnError(false);
+                        setError(false);
                         setDescEn(e.target.value);
                       }}
                     />
@@ -500,6 +508,11 @@ const NewEvent = () => {
             >
               Speichern
             </Button>
+            {error ? (
+              <div className="text-red-800 mt-2">
+                Bitte fülle alle Pflichtfelder aus.
+              </div>
+            ) : null}
           </div>
         </div>
       </div>
