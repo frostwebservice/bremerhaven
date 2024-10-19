@@ -94,7 +94,27 @@ const EditTourPage = () => {
         style={{ cursor: "move" }}
       >
         <div>
-          <img src={item} alt="" />
+          <img
+            src={item.imageUrl}
+            className="cursor-pointer"
+            onClick={() => modalToggleOld(index, true)}
+            alt=""
+          />
+          {item.isModalOpen && (
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+              <img
+                src={item.imageUrl}
+                alt="Full Size Preview"
+                className="max-w-full max-h-full rounded-lg shadow-xl"
+              />
+              <button
+                className="absolute top-4 right-4 bg-white text-black p-2 rounded-full shadow-md"
+                onClick={() => modalToggleOld(index, false)}
+              >
+                ✕
+              </button>
+            </div>
+          )}
         </div>
         <div className="mt-1">
           <TrashIcon
@@ -256,7 +276,11 @@ const EditTourPage = () => {
   const removeOldImage = (index) => {
     setOldImages((prevImages) => prevImages.filter((_, i) => i !== index));
   };
-
+  const modalToggleOld = (index, isOpen) => {
+    const newImages = [...oldImages]; // Create a copy of the state array
+    newImages[index].isModalOpen = isOpen;
+    setOldImages(newImages);
+  };
   useEffect(() => {
     const fetchPois = async () => {
       try {
@@ -298,9 +322,12 @@ const EditTourPage = () => {
           .filter((poi) => poiIds.includes(poi.id))
           .sort((a, b) => priorityMap[a.id] - priorityMap[b.id]);
         setSelectedPois(newPois);
-
+        const newOldImages = data.images.map((url) => ({
+          imageUrl: url,
+          isModalOpen: false,
+        }));
         // Set other data as before
-        setOldImages(data.images);
+        setOldImages(newOldImages);
         setNameDe(data.languages.de.name);
         setNameEn(data.languages.en.name);
         setDescDe(data.languages.de.description);
@@ -498,7 +525,8 @@ const EditTourPage = () => {
       ]);
 
       const imageUrls = filteredImages.map((image) => image.imageUrl);
-      const newImages = [...oldImages, ...imageUrls];
+      const originalImageUrls = oldImages.map((item) => item.imageUrl);
+      const newImages = [...originalImageUrls, ...imageUrls];
       const formattedArray = selectedPois.map((poi, index) => ({
         poi: `/poi/${poi.id}`,
         priority: index + 1,
