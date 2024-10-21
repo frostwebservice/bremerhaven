@@ -330,6 +330,7 @@ const EditEventPage = () => {
                     <div className="col-span-9">
                       <FileInput
                         className="text-[#5A5A5A]"
+                        accept="image/*"
                         id="file-upload"
                         onChange={handleBildDeChange}
                       />
@@ -420,6 +421,7 @@ const EditEventPage = () => {
                     <div className="col-span-9">
                       <FileInput
                         className="text-[#5A5A5A]"
+                        accept="audio/*"
                         id="file-upload"
                         onChange={handleFileDeChange}
                       />
@@ -536,6 +538,7 @@ const EditEventPage = () => {
                     <div className="col-span-9">
                       <FileInput
                         className="text-[#5A5A5A]"
+                        accept="image/*"
                         id="file-upload"
                         onChange={handleBildEnChange}
                       />
@@ -606,6 +609,7 @@ const EditEventPage = () => {
                     <div className="col-span-9">
                       <FileInput
                         className="text-[#5A5A5A]"
+                        accept="audio/*"
                         id="file-upload"
                         onChange={handleFileEnChange}
                       />

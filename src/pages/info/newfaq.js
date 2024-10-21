@@ -269,6 +269,7 @@ const NewFaqPage = () => {
                   <div className="col-span-9">
                     <FileInput
                       className="text-[#5A5A5A]"
+                      accept="audio/*"
                       id="file-upload"
                       onChange={handleFileDeChange}
                     />
@@ -399,6 +400,7 @@ const NewFaqPage = () => {
                   <div className="col-span-9">
                     <FileInput
                       className="text-[#5A5A5A]"
+                      accept="audio/*"
                       id="file-upload"
                       onChange={handleFileEnChange}
                     />

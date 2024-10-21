@@ -226,6 +226,7 @@ const NewEvent = () => {
                   <div className="col-span-9">
                     <FileInput
                       className="text-[#5A5A5A]"
+                      accept="image/*"
                       id="file-upload"
                       onChange={handleBildDeChange}
                     />
@@ -291,6 +292,7 @@ const NewEvent = () => {
                     <FileInput
                       className="text-[#5A5A5A]"
                       id="file-upload"
+                      accept="audio/*"
                       onChange={handleFileDeChange}
                     />
                   </div>
@@ -381,6 +383,7 @@ const NewEvent = () => {
                     <FileInput
                       className="text-[#5A5A5A]"
                       id="file-upload"
+                      accept="image/*"
                       onChange={handleBildEnChange}
                     />
                   </div>
@@ -425,6 +428,7 @@ const NewEvent = () => {
                     <FileInput
                       className="text-[#5A5A5A]"
                       id="file-upload"
+                      accept="audio/*"
                       onChange={handleFileEnChange}
                     />
                   </div>

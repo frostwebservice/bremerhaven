@@ -330,6 +330,7 @@ const EditFaqPage = () => {
                       <FileInput
                         className="text-[#5A5A5A]"
                         id="file-upload"
+                        accept="audio/*"
                         onChange={handleFileDeChange}
                       />
                     </div>
@@ -486,6 +487,7 @@ const EditFaqPage = () => {
                       <FileInput
                         className="text-[#5A5A5A]"
                         id="file-upload"
+                        accept="audio/*"
                         onChange={handleFileEnChange}
                       />
                     </div>

@@ -231,6 +231,7 @@ const NewExperience = () => {
                     <FileInput
                       className="text-[#5A5A5A]"
                       id="file-upload"
+                      accept="image/*"
                       onChange={handleBildDeChange}
                     />
                   </div>
@@ -295,6 +296,7 @@ const NewExperience = () => {
                     <FileInput
                       className="text-[#5A5A5A]"
                       id="file-upload"
+                      accept="audio/*"
                       onChange={handleFileDeChange}
                     />
                   </div>
@@ -385,6 +387,7 @@ const NewExperience = () => {
                     <FileInput
                       className="text-[#5A5A5A]"
                       id="file-upload"
+                      accept="image/*"
                       onChange={handleBildEnChange}
                     />
                   </div>
@@ -429,6 +432,7 @@ const NewExperience = () => {
                     <FileInput
                       className="text-[#5A5A5A]"
                       id="file-upload"
+                      accept="audio/*"
                       onChange={handleFileEnChange}
                     />
                   </div>
