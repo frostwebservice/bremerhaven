@@ -784,6 +784,7 @@ const EditPoiPage = () => {
                       <div className="col-span-9">
                         <FileInput
                           className="text-[#5A5A5A]"
+                          accept="audio/*"
                           id="file-upload"
                           onChange={handleFileDeChange}
                         />
@@ -836,6 +837,7 @@ const EditPoiPage = () => {
                       <div className="col-span-9">
                         <FileInput
                           className="text-[#5A5A5A]"
+                          accept="audio/*"
                           id="file-upload"
                           onChange={handleAudioStoryDeChange}
                         />
@@ -912,6 +914,7 @@ const EditPoiPage = () => {
                       <div className="col-span-9">
                         <FileInput
                           className="text-[#5A5A5A]"
+                          accept="image/*"
                           id="file-upload"
                           onChange={handleThumbDeChange}
                         />
@@ -1088,6 +1091,7 @@ const EditPoiPage = () => {
                       <div className="col-span-9">
                         <FileInput
                           className="text-[#5A5A5A]"
+                          accept="audio/*"
                           id="file-upload"
                           onChange={handleFileEnChange}
                         />
@@ -1130,6 +1134,7 @@ const EditPoiPage = () => {
                       <div className="col-span-9">
                         <FileInput
                           className="text-[#5A5A5A]"
+                          accept="audio/*"
                           id="file-upload"
                           onChange={handleAudioStoryEnChange}
                         />
@@ -1583,6 +1588,7 @@ const EditPoiPage = () => {
                       <div className="col-span-9">
                         <FileInput
                           className="text-[#5A5A5A]"
+                          accept="image/*"
                           id="file-upload"
                           onChange={handleTipDeChange}
                         />
@@ -1759,6 +1765,7 @@ const EditPoiPage = () => {
                   <div className="col-span-9">
                     <FileInput
                       className="text-[#5A5A5A]"
+                      accept="image/*"
                       id="file-upload"
                       onChange={handleFileARImageChange}
                     />
@@ -1808,6 +1815,7 @@ const EditPoiPage = () => {
                   <div className="col-span-9">
                     <FileInput
                       className="text-[#5A5A5A]"
+                      accept="image/*"
                       id="file-upload"
                       onChange={handleFilePanoramaImageChange}
                     />

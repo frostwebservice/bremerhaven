@@ -720,6 +720,7 @@ const EditTourPage = () => {
                       <div className="col-span-9">
                         <FileInput
                           className="text-[#5A5A5A]"
+                          accept="audio/*"
                           id="file-upload"
                           onChange={handleDescAudioDeChange}
                         />
@@ -807,6 +808,7 @@ const EditTourPage = () => {
                       <div className="col-span-9">
                         <FileInput
                           className="text-[#5A5A5A]"
+                          accept="audio/*"
                           id="file-upload"
                           onChange={handleFileDeChange}
                         />
@@ -860,6 +862,7 @@ const EditTourPage = () => {
                       <div className="col-span-9">
                         <FileInput
                           className="text-[#5A5A5A]"
+                          accept="audio/*"
                           id="file-upload"
                           onChange={handleAudioStoryDeChange}
                         />
@@ -1020,6 +1023,7 @@ const EditTourPage = () => {
                       <div className="col-span-9">
                         <FileInput
                           className="text-[#5A5A5A]"
+                          accept="audio/*"
                           id="file-upload"
                           onChange={handleDescAudioEnChange}
                         />
@@ -1087,6 +1091,7 @@ const EditTourPage = () => {
                       <div className="col-span-9">
                         <FileInput
                           className="text-[#5A5A5A]"
+                          accept="audio/*"
                           id="file-upload"
                           onChange={handleFileEnChange}
                         />
@@ -1130,6 +1135,7 @@ const EditTourPage = () => {
                       <div className="col-span-9">
                         <FileInput
                           className="text-[#5A5A5A]"
+                          accept="audio/*"
                           id="file-upload"
                           onChange={handleAudioStoryEnChange}
                         />
@@ -1461,6 +1467,7 @@ const EditTourPage = () => {
                   <div className="col-span-9">
                     <FileInput
                       className="text-[#5A5A5A]"
+                      accept="image/*"
                       id="file-upload"
                       onChange={handleBGImageChange}
                     />
@@ -1510,6 +1517,7 @@ const EditTourPage = () => {
                   <div className="col-span-9">
                     <FileInput
                       className="text-[#5A5A5A]"
+                      accept="image/*"
                       id="file-upload"
                       onChange={handleThumbChange}
                     />
