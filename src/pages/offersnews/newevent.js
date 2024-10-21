@@ -22,7 +22,7 @@ import {
 import { FileInput } from "flowbite-react";
 import DeuFlagImg from "../../images/flags/deuflage.png";
 import AMFlagImg from "../../images/flags/amflag.png";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   collection,
   getDocs,
@@ -38,6 +38,8 @@ import { db, auth, storage } from "../../config/firebase-config";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 const NewEvent = () => {
   const navigate = useNavigate();
+  const audioRefDe = useRef(null);
+  const audioRefEn = useRef(null);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [titleDe, setTitleDe] = useState("");
@@ -56,23 +58,83 @@ const NewEvent = () => {
 
   const [fileDe, setDeFile] = useState(null);
   const [fileEn, setEnFile] = useState(null);
+
   const [bildDe, setDeBild] = useState(null);
   const [bildEn, setEnBild] = useState(null);
+
+  const [audioSrcDe, setAudioSrcDe] = useState(null);
+  const [audioSrcEn, setAudioSrcEn] = useState(null);
+  const [bildSrcDe, setBildSrcDe] = useState(null);
+  const [bildSrcEn, setBildSrcEn] = useState(null);
+  const [isModalOpenDe, setIsModalOpenDe] = useState(false);
+  const [isModalOpenEn, setIsModalOpenEn] = useState(false);
+  const modalToggleDe = (isOpen) => {
+    setIsModalOpenDe(isOpen);
+  };
+  const modalToggleEn = (isOpen) => {
+    setIsModalOpenEn(isOpen);
+  };
   const handleFileDeChange = (event) => {
     const selectedFile = event.target.files[0];
     setDeFile(selectedFile);
+    if (selectedFile) {
+      const reader = new FileReader();
+
+      reader.onload = (event) => {
+        setAudioSrcDe(event.target.result); // Set audio source
+        resetAudioDe();
+      };
+
+      reader.readAsDataURL(selectedFile); // Convert file to data URL
+    }
   };
   const handleFileEnChange = (event) => {
     const selectedFile = event.target.files[0];
     setEnFile(selectedFile);
+    if (selectedFile) {
+      const reader = new FileReader();
+
+      reader.onload = (event) => {
+        setAudioSrcEn(event.target.result); // Set audio source
+        resetAudioEn();
+      };
+
+      reader.readAsDataURL(selectedFile); // Convert file to data URL
+    }
+  };
+  const resetAudioDe = () => {
+    if (audioRefDe.current) {
+      audioRefDe.current.pause(); // Stop the old audio
+      audioRefDe.current.load(); // Reload the new source
+    }
+  };
+  const resetAudioEn = () => {
+    if (audioRefEn.current) {
+      audioRefEn.current.pause(); // Stop the old audio
+      audioRefEn.current.load(); // Reload the new source
+    }
   };
   const handleBildDeChange = (event) => {
     const selectedFile = event.target.files[0];
     setDeBild(selectedFile);
+    if (selectedFile) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setBildSrcDe(reader.result);
+      };
+      reader.readAsDataURL(selectedFile);
+    }
   };
   const handleBildEnChange = (event) => {
     const selectedFile = event.target.files[0];
     setEnBild(selectedFile);
+    if (selectedFile) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setBildSrcEn(reader.result);
+      };
+      reader.readAsDataURL(selectedFile);
+    }
   };
   const getCurrentTime = () => {
     const now = new Date();
@@ -209,7 +271,7 @@ const NewEvent = () => {
             <div className="grid grid-cols-12 gap-4 items-center mb-6">
               <div className="col-span-1">
                 <Tooltip
-                  content="Format: Quadrat, max. Dateigröße: 150kB"
+                  content="Format: Hochformat/Quadratisch, max. Dateigröße 200kB"
                   placement="top"
                 >
                   <InformationCircleIcon
@@ -230,6 +292,34 @@ const NewEvent = () => {
                       id="file-upload"
                       onChange={handleBildDeChange}
                     />
+                    {bildSrcDe && (
+                      <div className="relative mt-2 w-[max-content]">
+                        {/* Thumbnail Preview */}
+                        <img
+                          src={bildSrcDe}
+                          alt="Preview"
+                          className="w-72 h-auto rounded-lg shadow-lg cursor-pointer transition-transform hover:scale-105"
+                          onClick={() => modalToggleDe(true)} // Open modal on click
+                        />
+
+                        {/* Full-Size Modal */}
+                        {isModalOpenDe && (
+                          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                            <img
+                              src={bildSrcDe}
+                              alt="Full Size Preview"
+                              className="max-w-full max-h-full rounded-lg shadow-xl"
+                            />
+                            <button
+                              className="absolute top-4 right-4 bg-white text-black p-2 rounded-full shadow-md"
+                              onClick={() => modalToggleDe(false)} // Close modal on click
+                            >
+                              ✕
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -274,7 +364,7 @@ const NewEvent = () => {
             <div className="grid grid-cols-12 gap-4 items-center mb-6">
               <div className="col-span-1">
                 <Tooltip
-                  content="Vorlesetext für Barrierefreiheit, Audioformat: mp4"
+                  content="Vorlesetext, Audioformat: mp3, max. Dateigröße 200kB"
                   placement="top"
                 >
                   <InformationCircleIcon
@@ -295,6 +385,12 @@ const NewEvent = () => {
                       accept="audio/*"
                       onChange={handleFileDeChange}
                     />
+                    {audioSrcDe && (
+                      <audio ref={audioRefDe} controls className="mt-2">
+                        <source src={audioSrcDe} type="audio/mp3" />
+                        Your browser does not support the audio tag.
+                      </audio>
+                    )}
                   </div>
                 </div>
               </div>
@@ -386,6 +482,34 @@ const NewEvent = () => {
                       accept="image/*"
                       onChange={handleBildEnChange}
                     />
+                    {bildSrcEn && (
+                      <div className="relative mt-2 w-[max-content]">
+                        {/* Thumbnail Preview */}
+                        <img
+                          src={bildSrcEn}
+                          alt="Preview"
+                          className="w-72 h-auto rounded-lg shadow-lg cursor-pointer transition-transform hover:scale-105"
+                          onClick={() => modalToggleEn(true)} // Open modal on click
+                        />
+
+                        {/* Full-Size Modal */}
+                        {isModalOpenEn && (
+                          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                            <img
+                              src={bildSrcEn}
+                              alt="Full Size Preview"
+                              className="max-w-full max-h-full rounded-lg shadow-xl"
+                            />
+                            <button
+                              className="absolute top-4 right-4 bg-white text-black p-2 rounded-full shadow-md"
+                              onClick={() => modalToggleEn(false)} // Close modal on click
+                            >
+                              ✕
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -431,6 +555,12 @@ const NewEvent = () => {
                       accept="audio/*"
                       onChange={handleFileEnChange}
                     />
+                    {audioSrcEn && (
+                      <audio ref={audioRefEn} controls className="mt-2">
+                        <source src={audioSrcEn} type="audio/mp3" />
+                        Your browser does not support the audio tag.
+                      </audio>
+                    )}
                   </div>
                 </div>
               </div>

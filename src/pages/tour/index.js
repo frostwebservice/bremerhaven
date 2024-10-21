@@ -234,7 +234,7 @@ const TourPage = () => {
               className="text-[#5A5A5A] text-2xl text-center mt-12 inline-flex items-center"
               to={"/tour/new"}
             >
-              Neuen Tour erstellen
+              Neue Tour erstellen
               <PlusCircleIcon
                 strokeWidth={2}
                 color="#5A5A5A"

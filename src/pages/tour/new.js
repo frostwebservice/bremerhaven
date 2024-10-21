@@ -23,7 +23,7 @@ import {
 import { FileInput } from "flowbite-react";
 import DeuFlagImg from "../../images/flags/deuflage.png";
 import AMFlagImg from "../../images/flags/amflag.png";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   collection,
   getDocs,
@@ -51,7 +51,6 @@ const NewTourPage = () => {
   const handleSelectChange = (value) => {
     setSelectedPoi(value);
   };
-  console.log(selectedPois);
   const addNewPoi = () => {
     if (addCompleted) {
       setCanAddPoi(true);
@@ -106,7 +105,22 @@ const NewTourPage = () => {
   const [thumbFile, setThumbFile] = useState(null);
   const [tourBGImageFile, setTourBGImageFile] = useState(null);
   const [images, setImages] = useState([]);
-
+  const audioRefDe = useRef(null);
+  const audioRefEn = useRef(null);
+  const storyRefDe = useRef(null);
+  const storyRefEn = useRef(null);
+  const descAudioRefDe = useRef(null);
+  const descAudioRefEn = useRef(null);
+  const [audioSrcDe, setAudioSrcDe] = useState(null);
+  const [audioSrcEn, setAudioSrcEn] = useState(null);
+  const [storySrcDe, setStorySrcDe] = useState(null);
+  const [storySrcEn, setStorySrcEn] = useState(null);
+  const [descAudioSrcDe, setDescAudioSrcDe] = useState(null);
+  const [descAudioSrcEn, setDescAudioSrcEn] = useState(null);
+  const [thumbSrcDe, setThumbSrcDe] = useState(null);
+  const [isModalOpenThumb, setIsModalOpenThumb] = useState(false);
+  const [bgImageSrcDe, setBgImageSrcDe] = useState(null);
+  const [isModalOpenBG, setIsModalOpenBG] = useState(false);
   useEffect(() => {
     const fetchPois = async () => {
       try {
@@ -131,10 +145,42 @@ const NewTourPage = () => {
   const handleFileDeChange = (event) => {
     const selectedFile = event.target.files[0];
     setFileDe(selectedFile);
+    if (selectedFile) {
+      const reader = new FileReader();
+
+      reader.onload = (event) => {
+        setAudioSrcDe(event.target.result); // Set audio source
+        resetAudioDe();
+      };
+
+      reader.readAsDataURL(selectedFile); // Convert file to data URL
+    }
   };
   const handleFileEnChange = (event) => {
     const selectedFile = event.target.files[0];
     setFileEn(selectedFile);
+    if (selectedFile) {
+      const reader = new FileReader();
+
+      reader.onload = (event) => {
+        setAudioSrcEn(event.target.result); // Set audio source
+        resetAudioEn();
+      };
+
+      reader.readAsDataURL(selectedFile); // Convert file to data URL
+    }
+  };
+  const resetAudioDe = () => {
+    if (audioRefDe.current) {
+      audioRefDe.current.pause(); // Stop the old audio
+      audioRefDe.current.load(); // Reload the new source
+    }
+  };
+  const resetAudioEn = () => {
+    if (audioRefEn.current) {
+      audioRefEn.current.pause(); // Stop the old audio
+      audioRefEn.current.load(); // Reload the new source
+    }
   };
 
   const handleBilderChange = (index, event) => {
@@ -169,29 +215,111 @@ const NewTourPage = () => {
   const handleDescAudioDeChange = (event) => {
     const selectedFile = event.target.files[0];
     setDescAudioDe(selectedFile);
+    if (selectedFile) {
+      const reader = new FileReader();
+
+      reader.onload = (event) => {
+        setDescAudioSrcDe(event.target.result); // Set audio source
+        resetDescAudioDe();
+      };
+
+      reader.readAsDataURL(selectedFile); // Convert file to data URL
+    }
   };
   const handleDescAudioEnChange = (event) => {
     const selectedFile = event.target.files[0];
     setDescAudioEn(selectedFile);
-  };
+    if (selectedFile) {
+      const reader = new FileReader();
 
+      reader.onload = (event) => {
+        setDescAudioSrcEn(event.target.result); // Set audio source
+        resetDescAudioEn();
+      };
+
+      reader.readAsDataURL(selectedFile); // Convert file to data URL
+    }
+  };
+  const resetDescAudioDe = () => {
+    if (descAudioRefDe.current) {
+      descAudioRefDe.current.pause(); // Stop the old audio
+      descAudioRefDe.current.load(); // Reload the new source
+    }
+  };
+  const resetDescAudioEn = () => {
+    if (descAudioRefEn.current) {
+      descAudioRefEn.current.pause(); // Stop the old story
+      descAudioRefEn.current.load(); // Reload the new source
+    }
+  };
   const handleThumbChange = (event) => {
     const selectedFile = event.target.files[0];
     setThumbFile(selectedFile);
+    if (selectedFile) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setThumbSrcDe(reader.result);
+      };
+      reader.readAsDataURL(selectedFile);
+    }
   };
   const handleBGImageChange = (event) => {
     const selectedFile = event.target.files[0];
     setTourBGImageFile(selectedFile);
+    if (selectedFile) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setBgImageSrcDe(reader.result);
+      };
+      reader.readAsDataURL(selectedFile);
+    }
+  };
+  const modalToggleThumb = (isOpen) => {
+    setIsModalOpenThumb(isOpen);
+  };
+  const modalToggleBG = (isOpen) => {
+    setIsModalOpenBG(isOpen);
   };
   const handleAudioStoryDeChange = (event) => {
     const selectedFile = event.target.files[0];
     setStoryDe(selectedFile);
+    if (selectedFile) {
+      const reader = new FileReader();
+
+      reader.onload = (event) => {
+        setStorySrcDe(event.target.result); // Set audio source
+        resetStoryDe();
+      };
+
+      reader.readAsDataURL(selectedFile); // Convert file to data URL
+    }
   };
   const handleAudioStoryEnChange = (event) => {
     const selectedFile = event.target.files[0];
     setStoryEn(selectedFile);
-  };
+    if (selectedFile) {
+      const reader = new FileReader();
 
+      reader.onload = (event) => {
+        setStorySrcEn(event.target.result); // Set audio source
+        resetStoryEn();
+      };
+
+      reader.readAsDataURL(selectedFile); // Convert file to data URL
+    }
+  };
+  const resetStoryDe = () => {
+    if (storyRefDe.current) {
+      storyRefDe.current.pause(); // Stop the old audio
+      storyRefDe.current.load(); // Reload the new source
+    }
+  };
+  const resetStoryEn = () => {
+    if (storyRefEn.current) {
+      storyRefEn.current.pause(); // Stop the old story
+      storyRefEn.current.load(); // Reload the new source
+    }
+  };
   // Function to add a new item to the linksDe array
   const addNewImage = () => {
     setImages([
@@ -356,7 +484,7 @@ const NewTourPage = () => {
               <img src={DeuFlagImg} className="m-auto" />
             </div>
             <h1 className="text-[#5A5A5A] text-3xl font-normal mb-12">
-              Tour Overview
+              Tour Vorschau
             </h1>
 
             <div className="grid grid-cols-12 gap-4 items-center mb-6">
@@ -451,14 +579,21 @@ const NewTourPage = () => {
                     <FileInput
                       className="text-[#5A5A5A]"
                       id="file-upload"
+                      accept="audio/*"
                       onChange={handleDescAudioDeChange}
                     />
+                    {descAudioSrcDe && (
+                      <audio ref={descAudioRefDe} controls className="mt-2">
+                        <source src={descAudioSrcDe} type="audio/mp3" />
+                        Your browser does not support the audio tag.
+                      </audio>
+                    )}
                   </div>
                 </div>
               </div>
             </div>
             <h1 className="text-[#5A5A5A] text-3xl font-normal mb-12 mt-12">
-              Tour Details
+              Tour Detailseite
             </h1>
 
             <div className="grid grid-cols-12 gap-4 items-center mb-6">
@@ -512,8 +647,15 @@ const NewTourPage = () => {
                     <FileInput
                       className="text-[#5A5A5A]"
                       id="file-upload"
+                      accept="audio/*"
                       onChange={handleFileDeChange}
                     />
+                    {audioSrcDe && (
+                      <audio ref={audioRefDe} controls className="mt-2">
+                        <source src={audioSrcDe} type="audio/mp3" />
+                        Your browser does not support the audio tag.
+                      </audio>
+                    )}
                   </div>
                 </div>
               </div>
@@ -539,8 +681,15 @@ const NewTourPage = () => {
                     <FileInput
                       className="text-[#5A5A5A]"
                       id="file-upload"
+                      accept="audio/*"
                       onChange={handleAudioStoryDeChange}
                     />
+                    {storySrcDe && (
+                      <audio ref={storyRefDe} controls className="mt-2">
+                        <source src={storySrcDe} type="audio/mp3" />
+                        Your browser does not support the audio tag.
+                      </audio>
+                    )}
                   </div>
                 </div>
               </div>
@@ -673,8 +822,15 @@ const NewTourPage = () => {
                     <FileInput
                       className="text-[#5A5A5A]"
                       id="file-upload"
+                      accept="audio/*"
                       onChange={handleDescAudioEnChange}
                     />
+                    {descAudioSrcEn && (
+                      <audio ref={descAudioRefEn} controls className="mt-2">
+                        <source src={descAudioSrcEn} type="audio/mp3" />
+                        Your browser does not support the audio tag.
+                      </audio>
+                    )}
                   </div>
                 </div>
               </div>
@@ -713,9 +869,16 @@ const NewTourPage = () => {
                   <div className="col-span-9">
                     <FileInput
                       className="text-[#5A5A5A]"
+                      accept="audio/*"
                       id="file-upload"
                       onChange={handleFileEnChange}
                     />
+                    {audioSrcEn && (
+                      <audio ref={audioRefEn} controls className="mt-2">
+                        <source src={audioSrcEn} type="audio/mp3" />
+                        Your browser does not support the audio tag.
+                      </audio>
+                    )}
                   </div>
                 </div>
               </div>
@@ -730,9 +893,16 @@ const NewTourPage = () => {
                   <div className="col-span-9">
                     <FileInput
                       className="text-[#5A5A5A]"
+                      accept="audio/*"
                       id="file-upload"
                       onChange={handleAudioStoryEnChange}
                     />
+                    {storySrcEn && (
+                      <audio ref={storyRefEn} controls className="mt-2">
+                        <source src={storySrcEn} type="audio/mp3" />
+                        Your browser does not support the audio tag.
+                      </audio>
+                    )}
                   </div>
                 </div>
               </div>
@@ -889,7 +1059,10 @@ const NewTourPage = () => {
         <h1 className="text-[#5A5A5A] text-3xl font-normal mb-12">Bilder</h1>
         <div className="grid grid-cols-12 gap-4 items-center mb-6">
           <div className="col-span-1">
-            <Tooltip content="Tip Description" placement="top">
+            <Tooltip
+              content="Format: Querformat, max. Dateigröße 200kB"
+              placement="top"
+            >
               <InformationCircleIcon
                 strokeWidth={2}
                 className="h-10 w-10 text-[#5A5A5A]"
@@ -969,7 +1142,9 @@ const NewTourPage = () => {
         <div className="container m-auto mt-20 pb-12"></div>
       </div>
       <div className="container m-auto mt-12">
-        <h1 className="text-[#5A5A5A] text-3xl font-normal mb-12">Kurz Info</h1>
+        <h1 className="text-[#5A5A5A] text-3xl font-normal mb-12">
+          Kurzinfo Tourvorschau
+        </h1>
         <div className="grid grid-cols-12 gap-4 items-center mb-6">
           <div className="col-span-1">
             <Tooltip
@@ -1033,7 +1208,10 @@ const NewTourPage = () => {
         </div>
         <div className="grid grid-cols-12 gap-4 items-center mb-6">
           <div className="col-span-1">
-            <Tooltip content="Tour Vorschaubild" placement="top">
+            <Tooltip
+              content="Format: Quadratisch, max. Dateigröße 200kB"
+              placement="top"
+            >
               <InformationCircleIcon
                 strokeWidth={2}
                 className="h-10 w-10 text-[#5A5A5A]"
@@ -1048,16 +1226,48 @@ const NewTourPage = () => {
               <div className="col-span-9">
                 <FileInput
                   className="text-[#5A5A5A]"
+                  accept="image/*"
                   id="file-upload"
                   onChange={handleBGImageChange}
                 />
+                {bgImageSrcDe && (
+                  <div className="relative mt-2 w-[max-content]">
+                    {/* Thumbnail Preview */}
+                    <img
+                      src={bgImageSrcDe}
+                      alt="Preview"
+                      className="w-72 h-auto rounded-lg shadow-lg cursor-pointer transition-transform hover:scale-105"
+                      onClick={() => modalToggleBG(true)} // Open modal on click
+                    />
+
+                    {/* Full-Size Modal */}
+                    {isModalOpenBG && (
+                      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                        <img
+                          src={bgImageSrcDe}
+                          alt="Full Size Preview"
+                          className="max-w-full max-h-full rounded-lg shadow-xl"
+                        />
+                        <button
+                          className="absolute top-4 right-4 bg-white text-black p-2 rounded-full shadow-md"
+                          onClick={() => modalToggleBG(false)} // Close modal on click
+                        >
+                          ✕
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           </div>
         </div>
         <div className="grid grid-cols-12 gap-4 items-center mb-6">
           <div className="col-span-1">
-            <Tooltip content="Video Vorschaubild" placement="top">
+            <Tooltip
+              content="Format: Querformat, max. Dateigröße 200kB"
+              placement="top"
+            >
               <InformationCircleIcon
                 strokeWidth={2}
                 className="h-10 w-10 text-[#5A5A5A]"
@@ -1073,8 +1283,37 @@ const NewTourPage = () => {
                 <FileInput
                   className="text-[#5A5A5A]"
                   id="file-upload"
+                  accept="image/*"
                   onChange={handleThumbChange}
                 />
+                {thumbSrcDe && (
+                  <div className="relative mt-2 w-[max-content]">
+                    {/* Thumbnail Preview */}
+                    <img
+                      src={thumbSrcDe}
+                      alt="Preview"
+                      className="w-72 h-auto rounded-lg shadow-lg cursor-pointer transition-transform hover:scale-105"
+                      onClick={() => modalToggleThumb(true)} // Open modal on click
+                    />
+
+                    {/* Full-Size Modal */}
+                    {isModalOpenThumb && (
+                      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                        <img
+                          src={thumbSrcDe}
+                          alt="Full Size Preview"
+                          className="max-w-full max-h-full rounded-lg shadow-xl"
+                        />
+                        <button
+                          className="absolute top-4 right-4 bg-white text-black p-2 rounded-full shadow-md"
+                          onClick={() => modalToggleThumb(false)} // Close modal on click
+                        >
+                          ✕
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           </div>

@@ -22,7 +22,7 @@ import {
 import { FileInput } from "flowbite-react";
 import DeuFlagImg from "../../images/flags/deuflage.png";
 import AMFlagImg from "../../images/flags/amflag.png";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   collection,
   getDocs,
@@ -39,6 +39,10 @@ import { db, auth, storage } from "../../config/firebase-config";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 const EditFaqPage = () => {
   const navigate = useNavigate();
+  const audioRefDe = useRef(null);
+  const audioRefEn = useRef(null);
+  const [audioSrcDe, setAudioSrcDe] = useState(null);
+  const [audioSrcEn, setAudioSrcEn] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [faqID, setFaqID] = useState("");
@@ -116,10 +120,42 @@ const EditFaqPage = () => {
   const handleFileDeChange = (event) => {
     const selectedFile = event.target.files[0];
     setDeFile(selectedFile);
+    if (selectedFile) {
+      const reader = new FileReader();
+
+      reader.onload = (event) => {
+        setAudioSrcDe(event.target.result); // Set audio source
+        resetAudioDe();
+      };
+
+      reader.readAsDataURL(selectedFile); // Convert file to data URL
+    }
   };
   const handleFileEnChange = (event) => {
     const selectedFile = event.target.files[0];
     setEnFile(selectedFile);
+    if (selectedFile) {
+      const reader = new FileReader();
+
+      reader.onload = (event) => {
+        setAudioSrcEn(event.target.result); // Set audio source
+        resetAudioEn();
+      };
+
+      reader.readAsDataURL(selectedFile); // Convert file to data URL
+    }
+  };
+  const resetAudioDe = () => {
+    if (audioRefDe.current) {
+      audioRefDe.current.pause(); // Stop the old audio
+      audioRefDe.current.load(); // Reload the new source
+    }
+  };
+  const resetAudioEn = () => {
+    if (audioRefEn.current) {
+      audioRefEn.current.pause(); // Stop the old audio
+      audioRefEn.current.load(); // Reload the new source
+    }
   };
   const extractFileName = (url) => {
     const path = url.split("?")[0]; // Removes query parameters
@@ -313,6 +349,10 @@ const EditFaqPage = () => {
                           }
                           readOnly
                         />
+                        <audio controls className="mt-2">
+                          <source src={basicfileDeUrl} type="audio/mp3" />
+                          Your browser does not support the audio tag.
+                        </audio>
                       </div>
                       <div className="col-span-1 items-center flex">
                         <TrashIcon
@@ -333,6 +373,12 @@ const EditFaqPage = () => {
                         accept="audio/*"
                         onChange={handleFileDeChange}
                       />
+                      {audioSrcDe && (
+                        <audio ref={audioRefDe} controls className="mt-2">
+                          <source src={audioSrcDe} type="audio/mp3" />
+                          Your browser does not support the audio tag.
+                        </audio>
+                      )}
                     </div>
                   )}
                 </div>
@@ -470,6 +516,10 @@ const EditFaqPage = () => {
                           }
                           readOnly
                         />
+                        <audio controls className="mt-2">
+                          <source src={basicfileEnUrl} type="audio/mp3" />
+                          Your browser does not support the audio tag.
+                        </audio>
                       </div>
                       <div className="col-span-1 items-center flex">
                         <TrashIcon
@@ -490,6 +540,12 @@ const EditFaqPage = () => {
                         accept="audio/*"
                         onChange={handleFileEnChange}
                       />
+                      {audioSrcEn && (
+                        <audio ref={audioRefEn} controls className="mt-2">
+                          <source src={audioSrcEn} type="audio/mp3" />
+                          Your browser does not support the audio tag.
+                        </audio>
+                      )}
                     </div>
                   )}
                 </div>

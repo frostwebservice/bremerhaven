@@ -21,7 +21,7 @@ import {
 import { FileInput } from "flowbite-react";
 import DeuFlagImg from "../../images/flags/deuflage.png";
 import AMFlagImg from "../../images/flags/amflag.png";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   collection,
   getDocs,
@@ -37,6 +37,10 @@ import { db, auth, storage } from "../../config/firebase-config";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 const NewPoiPage = () => {
   const navigate = useNavigate();
+  const audioRefDe = useRef(null);
+  const audioRefEn = useRef(null);
+  const storyRefDe = useRef(null);
+  const storyRefEn = useRef(null);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [imagePanel, setImagePanel] = useState(Date.now());
@@ -87,6 +91,21 @@ const NewPoiPage = () => {
   const [storyDe, setStoryDe] = useState(null);
   const [storyEn, setStoryEn] = useState(null);
   const [thumbDe, setThumbDe] = useState(null);
+
+  const [audioSrcDe, setAudioSrcDe] = useState(null);
+  const [audioSrcEn, setAudioSrcEn] = useState(null);
+  const [storySrcDe, setStorySrcDe] = useState(null);
+  const [storySrcEn, setStorySrcEn] = useState(null);
+
+  const [thumbSrcDe, setThumbSrcDe] = useState(null);
+  const [isModalOpenThumb, setIsModalOpenThumb] = useState(false);
+  const [tipSrcDe, setTipSrcDe] = useState(null);
+  const [isModalOpenTip, setIsModalOpenTip] = useState(false);
+
+  const [arImageSrcDe, setARImageSrcDe] = useState(null);
+  const [isModalOpenAR, setIsModalOpenAR] = useState(false);
+  const [panoramaImageSrcDe, setPanoramaImageSrcDe] = useState(null);
+  const [isModalOpenPanorama, setIsModalOpenPanorama] = useState(false);
   // const [thumbEn, setThumbEn] = useState(null);
   const [fileARImage, setFileARImage] = useState(null);
   const [filePanoramaImage, setFilePanoramaImage] = useState(null);
@@ -96,12 +115,43 @@ const NewPoiPage = () => {
   const handleFileDeChange = (event) => {
     const selectedFile = event.target.files[0];
     setFileDe(selectedFile);
+    if (selectedFile) {
+      const reader = new FileReader();
+
+      reader.onload = (event) => {
+        setAudioSrcDe(event.target.result); // Set audio source
+        resetAudioDe();
+      };
+
+      reader.readAsDataURL(selectedFile); // Convert file to data URL
+    }
   };
   const handleFileEnChange = (event) => {
     const selectedFile = event.target.files[0];
     setFileEn(selectedFile);
-  };
+    if (selectedFile) {
+      const reader = new FileReader();
 
+      reader.onload = (event) => {
+        setAudioSrcEn(event.target.result); // Set audio source
+        resetAudioEn();
+      };
+
+      reader.readAsDataURL(selectedFile); // Convert file to data URL
+    }
+  };
+  const resetAudioDe = () => {
+    if (audioRefDe.current) {
+      audioRefDe.current.pause(); // Stop the old audio
+      audioRefDe.current.load(); // Reload the new source
+    }
+  };
+  const resetAudioEn = () => {
+    if (audioRefEn.current) {
+      audioRefEn.current.pause(); // Stop the old audio
+      audioRefEn.current.load(); // Reload the new source
+    }
+  };
   const handleBilderChange = (index, event) => {
     const selectedFile = event.target.files[0];
     if (selectedFile) {
@@ -135,6 +185,16 @@ const NewPoiPage = () => {
   const handleTipDeChange = (event) => {
     const selectedFile = event.target.files[0];
     setTipDe(selectedFile);
+    if (selectedFile) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setTipSrcDe(reader.result);
+      };
+      reader.readAsDataURL(selectedFile);
+    }
+  };
+  const modalToggleTip = (isOpen) => {
+    setIsModalOpenTip(isOpen);
   };
   const handleTipEnChange = (event) => {
     const selectedFile = event.target.files[0];
@@ -144,6 +204,17 @@ const NewPoiPage = () => {
   const handleThumbDeChange = (event) => {
     const selectedFile = event.target.files[0];
     setThumbDe(selectedFile);
+
+    if (selectedFile) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setThumbSrcDe(reader.result);
+      };
+      reader.readAsDataURL(selectedFile);
+    }
+  };
+  const modalToggleThumb = (isOpen) => {
+    setIsModalOpenThumb(isOpen);
   };
   // const handleThumbEnChange = (event) => {
   //   const selectedFile = event.target.files[0];
@@ -152,20 +223,71 @@ const NewPoiPage = () => {
   const handleAudioStoryDeChange = (event) => {
     const selectedFile = event.target.files[0];
     setStoryDe(selectedFile);
+    if (selectedFile) {
+      const reader = new FileReader();
+
+      reader.onload = (event) => {
+        setStorySrcDe(event.target.result); // Set audio source
+        resetStoryDe();
+      };
+
+      reader.readAsDataURL(selectedFile); // Convert file to data URL
+    }
   };
   const handleAudioStoryEnChange = (event) => {
     const selectedFile = event.target.files[0];
     setStoryEn(selectedFile);
+    if (selectedFile) {
+      const reader = new FileReader();
+
+      reader.onload = (event) => {
+        setStorySrcEn(event.target.result); // Set audio source
+        resetStoryEn();
+      };
+
+      reader.readAsDataURL(selectedFile); // Convert file to data URL
+    }
+  };
+  const resetStoryDe = () => {
+    if (storyRefDe.current) {
+      storyRefDe.current.pause(); // Stop the old audio
+      storyRefDe.current.load(); // Reload the new source
+    }
+  };
+  const resetStoryEn = () => {
+    if (storyRefEn.current) {
+      storyRefEn.current.pause(); // Stop the old story
+      storyRefEn.current.load(); // Reload the new source
+    }
   };
   const handleFileARImageChange = (event) => {
     const selectedFile = event.target.files[0];
     setFileARImage(selectedFile);
+    if (selectedFile) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setARImageSrcDe(reader.result);
+      };
+      reader.readAsDataURL(selectedFile);
+    }
   };
   const handleFilePanoramaImageChange = (event) => {
     const selectedFile = event.target.files[0];
     setFilePanoramaImage(selectedFile);
+    if (selectedFile) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPanoramaImageSrcDe(reader.result);
+      };
+      reader.readAsDataURL(selectedFile);
+    }
   };
-
+  const modalToggleAR = (isOpen) => {
+    setIsModalOpenAR(isOpen);
+  };
+  const modalTogglePanorama = (isOpen) => {
+    setIsModalOpenPanorama(isOpen);
+  };
   // Function to add a new item to the linksDe array
   const addNewImage = () => {
     setImages([
@@ -358,6 +480,40 @@ const NewPoiPage = () => {
             </div>
             <div className="grid grid-cols-12 gap-4 items-center mb-6">
               <div className="col-span-1">
+                <Tooltip content="Max. 18 Zeichen" placement="top">
+                  <InformationCircleIcon
+                    strokeWidth={2}
+                    className="h-10 w-10 text-[#5A5A5A]"
+                  ></InformationCircleIcon>
+                </Tooltip>
+              </div>
+              <div className="col-span-11">
+                <div className="grid grid-cols-12">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
+                    Name
+                  </div>
+                  <div className="col-span-9">
+                    <Input
+                      className="bg-white"
+                      icon={<PencilSquareIcon />}
+                      value={nameDe}
+                      onChange={(e) => {
+                        setNameDe(e.target.value);
+                        setNameDeError(false);
+                        setError(false);
+                      }}
+                    />
+                    {nameDeError ? (
+                      <p className="text-red-800">
+                        Please fill out this field.
+                      </p>
+                    ) : null}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-12 gap-4 items-center mb-6">
+              <div className="col-span-1">
                 <Tooltip
                   content="Unbegrenzte Anzahl an Zeichen"
                   placement="top"
@@ -393,40 +549,7 @@ const NewPoiPage = () => {
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-12 gap-4 items-center mb-6">
-              <div className="col-span-1">
-                <Tooltip content="Max. 18 Zeichen" placement="top">
-                  <InformationCircleIcon
-                    strokeWidth={2}
-                    className="h-10 w-10 text-[#5A5A5A]"
-                  ></InformationCircleIcon>
-                </Tooltip>
-              </div>
-              <div className="col-span-11">
-                <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
-                    Name
-                  </div>
-                  <div className="col-span-9">
-                    <Input
-                      className="bg-white"
-                      icon={<PencilSquareIcon />}
-                      value={nameDe}
-                      onChange={(e) => {
-                        setNameDe(e.target.value);
-                        setNameDeError(false);
-                        setError(false);
-                      }}
-                    />
-                    {nameDeError ? (
-                      <p className="text-red-800">
-                        Please fill out this field.
-                      </p>
-                    ) : null}
-                  </div>
-                </div>
-              </div>
-            </div>
+
             <div className="grid grid-cols-12 gap-4 items-center mb-6">
               <div className="col-span-1">
                 <Tooltip
@@ -518,6 +641,12 @@ const NewPoiPage = () => {
                       id="file-upload"
                       onChange={handleFileDeChange}
                     />
+                    {audioSrcDe && (
+                      <audio ref={audioRefDe} controls className="mt-2">
+                        <source src={audioSrcDe} type="audio/mp3" />
+                        Your browser does not support the audio tag.
+                      </audio>
+                    )}
                   </div>
                 </div>
               </div>
@@ -546,6 +675,12 @@ const NewPoiPage = () => {
                       id="file-upload"
                       onChange={handleAudioStoryDeChange}
                     />
+                    {storySrcDe && (
+                      <audio ref={storyRefDe} controls className="mt-2">
+                        <source src={storySrcDe} type="audio/mp3" />
+                        Your browser does not support the audio tag.
+                      </audio>
+                    )}
                   </div>
                 </div>
               </div>
@@ -598,6 +733,34 @@ const NewPoiPage = () => {
                       accept="image/*"
                       onChange={handleThumbDeChange}
                     />
+                    {thumbSrcDe && (
+                      <div className="relative mt-2 w-[max-content]">
+                        {/* Thumbnail Preview */}
+                        <img
+                          src={thumbSrcDe}
+                          alt="Preview"
+                          className="w-72 h-auto rounded-lg shadow-lg cursor-pointer transition-transform hover:scale-105"
+                          onClick={() => modalToggleThumb(true)} // Open modal on click
+                        />
+
+                        {/* Full-Size Modal */}
+                        {isModalOpenThumb && (
+                          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                            <img
+                              src={thumbSrcDe}
+                              alt="Full Size Preview"
+                              className="max-w-full max-h-full rounded-lg shadow-xl"
+                            />
+                            <button
+                              className="absolute top-4 right-4 bg-white text-black p-2 rounded-full shadow-md"
+                              onClick={() => modalToggleThumb(false)} // Close modal on click
+                            >
+                              ✕
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -634,34 +797,6 @@ const NewPoiPage = () => {
             <div className="text-center m-auto mb-16">
               <img src={AMFlagImg} className="m-auto" />
             </div>
-
-            <div className="grid grid-cols-12 gap-4 items-center mb-6">
-              <div className="col-span-1"></div>
-              <div className="col-span-11">
-                <div className="grid grid-cols-12">
-                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
-                    Überschrift
-                  </div>
-                  <div className="col-span-9">
-                    <Input
-                      className="bg-white"
-                      icon={<PencilSquareIcon />}
-                      value={firstTextHeadingEn}
-                      onChange={(e) => {
-                        setFirstTextHeadingEnError(false);
-                        setError(false);
-                        setFirstTextHeadingEn(e.target.value);
-                      }}
-                    />
-                    {firstTextHeadingEnError ? (
-                      <p className="text-red-800">
-                        Please fill out this field.
-                      </p>
-                    ) : null}
-                  </div>
-                </div>
-              </div>
-            </div>
             <div className="grid grid-cols-12 gap-4 items-center mb-6">
               <div className="col-span-1"></div>
               <div className="col-span-11">
@@ -689,6 +824,34 @@ const NewPoiPage = () => {
                 </div>
               </div>
             </div>
+            <div className="grid grid-cols-12 gap-4 items-center mb-6">
+              <div className="col-span-1"></div>
+              <div className="col-span-11">
+                <div className="grid grid-cols-12">
+                  <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
+                    Überschrift
+                  </div>
+                  <div className="col-span-9">
+                    <Input
+                      className="bg-white"
+                      icon={<PencilSquareIcon />}
+                      value={firstTextHeadingEn}
+                      onChange={(e) => {
+                        setFirstTextHeadingEnError(false);
+                        setError(false);
+                        setFirstTextHeadingEn(e.target.value);
+                      }}
+                    />
+                    {firstTextHeadingEnError ? (
+                      <p className="text-red-800">
+                        Please fill out this field.
+                      </p>
+                    ) : null}
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div className="grid grid-cols-12 gap-4 items-center mb-6">
               <div className="col-span-1"></div>
               <div className="col-span-11">
@@ -750,6 +913,12 @@ const NewPoiPage = () => {
                       id="file-upload"
                       onChange={handleFileEnChange}
                     />
+                    {audioSrcEn && (
+                      <audio ref={audioRefEn} controls className="mt-2">
+                        <source src={audioSrcEn} type="audio/mp3" />
+                        Your browser does not support the audio tag.
+                      </audio>
+                    )}
                   </div>
                 </div>
               </div>
@@ -768,6 +937,12 @@ const NewPoiPage = () => {
                       id="file-upload"
                       onChange={handleAudioStoryEnChange}
                     />
+                    {storySrcEn && (
+                      <audio ref={storyRefEn} controls className="mt-2">
+                        <source src={storySrcEn} type="audio/mp3" />
+                        Your browser does not support the audio tag.
+                      </audio>
+                    )}
                   </div>
                 </div>
               </div>
@@ -841,7 +1016,7 @@ const NewPoiPage = () => {
         <div className="grid lg:grid-cols-2 gap-6">
           <div>
             <h1 className="text-[#5A5A5A] text-3xl font-normal mb-12">
-              Social Medien Links
+              Social Media Links
             </h1>
             <div className="grid grid-cols-12 gap-4 items-center mb-6">
               <div className="col-span-1">
@@ -999,7 +1174,10 @@ const NewPoiPage = () => {
         <h1 className="text-[#5A5A5A] text-3xl font-normal mb-12">Bilder</h1>
         <div className="grid grid-cols-12 gap-4 items-center mb-6">
           <div className="col-span-1">
-            <Tooltip content="Tip Description" placement="top">
+            <Tooltip
+              content="Format: Querformat, max. Dateigröße 200kB"
+              placement="top"
+            >
               <InformationCircleIcon
                 strokeWidth={2}
                 className="h-10 w-10 text-[#5A5A5A]"
@@ -1109,12 +1287,13 @@ const NewPoiPage = () => {
       <div className="container m-auto mt-12">
         <div className="grid lg:grid-cols-2 gap-6">
           <div>
-            <h1 className="text-[#5A5A5A] text-3xl font-normal mb-12">
-              Tipp hinzufugen
-            </h1>
+            <h1 className="text-[#5A5A5A] text-3xl font-normal mb-12">Tipp</h1>
             <div className="grid grid-cols-12 gap-4 items-center mb-6">
               <div className="col-span-1">
-                <Tooltip content="Tip Description" placement="top">
+                <Tooltip
+                  content="Unbegrenzte Anzahl an Zeichen"
+                  placement="top"
+                >
                   <InformationCircleIcon
                     strokeWidth={2}
                     className="h-10 w-10 text-[#5A5A5A]"
@@ -1169,7 +1348,10 @@ const NewPoiPage = () => {
             </div>
             <div className="grid grid-cols-12 gap-4 items-center mb-6">
               <div className="col-span-1">
-                <Tooltip content="Tip Image" placement="top">
+                <Tooltip
+                  content="Format: Querformat, max. Dateigröße 200kB"
+                  placement="top"
+                >
                   <InformationCircleIcon
                     strokeWidth={2}
                     className="h-10 w-10 text-[#5A5A5A]"
@@ -1188,6 +1370,34 @@ const NewPoiPage = () => {
                       id="file-upload"
                       onChange={handleTipDeChange}
                     />
+                    {tipSrcDe && (
+                      <div className="relative mt-2 w-[max-content]">
+                        {/* Thumbnail Preview */}
+                        <img
+                          src={tipSrcDe}
+                          alt="Preview"
+                          className="w-72 h-auto rounded-lg shadow-lg cursor-pointer transition-transform hover:scale-105"
+                          onClick={() => modalToggleTip(true)} // Open modal on click
+                        />
+
+                        {/* Full-Size Modal */}
+                        {isModalOpenTip && (
+                          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                            <img
+                              src={tipSrcDe}
+                              alt="Full Size Preview"
+                              className="max-w-full max-h-full rounded-lg shadow-xl"
+                            />
+                            <button
+                              className="absolute top-4 right-4 bg-white text-black p-2 rounded-full shadow-md"
+                              onClick={() => modalToggleTip(false)} // Close modal on click
+                            >
+                              ✕
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -1266,7 +1476,7 @@ const NewPoiPage = () => {
         <div className="grid gap-6">
           <div>
             <h1 className="text-[#5A5A5A] text-3xl font-normal mb-12">
-              AR Scene eingeben
+              AR-Szene oder Panoramabild hinzufügen
             </h1>
             <div className="grid grid-cols-12 gap-4 items-center mb-6">
               <div className="col-span-1">
@@ -1337,6 +1547,34 @@ const NewPoiPage = () => {
                   id="file-upload"
                   onChange={handleFileARImageChange}
                 />
+                {arImageSrcDe && (
+                  <div className="relative mt-2 w-[max-content]">
+                    {/* Thumbnail Preview */}
+                    <img
+                      src={arImageSrcDe}
+                      alt="Preview"
+                      className="w-72 h-auto rounded-lg shadow-lg cursor-pointer transition-transform hover:scale-105"
+                      onClick={() => modalToggleAR(true)} // Open modal on click
+                    />
+
+                    {/* Full-Size Modal */}
+                    {isModalOpenAR && (
+                      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                        <img
+                          src={arImageSrcDe}
+                          alt="Full Size Preview"
+                          className="max-w-full max-h-full rounded-lg shadow-xl"
+                        />
+                        <button
+                          className="absolute top-4 right-4 bg-white text-black p-2 rounded-full shadow-md"
+                          onClick={() => modalToggleAR(false)} // Close modal on click
+                        >
+                          ✕
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
             <div className="grid grid-cols-12 gap-4 items-center mb-6">
@@ -1349,7 +1587,7 @@ const NewPoiPage = () => {
                 </Tooltip>
               </div>
               <div className="col-span-2 flex items-center justify-center pr-2 text-[#5A5A5A] text-xl">
-                Panorama Image
+                Panoramabild
               </div>
               <div className="col-span-9">
                 <FileInput
@@ -1358,6 +1596,34 @@ const NewPoiPage = () => {
                   id="file-upload"
                   onChange={handleFilePanoramaImageChange}
                 />
+                {panoramaImageSrcDe && (
+                  <div className="relative mt-2 w-[max-content]">
+                    {/* Thumbnail Preview */}
+                    <img
+                      src={panoramaImageSrcDe}
+                      alt="Preview"
+                      className="w-72 h-auto rounded-lg shadow-lg cursor-pointer transition-transform hover:scale-105"
+                      onClick={() => modalTogglePanorama(true)} // Open modal on click
+                    />
+
+                    {/* Full-Size Modal */}
+                    {isModalOpenPanorama && (
+                      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                        <img
+                          src={panoramaImageSrcDe}
+                          alt="Full Size Preview"
+                          className="max-w-full max-h-full rounded-lg shadow-xl"
+                        />
+                        <button
+                          className="absolute top-4 right-4 bg-white text-black p-2 rounded-full shadow-md"
+                          onClick={() => modalTogglePanorama(false)} // Close modal on click
+                        >
+                          ✕
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           </div>

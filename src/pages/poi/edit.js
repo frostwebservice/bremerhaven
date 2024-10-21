@@ -23,7 +23,7 @@ import {
 import { FileInput } from "flowbite-react";
 import DeuFlagImg from "../../images/flags/deuflage.png";
 import AMFlagImg from "../../images/flags/amflag.png";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   collection,
   getDocs,
@@ -144,6 +144,10 @@ const EditPoiPage = () => {
     );
   };
   const navigate = useNavigate();
+  const audioRefDe = useRef(null);
+  const audioRefEn = useRef(null);
+  const storyRefDe = useRef(null);
+  const storyRefEn = useRef(null);
   const [loading, setLoading] = useState(false);
   const [poiID, setPoiID] = useState("");
 
@@ -191,6 +195,22 @@ const EditPoiPage = () => {
   const [storyDe, setStoryDe] = useState(null);
   const [storyEn, setStoryEn] = useState(null);
   const [thumbDe, setThumbDe] = useState(null);
+
+  const [audioSrcDe, setAudioSrcDe] = useState(null);
+  const [audioSrcEn, setAudioSrcEn] = useState(null);
+  const [storySrcDe, setStorySrcDe] = useState(null);
+  const [storySrcEn, setStorySrcEn] = useState(null);
+
+  const [thumbSrcDe, setThumbSrcDe] = useState(null);
+  const [isModalOpenThumb, setIsModalOpenThumb] = useState(false);
+  const [tipSrcDe, setTipSrcDe] = useState(null);
+  const [isModalOpenTip, setIsModalOpenTip] = useState(false);
+
+  const [arImageSrcDe, setARImageSrcDe] = useState(null);
+  const [isModalOpenAR, setIsModalOpenAR] = useState(false);
+  const [panoramaImageSrcDe, setPanoramaImageSrcDe] = useState(null);
+  const [isModalOpenPanorama, setIsModalOpenPanorama] = useState(false);
+
   // const [thumbEn, setThumbEn] = useState(null);
   const [fileARImage, setFileARImage] = useState(null);
   const [filePanoramaImage, setFilePanoramaImage] = useState(null);
@@ -213,6 +233,32 @@ const EditPoiPage = () => {
   const [isFileARImage, setIsFileARImage] = useState(false);
   const [filePanoramaImageUrl, setFilePanoramaImageUrl] = useState("");
   const [isFilePanoramaImage, setIsFilePanoramaImage] = useState(false);
+
+  const [isModalOpenDeBasic, setIsModalOpenDeBasic] = useState(false);
+  const [isModalOpenEnBasic, setIsModalOpenEnBasic] = useState(false);
+  const [isModalOpenThumbBasic, setIsModalOpenThumbBasic] = useState(false);
+  const [isModalOpenTipDeBasic, setIsModalOpenTipDeBasic] = useState(false);
+  const [isModalOpenARBasic, setIsModalOpenARBasic] = useState(false);
+  const [isModalOpenPanoramaBasic, setIsModalPanoramaBasic] = useState(false);
+  const modalToggleARBasic = (isOpen) => {
+    setIsModalOpenARBasic(isOpen);
+  };
+  const modalTogglePanoramaBasic = (isOpen) => {
+    setIsModalPanoramaBasic(isOpen);
+  };
+  const modalToggleDeBasic = (isOpen) => {
+    setIsModalOpenDeBasic(isOpen);
+  };
+  const modalToggleEnBasic = (isOpen) => {
+    setIsModalOpenEnBasic(isOpen);
+  };
+  const modalToggleThumbBasic = (isOpen) => {
+    setIsModalOpenThumbBasic(isOpen);
+  };
+  const modalToggleTipDeBasic = (isOpen) => {
+    setIsModalOpenTipDeBasic(isOpen);
+  };
+
   const extractFileName = (url) => {
     const path = url.split("?")[0]; // Removes query parameters
     const fileName = path.substring(path.lastIndexOf("/") + 1);
@@ -307,10 +353,42 @@ const EditPoiPage = () => {
   const handleFileDeChange = (event) => {
     const selectedFile = event.target.files[0];
     setFileDe(selectedFile);
+    if (selectedFile) {
+      const reader = new FileReader();
+
+      reader.onload = (event) => {
+        setAudioSrcDe(event.target.result); // Set audio source
+        resetAudioDe();
+      };
+
+      reader.readAsDataURL(selectedFile); // Convert file to data URL
+    }
   };
   const handleFileEnChange = (event) => {
     const selectedFile = event.target.files[0];
     setFileEn(selectedFile);
+    if (selectedFile) {
+      const reader = new FileReader();
+
+      reader.onload = (event) => {
+        setAudioSrcEn(event.target.result); // Set audio source
+        resetAudioEn();
+      };
+
+      reader.readAsDataURL(selectedFile); // Convert file to data URL
+    }
+  };
+  const resetAudioDe = () => {
+    if (audioRefDe.current) {
+      audioRefDe.current.pause(); // Stop the old audio
+      audioRefDe.current.load(); // Reload the new source
+    }
+  };
+  const resetAudioEn = () => {
+    if (audioRefEn.current) {
+      audioRefEn.current.pause(); // Stop the old audio
+      audioRefEn.current.load(); // Reload the new source
+    }
   };
   const handleBilderChange = (index, event) => {
     const selectedFile = event.target.files[0];
@@ -376,6 +454,16 @@ const EditPoiPage = () => {
   const handleTipDeChange = (event) => {
     const selectedFile = event.target.files[0];
     setTipDe(selectedFile);
+    if (selectedFile) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setTipSrcDe(reader.result);
+      };
+      reader.readAsDataURL(selectedFile);
+    }
+  };
+  const modalToggleTip = (isOpen) => {
+    setIsModalOpenTip(isOpen);
   };
   const handleTipEnChange = (event) => {
     const selectedFile = event.target.files[0];
@@ -385,6 +473,16 @@ const EditPoiPage = () => {
   const handleThumbDeChange = (event) => {
     const selectedFile = event.target.files[0];
     setThumbDe(selectedFile);
+    if (selectedFile) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setThumbSrcDe(reader.result);
+      };
+      reader.readAsDataURL(selectedFile);
+    }
+  };
+  const modalToggleThumb = (isOpen) => {
+    setIsModalOpenThumb(isOpen);
   };
   // const handleThumbEnChange = (event) => {
   //   const selectedFile = event.target.files[0];
@@ -393,20 +491,71 @@ const EditPoiPage = () => {
   const handleAudioStoryDeChange = (event) => {
     const selectedFile = event.target.files[0];
     setStoryDe(selectedFile);
+    if (selectedFile) {
+      const reader = new FileReader();
+
+      reader.onload = (event) => {
+        setStorySrcDe(event.target.result); // Set audio source
+        resetStoryDe();
+      };
+
+      reader.readAsDataURL(selectedFile); // Convert file to data URL
+    }
   };
   const handleAudioStoryEnChange = (event) => {
     const selectedFile = event.target.files[0];
     setStoryEn(selectedFile);
+    if (selectedFile) {
+      const reader = new FileReader();
+
+      reader.onload = (event) => {
+        setStorySrcEn(event.target.result); // Set audio source
+        resetStoryEn();
+      };
+
+      reader.readAsDataURL(selectedFile); // Convert file to data URL
+    }
+  };
+  const resetStoryDe = () => {
+    if (storyRefDe.current) {
+      storyRefDe.current.pause(); // Stop the old audio
+      storyRefDe.current.load(); // Reload the new source
+    }
+  };
+  const resetStoryEn = () => {
+    if (storyRefEn.current) {
+      storyRefEn.current.pause(); // Stop the old story
+      storyRefEn.current.load(); // Reload the new source
+    }
   };
   const handleFileARImageChange = (event) => {
     const selectedFile = event.target.files[0];
     setFileARImage(selectedFile);
+    if (selectedFile) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setARImageSrcDe(reader.result);
+      };
+      reader.readAsDataURL(selectedFile);
+    }
   };
   const handleFilePanoramaImageChange = (event) => {
     const selectedFile = event.target.files[0];
     setFilePanoramaImage(selectedFile);
+    if (selectedFile) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPanoramaImageSrcDe(reader.result);
+      };
+      reader.readAsDataURL(selectedFile);
+    }
   };
-
+  const modalToggleAR = (isOpen) => {
+    setIsModalOpenAR(isOpen);
+  };
+  const modalTogglePanorama = (isOpen) => {
+    setIsModalOpenPanorama(isOpen);
+  };
   // Function to add a new item to the linksDe array
   const addNewImage = () => {
     setImages([
@@ -525,10 +674,11 @@ const EditPoiPage = () => {
       ...imageDescriptionsEn,
     ];
     const poiData = {
-      ARImage: await uploadFile(fileARImage),
-      PanoramaImage: await uploadFile(filePanoramaImage),
-      ThumbnailImage: await uploadFile(thumbDe),
-      TipImage: await uploadFile(tipDe),
+      ARImage: (await uploadFile(fileARImage)) ?? fileARImageUrl,
+      PanoramaImage:
+        (await uploadFile(filePanoramaImage)) ?? filePanoramaImageUrl,
+      ThumbnailImage: (await uploadFile(thumbDe)) ?? thumbDeUrl,
+      TipImage: (await uploadFile(tipDe)) ?? tipDeUrl,
       arActive: isAR,
       arScenelsPanorama: isPanorama,
       gps: GPS,
@@ -541,8 +691,8 @@ const EditPoiPage = () => {
           TipDescription: tipDescDe,
           TipLink: tipLinkDe,
           VideoName: videoNameDe,
-          audiostory: await uploadFile(storyDe),
-          firstAudio: await uploadFile(fileDe),
+          audiostory: (await uploadFile(storyDe)) ?? storyDeUrl,
+          firstAudio: (await uploadFile(fileDe)) ?? fileDeUrl,
           firstText: descDe,
           imagesDescription: newImageDescriptionsDe, // customize
           name: nameDe,
@@ -557,8 +707,8 @@ const EditPoiPage = () => {
           TipDescription: tipDescEn,
           TipLink: tipLinkEn,
           VideoName: videoNameEn,
-          audiostory: await uploadFile(storyEn),
-          firstAudio: await uploadFile(fileEn),
+          audiostory: (await uploadFile(storyEn)) ?? storyEnUrl,
+          firstAudio: (await uploadFile(fileEn)) ?? fileEnUrl,
           firstText: descEn,
           imagesDescription: newImageDescriptionsEn, // customize
           name: nameEn,
@@ -604,6 +754,40 @@ const EditPoiPage = () => {
               </div>
               <div className="grid grid-cols-12 gap-4 items-center mb-6">
                 <div className="col-span-1">
+                  <Tooltip content="Max. 18 Zeichen" placement="top">
+                    <InformationCircleIcon
+                      strokeWidth={2}
+                      className="h-10 w-10 text-[#5A5A5A]"
+                    ></InformationCircleIcon>
+                  </Tooltip>
+                </div>
+                <div className="col-span-11">
+                  <div className="grid grid-cols-12">
+                    <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
+                      Name
+                    </div>
+                    <div className="col-span-9">
+                      <Input
+                        className="bg-white"
+                        icon={<PencilSquareIcon />}
+                        value={nameDe}
+                        onChange={(e) => {
+                          setNameDe(e.target.value);
+                          setNameDeError(false);
+                          setError(false);
+                        }}
+                      />
+                      {nameDeError ? (
+                        <p className="text-red-800">
+                          Please fill out this field.
+                        </p>
+                      ) : null}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-12 gap-4 items-center mb-6">
+                <div className="col-span-1">
                   <Tooltip
                     content="Unbegrenzte Anzahl an Zeichen"
                     placement="top"
@@ -639,40 +823,7 @@ const EditPoiPage = () => {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-12 gap-4 items-center mb-6">
-                <div className="col-span-1">
-                  <Tooltip content="Max. 18 Zeichen" placement="top">
-                    <InformationCircleIcon
-                      strokeWidth={2}
-                      className="h-10 w-10 text-[#5A5A5A]"
-                    ></InformationCircleIcon>
-                  </Tooltip>
-                </div>
-                <div className="col-span-11">
-                  <div className="grid grid-cols-12">
-                    <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
-                      Name
-                    </div>
-                    <div className="col-span-9">
-                      <Input
-                        className="bg-white"
-                        icon={<PencilSquareIcon />}
-                        value={nameDe}
-                        onChange={(e) => {
-                          setNameDe(e.target.value);
-                          setNameDeError(false);
-                          setError(false);
-                        }}
-                      />
-                      {nameDeError ? (
-                        <p className="text-red-800">
-                          Please fill out this field.
-                        </p>
-                      ) : null}
-                    </div>
-                  </div>
-                </div>
-              </div>
+
               <div className="grid grid-cols-12 gap-4 items-center mb-6">
                 <div className="col-span-1">
                   <Tooltip
@@ -768,6 +919,10 @@ const EditPoiPage = () => {
                             }
                             readOnly
                           />
+                          <audio controls className="mt-2">
+                            <source src={fileDeUrl} type="audio/mp3" />
+                            Your browser does not support the audio tag.
+                          </audio>
                         </div>
                         <div className="col-span-1 items-center flex">
                           <TrashIcon
@@ -788,6 +943,12 @@ const EditPoiPage = () => {
                           id="file-upload"
                           onChange={handleFileDeChange}
                         />
+                        {audioSrcDe && (
+                          <audio ref={audioRefDe} controls className="mt-2">
+                            <source src={audioSrcDe} type="audio/mp3" />
+                            Your browser does not support the audio tag.
+                          </audio>
+                        )}
                       </div>
                     )}
                   </div>
@@ -821,6 +982,10 @@ const EditPoiPage = () => {
                             }
                             readOnly
                           />
+                          <audio controls className="mt-2">
+                            <source src={storyDeUrl} type="audio/mp3" />
+                            Your browser does not support the audio tag.
+                          </audio>
                         </div>
                         <div className="col-span-1 items-center flex">
                           <TrashIcon
@@ -841,6 +1006,12 @@ const EditPoiPage = () => {
                           id="file-upload"
                           onChange={handleAudioStoryDeChange}
                         />
+                        {storySrcDe && (
+                          <audio ref={storyRefDe} controls className="mt-2">
+                            <source src={storySrcDe} type="audio/mp3" />
+                            Your browser does not support the audio tag.
+                          </audio>
+                        )}
                       </div>
                     )}
                   </div>
@@ -890,6 +1061,32 @@ const EditPoiPage = () => {
                     {isThumbDe ? (
                       <>
                         <div className="col-span-8">
+                          <div className="relative my-2 w-[max-content]">
+                            {/* Thumbnail Preview */}
+                            <img
+                              src={thumbDeUrl}
+                              alt="Preview"
+                              className="w-72 h-auto rounded-lg shadow-lg cursor-pointer transition-transform hover:scale-105"
+                              onClick={() => modalToggleThumbBasic(true)} // Open modal on click
+                            />
+
+                            {/* Full-Size Modal */}
+                            {isModalOpenThumbBasic && (
+                              <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                                <img
+                                  src={thumbDeUrl}
+                                  alt="Full Size Preview"
+                                  className="max-w-full max-h-full rounded-lg shadow-xl"
+                                />
+                                <button
+                                  className="absolute top-4 right-4 bg-white text-black p-2 rounded-full shadow-md"
+                                  onClick={() => modalToggleThumbBasic(false)} // Close modal on click
+                                >
+                                  ✕
+                                </button>
+                              </div>
+                            )}
+                          </div>
                           <Input
                             className="bg-white"
                             icon={<PencilSquareIcon />}
@@ -918,6 +1115,34 @@ const EditPoiPage = () => {
                           id="file-upload"
                           onChange={handleThumbDeChange}
                         />
+                        {thumbSrcDe && (
+                          <div className="relative mt-2 w-[max-content]">
+                            {/* Thumbnail Preview */}
+                            <img
+                              src={thumbSrcDe}
+                              alt="Preview"
+                              className="w-72 h-auto rounded-lg shadow-lg cursor-pointer transition-transform hover:scale-105"
+                              onClick={() => modalToggleThumb(true)} // Open modal on click
+                            />
+
+                            {/* Full-Size Modal */}
+                            {isModalOpenThumb && (
+                              <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                                <img
+                                  src={thumbSrcDe}
+                                  alt="Full Size Preview"
+                                  className="max-w-full max-h-full rounded-lg shadow-xl"
+                                />
+                                <button
+                                  className="absolute top-4 right-4 bg-white text-black p-2 rounded-full shadow-md"
+                                  onClick={() => modalToggleThumb(false)} // Close modal on click
+                                >
+                                  ✕
+                                </button>
+                              </div>
+                            )}
+                          </div>
+                        )}
                       </div>
                     )}
                   </div>
@@ -955,34 +1180,6 @@ const EditPoiPage = () => {
               <div className="text-center m-auto mb-16">
                 <img src={AMFlagImg} className="m-auto" />
               </div>
-
-              <div className="grid grid-cols-12 gap-4 items-center mb-6">
-                <div className="col-span-1"></div>
-                <div className="col-span-11">
-                  <div className="grid grid-cols-12">
-                    <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
-                      Überschrift
-                    </div>
-                    <div className="col-span-9">
-                      <Input
-                        className="bg-white"
-                        icon={<PencilSquareIcon />}
-                        value={firstTextHeadingEn}
-                        onChange={(e) => {
-                          setFirstTextHeadingEnError(false);
-                          setError(false);
-                          setFirstTextHeadingEn(e.target.value);
-                        }}
-                      />
-                      {firstTextHeadingEnError ? (
-                        <p className="text-red-800">
-                          Please fill out this field.
-                        </p>
-                      ) : null}
-                    </div>
-                  </div>
-                </div>
-              </div>
               <div className="grid grid-cols-12 gap-4 items-center mb-6">
                 <div className="col-span-1"></div>
                 <div className="col-span-11">
@@ -1010,6 +1207,34 @@ const EditPoiPage = () => {
                   </div>
                 </div>
               </div>
+              <div className="grid grid-cols-12 gap-4 items-center mb-6">
+                <div className="col-span-1"></div>
+                <div className="col-span-11">
+                  <div className="grid grid-cols-12">
+                    <div className="col-span-3 flex items-center justify-end pr-2 text-[#5A5A5A] text-xl">
+                      Überschrift
+                    </div>
+                    <div className="col-span-9">
+                      <Input
+                        className="bg-white"
+                        icon={<PencilSquareIcon />}
+                        value={firstTextHeadingEn}
+                        onChange={(e) => {
+                          setFirstTextHeadingEnError(false);
+                          setError(false);
+                          setFirstTextHeadingEn(e.target.value);
+                        }}
+                      />
+                      {firstTextHeadingEnError ? (
+                        <p className="text-red-800">
+                          Please fill out this field.
+                        </p>
+                      ) : null}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <div className="grid grid-cols-12 gap-4 items-center mb-6">
                 <div className="col-span-1"></div>
                 <div className="col-span-11">
@@ -1075,6 +1300,10 @@ const EditPoiPage = () => {
                             }
                             readOnly
                           />
+                          <audio controls className="mt-2">
+                            <source src={fileEnUrl} type="audio/mp3" />
+                            Your browser does not support the audio tag.
+                          </audio>
                         </div>
                         <div className="col-span-1 items-center flex">
                           <TrashIcon
@@ -1095,6 +1324,12 @@ const EditPoiPage = () => {
                           id="file-upload"
                           onChange={handleFileEnChange}
                         />
+                        {audioSrcEn && (
+                          <audio ref={audioRefEn} controls className="mt-2">
+                            <source src={audioSrcEn} type="audio/mp3" />
+                            Your browser does not support the audio tag.
+                          </audio>
+                        )}
                       </div>
                     )}
                   </div>
@@ -1118,6 +1353,10 @@ const EditPoiPage = () => {
                             }
                             readOnly
                           />
+                          <audio controls className="mt-2">
+                            <source src={storyEnUrl} type="audio/mp3" />
+                            Your browser does not support the audio tag.
+                          </audio>
                         </div>
                         <div className="col-span-1 items-center flex">
                           <TrashIcon
@@ -1138,6 +1377,12 @@ const EditPoiPage = () => {
                           id="file-upload"
                           onChange={handleAudioStoryEnChange}
                         />
+                        {storySrcEn && (
+                          <audio ref={storyRefEn} controls className="mt-2">
+                            <source src={storySrcEn} type="audio/mp3" />
+                            Your browser does not support the audio tag.
+                          </audio>
+                        )}
                       </div>
                     )}
                   </div>
@@ -1212,7 +1457,7 @@ const EditPoiPage = () => {
           <div className="grid lg:grid-cols-2 gap-6">
             <div>
               <h1 className="text-[#5A5A5A] text-3xl font-normal mb-12">
-                Social Medien Links
+                Social Media Links
               </h1>
               <div className="grid grid-cols-12 gap-4 items-center mb-6">
                 <div className="col-span-1">
@@ -1370,7 +1615,10 @@ const EditPoiPage = () => {
           <h1 className="text-[#5A5A5A] text-3xl font-normal mb-12">Bilder</h1>
           <div className="grid grid-cols-12 gap-4 items-center mb-6">
             <div className="col-span-1">
-              <Tooltip content="Tip Description" placement="top">
+              <Tooltip
+                content="Format: Querformat, max. Dateigröße 200kB"
+                placement="top"
+              >
                 <InformationCircleIcon
                   strokeWidth={2}
                   className="h-10 w-10 text-[#5A5A5A]"
@@ -1490,11 +1738,14 @@ const EditPoiPage = () => {
           <div className="grid lg:grid-cols-2 gap-6">
             <div>
               <h1 className="text-[#5A5A5A] text-3xl font-normal mb-12">
-                Tipp hinzufugen
+                Tipp
               </h1>
               <div className="grid grid-cols-12 gap-4 items-center mb-6">
                 <div className="col-span-1">
-                  <Tooltip content="Tip Description" placement="top">
+                  <Tooltip
+                    content="Unbegrenzte Anzahl an Zeichen"
+                    placement="top"
+                  >
                     <InformationCircleIcon
                       strokeWidth={2}
                       className="h-10 w-10 text-[#5A5A5A]"
@@ -1549,7 +1800,10 @@ const EditPoiPage = () => {
               </div>
               <div className="grid grid-cols-12 gap-4 items-center mb-6">
                 <div className="col-span-1">
-                  <Tooltip content="Tip Image" placement="top">
+                  <Tooltip
+                    content="Format: Querformat, max. Dateigröße 200kB"
+                    placement="top"
+                  >
                     <InformationCircleIcon
                       strokeWidth={2}
                       className="h-10 w-10 text-[#5A5A5A]"
@@ -1564,6 +1818,32 @@ const EditPoiPage = () => {
                     {isTipDe ? (
                       <>
                         <div className="col-span-8">
+                          <div className="relative my-2 w-[max-content]">
+                            {/* Thumbnail Preview */}
+                            <img
+                              src={tipDeUrl}
+                              alt="Preview"
+                              className="w-72 h-auto rounded-lg shadow-lg cursor-pointer transition-transform hover:scale-105"
+                              onClick={() => modalToggleTipDeBasic(true)} // Open modal on click
+                            />
+
+                            {/* Full-Size Modal */}
+                            {isModalOpenTipDeBasic && (
+                              <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                                <img
+                                  src={tipDeUrl}
+                                  alt="Full Size Preview"
+                                  className="max-w-full max-h-full rounded-lg shadow-xl"
+                                />
+                                <button
+                                  className="absolute top-4 right-4 bg-white text-black p-2 rounded-full shadow-md"
+                                  onClick={() => modalToggleTipDeBasic(false)} // Close modal on click
+                                >
+                                  ✕
+                                </button>
+                              </div>
+                            )}
+                          </div>
                           <Input
                             className="bg-white"
                             icon={<PencilSquareIcon />}
@@ -1592,6 +1872,34 @@ const EditPoiPage = () => {
                           id="file-upload"
                           onChange={handleTipDeChange}
                         />
+                        {tipSrcDe && (
+                          <div className="relative mt-2 w-[max-content]">
+                            {/* Thumbnail Preview */}
+                            <img
+                              src={tipSrcDe}
+                              alt="Preview"
+                              className="w-72 h-auto rounded-lg shadow-lg cursor-pointer transition-transform hover:scale-105"
+                              onClick={() => modalToggleTip(true)} // Open modal on click
+                            />
+
+                            {/* Full-Size Modal */}
+                            {isModalOpenTip && (
+                              <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                                <img
+                                  src={tipSrcDe}
+                                  alt="Full Size Preview"
+                                  className="max-w-full max-h-full rounded-lg shadow-xl"
+                                />
+                                <button
+                                  className="absolute top-4 right-4 bg-white text-black p-2 rounded-full shadow-md"
+                                  onClick={() => modalToggleTip(false)} // Close modal on click
+                                >
+                                  ✕
+                                </button>
+                              </div>
+                            )}
+                          </div>
+                        )}
                       </div>
                     )}
                   </div>
@@ -1671,7 +1979,7 @@ const EditPoiPage = () => {
           <div className="grid gap-6">
             <div>
               <h1 className="text-[#5A5A5A] text-3xl font-normal mb-12">
-                AR Scene eingeben
+                AR-Szene oder Panoramabild hinzufügen
               </h1>
               <div className="grid grid-cols-12 gap-4 items-center mb-6">
                 <div className="col-span-1">
@@ -1741,6 +2049,32 @@ const EditPoiPage = () => {
                 {isFileARImage ? (
                   <>
                     <div className="col-span-8">
+                      <div className="relative my-2 w-[max-content]">
+                        {/* Thumbnail Preview */}
+                        <img
+                          src={fileARImageUrl}
+                          alt="Preview"
+                          className="w-72 h-auto rounded-lg shadow-lg cursor-pointer transition-transform hover:scale-105"
+                          onClick={() => modalToggleARBasic(true)} // Open modal on click
+                        />
+
+                        {/* Full-Size Modal */}
+                        {isModalOpenARBasic && (
+                          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                            <img
+                              src={fileARImageUrl}
+                              alt="Full Size Preview"
+                              className="max-w-full max-h-full rounded-lg shadow-xl"
+                            />
+                            <button
+                              className="absolute top-4 right-4 bg-white text-black p-2 rounded-full shadow-md"
+                              onClick={() => modalToggleARBasic(false)} // Close modal on click
+                            >
+                              ✕
+                            </button>
+                          </div>
+                        )}
+                      </div>
                       <Input
                         className="bg-white"
                         icon={<PencilSquareIcon />}
@@ -1769,6 +2103,34 @@ const EditPoiPage = () => {
                       id="file-upload"
                       onChange={handleFileARImageChange}
                     />
+                    {arImageSrcDe && (
+                      <div className="relative mt-2 w-[max-content]">
+                        {/* Thumbnail Preview */}
+                        <img
+                          src={arImageSrcDe}
+                          alt="Preview"
+                          className="w-72 h-auto rounded-lg shadow-lg cursor-pointer transition-transform hover:scale-105"
+                          onClick={() => modalToggleAR(true)} // Open modal on click
+                        />
+
+                        {/* Full-Size Modal */}
+                        {isModalOpenAR && (
+                          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                            <img
+                              src={arImageSrcDe}
+                              alt="Full Size Preview"
+                              className="max-w-full max-h-full rounded-lg shadow-xl"
+                            />
+                            <button
+                              className="absolute top-4 right-4 bg-white text-black p-2 rounded-full shadow-md"
+                              onClick={() => modalToggleAR(false)} // Close modal on click
+                            >
+                              ✕
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
@@ -1785,11 +2147,37 @@ const EditPoiPage = () => {
                   </Tooltip>
                 </div>
                 <div className="col-span-2 flex items-center justify-center pr-2 text-[#5A5A5A] text-xl">
-                  Panorama Image
+                  Panoramabild
                 </div>
                 {isFilePanoramaImage ? (
                   <>
                     <div className="col-span-8">
+                      <div className="relative my-2 w-[max-content]">
+                        {/* Thumbnail Preview */}
+                        <img
+                          src={filePanoramaImageUrl}
+                          alt="Preview"
+                          className="w-72 h-auto rounded-lg shadow-lg cursor-pointer transition-transform hover:scale-105"
+                          onClick={() => modalTogglePanoramaBasic(true)} // Open modal on click
+                        />
+
+                        {/* Full-Size Modal */}
+                        {isModalOpenPanoramaBasic && (
+                          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                            <img
+                              src={filePanoramaImageUrl}
+                              alt="Full Size Preview"
+                              className="max-w-full max-h-full rounded-lg shadow-xl"
+                            />
+                            <button
+                              className="absolute top-4 right-4 bg-white text-black p-2 rounded-full shadow-md"
+                              onClick={() => modalTogglePanoramaBasic(false)} // Close modal on click
+                            >
+                              ✕
+                            </button>
+                          </div>
+                        )}
+                      </div>
                       <Input
                         className="bg-white"
                         icon={<PencilSquareIcon />}
@@ -1819,6 +2207,34 @@ const EditPoiPage = () => {
                       id="file-upload"
                       onChange={handleFilePanoramaImageChange}
                     />
+                    {panoramaImageSrcDe && (
+                      <div className="relative mt-2 w-[max-content]">
+                        {/* Thumbnail Preview */}
+                        <img
+                          src={panoramaImageSrcDe}
+                          alt="Preview"
+                          className="w-72 h-auto rounded-lg shadow-lg cursor-pointer transition-transform hover:scale-105"
+                          onClick={() => modalTogglePanorama(true)} // Open modal on click
+                        />
+
+                        {/* Full-Size Modal */}
+                        {isModalOpenPanorama && (
+                          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                            <img
+                              src={panoramaImageSrcDe}
+                              alt="Full Size Preview"
+                              className="max-w-full max-h-full rounded-lg shadow-xl"
+                            />
+                            <button
+                              className="absolute top-4 right-4 bg-white text-black p-2 rounded-full shadow-md"
+                              onClick={() => modalTogglePanorama(false)} // Close modal on click
+                            >
+                              ✕
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
                 )}
               </div>

@@ -11,7 +11,7 @@ const Dashboard = () => {
         <meta name="description" content="BremerhavenGuide Dashboard" />
       </Helmet>
       <NavbarWithMegaMenu />
-      <div className="container m-auto mt-20">
+      <div className="container m-auto mt-20 mb-40">
         <div className="grid lg:grid-cols-6 flex justify-center gap-12">
           <div></div>
           <Link
@@ -95,12 +95,13 @@ const Dashboard = () => {
           </Link>
           <div></div>
           <div></div>
+
           <Link
-            to="/poi"
+            to="/offersnews"
             className="lg:col-span-2 cursor-pointer dashboard-card flex"
           >
             <h2 className="text-[#5A5A5A] m-auto text-center text-3xl justify-center">
-              POI Übersicht
+              Home Screen
             </h2>
           </Link>
           <Link
@@ -114,11 +115,11 @@ const Dashboard = () => {
           <div></div>
           <div></div>
           <Link
-            to="/offersnews"
+            to="/poi"
             className="lg:col-span-2 cursor-pointer dashboard-card flex"
           >
             <h2 className="text-[#5A5A5A] m-auto text-center text-3xl justify-center">
-              Home Screen
+              POI Übersicht
             </h2>
           </Link>
           <Link
