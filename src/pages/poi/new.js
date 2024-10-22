@@ -456,8 +456,8 @@ const NewPoiPage = () => {
   return (
     <>
       <Helmet>
-        <title>Neuen POI erstellen | BremerhavenGuide</title>
-        <meta name="description" content="BremerhavenGuide Home Screen" />
+        <title>Neuen POI erstellen | BremenGo</title>
+        <meta name="description" content="BremenGo Home Screen" />
       </Helmet>
       <NavbarWithMegaMenu />
       {loading && (

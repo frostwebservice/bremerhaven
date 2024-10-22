@@ -261,8 +261,8 @@ const OffersNews = () => {
     <DndProvider backend={HTML5Backend}>
       <>
         <Helmet>
-          <title>Home-Screen | BremerhavenGuide</title>
-          <meta name="description" content="BremerhavenGuide Home Screen" />
+          <title>Home-Screen | BremenGo</title>
+          <meta name="description" content="BremenGo Home Screen" />
         </Helmet>
         <NavbarWithMegaMenu />
 

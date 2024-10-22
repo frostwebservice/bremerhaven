@@ -306,8 +306,8 @@ const EditExperiencePage = () => {
   return (
     <>
       <Helmet>
-        <title>Neuen Entdecken-Eintrag erstellen | BremerhavenGuide</title>
-        <meta name="description" content="BremerhavenGuide Home Screen" />
+        <title>Neuen Entdecken-Eintrag erstellen | BremenGo</title>
+        <meta name="description" content="BremenGo Home Screen" />
       </Helmet>
       <NavbarWithMegaMenu />
       {loading && (

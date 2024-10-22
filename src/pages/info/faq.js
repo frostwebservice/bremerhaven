@@ -124,8 +124,8 @@ const FaqPage = () => {
   return (
     <>
       <Helmet>
-        <title>FAQs Übersicht | BremerhavenGuide</title>
-        <meta name="description" content="BremerhavenGuide Home Screen" />
+        <title>FAQs Übersicht | BremenGo</title>
+        <meta name="description" content="BremenGo Home Screen" />
       </Helmet>
       <NavbarWithMegaMenu />
       {loading && (

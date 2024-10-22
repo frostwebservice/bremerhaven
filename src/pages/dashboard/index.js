@@ -7,8 +7,8 @@ const Dashboard = () => {
   return (
     <>
       <Helmet>
-        <title>Start/Dashboard | BremerhavenGuide</title>
-        <meta name="description" content="BremerhavenGuide Dashboard" />
+        <title>Start/Dashboard | BremenGo</title>
+        <meta name="description" content="BremenGo Dashboard" />
       </Helmet>
       <NavbarWithMegaMenu />
       <div className="container m-auto mt-20 mb-40">

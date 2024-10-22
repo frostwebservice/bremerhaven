@@ -118,8 +118,8 @@ const PoiPage = () => {
   return (
     <>
       <Helmet>
-        <title>POI Übersicht | BremerhavenGuide</title>
-        <meta name="description" content="BremerhavenGuide Home Screen" />
+        <title>POI Übersicht | BremenGo</title>
+        <meta name="description" content="BremenGo Home Screen" />
       </Helmet>
       <NavbarWithMegaMenu />
       {loading && (

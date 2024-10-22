@@ -192,8 +192,8 @@ const NewFaqPage = () => {
   return (
     <>
       <Helmet>
-        <title>Neuen FAQ Beitrag erstellen | BremerhavenGuide</title>
-        <meta name="description" content="BremerhavenGuide Home Screen" />
+        <title>Neuen FAQ Beitrag erstellen | BremenGo</title>
+        <meta name="description" content="BremenGo Home Screen" />
       </Helmet>
       <NavbarWithMegaMenu />
       {loading && (

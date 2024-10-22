@@ -55,8 +55,8 @@ const Login = () => {
   return (
     <>
       <Helmet>
-        <title>Login/Anmeldung | BremerhavenGuide</title>
-        <meta name="description" content="BremerhavenGuide Login" />
+        <title>Login/Anmeldung | BremenGo</title>
+        <meta name="description" content="BremenGo Login" />
       </Helmet>
 
       <div className="mt-[3.125rem] mb-[3.125rem]">
@@ -78,7 +78,7 @@ const Login = () => {
           <div className="container m-auto">
             <div className="grid grid-cols-3 text-center">
               <div className="col-start-2 login-headline has-special-corners">
-                <h1>BremerhavenGuide</h1>
+                <h1>BremenGo</h1>
                 <h2>Editor</h2>
               </div>
             </div>

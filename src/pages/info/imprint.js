@@ -142,8 +142,8 @@ const ImprintPage = () => {
   return (
     <>
       <Helmet>
-        <title>Bearbeiten Imprint | BremerhavenGuide</title>
-        <meta name="description" content="BremerhavenGuide Imprint" />
+        <title>Bearbeiten Imprint | BremenGo</title>
+        <meta name="description" content="BremenGo Imprint" />
       </Helmet>
       <NavbarWithMegaMenu />
       {loading && (

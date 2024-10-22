@@ -207,8 +207,8 @@ const TourPage = () => {
     <DndProvider backend={HTML5Backend}>
       <>
         <Helmet>
-          <title>Touren Übersicht | BremerhavenGuide</title>
-          <meta name="description" content="BremerhavenGuide Tour Overview" />
+          <title>Touren Übersicht | BremenGo</title>
+          <meta name="description" content="BremenGo Tour Overview" />
         </Helmet>
         <NavbarWithMegaMenu />
         {loading && (

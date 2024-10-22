@@ -142,8 +142,8 @@ const PrivacyPage = () => {
   return (
     <>
       <Helmet>
-        <title>Bearbeiten Privacy | BremerhavenGuide</title>
-        <meta name="description" content="BremerhavenGuide Home Screen" />
+        <title>Bearbeiten Privacy | BremenGo</title>
+        <meta name="description" content="BremenGo Home Screen" />
       </Helmet>
       <NavbarWithMegaMenu />
       {loading && (

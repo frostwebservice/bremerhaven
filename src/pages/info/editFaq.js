@@ -223,8 +223,8 @@ const EditFaqPage = () => {
   return (
     <>
       <Helmet>
-        <title>FAQ {titleDe} bearbeiten | BremerhavenGuide</title>
-        <meta name="description" content="BremerhavenGuide Home Screen" />
+        <title>FAQ {titleDe} bearbeiten | BremenGo</title>
+        <meta name="description" content="BremenGo Home Screen" />
       </Helmet>
       <NavbarWithMegaMenu />
       {loading && (

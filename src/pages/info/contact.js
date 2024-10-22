@@ -147,8 +147,8 @@ const ContactPage = () => {
   return (
     <>
       <Helmet>
-        <title>Bearbeiten Contact | BremerhavenGuide</title>
-        <meta name="description" content="BremerhavenGuide Contact" />
+        <title>Bearbeiten Contact | BremenGo</title>
+        <meta name="description" content="BremenGo Contact" />
       </Helmet>
       <NavbarWithMegaMenu />
       {loading && (
