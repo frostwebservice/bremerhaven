@@ -33,7 +33,12 @@ import {
   orderBy,
   deleteDoc,
 } from "firebase/firestore";
-import { db, auth, storage } from "../../config/firebase-config";
+import {
+  db,
+  auth,
+  storage,
+  prefix_storage,
+} from "../../config/firebase-config";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 const NewPoiPage = () => {
   const navigate = useNavigate();
@@ -366,7 +371,8 @@ const NewPoiPage = () => {
         const fileNameWithTimestamp = `${timestamp}_${file.name}`;
         const storageRef = ref(storage, fileNameWithTimestamp);
         await uploadBytes(storageRef, file);
-        return getDownloadURL(storageRef);
+        const gsUrl = `gs://${prefix_storage}/${fileNameWithTimestamp}`;
+        return gsUrl;
       }
       return null;
     };
@@ -505,7 +511,7 @@ const NewPoiPage = () => {
                     />
                     {nameDeError ? (
                       <p className="text-red-800">
-                        Please fill out this field.
+                        Bitte fülle dieses Feld aus.
                       </p>
                     ) : null}
                   </div>
@@ -542,7 +548,7 @@ const NewPoiPage = () => {
                     />
                     {firstTextHeadingDeError ? (
                       <p className="text-red-800">
-                        Please fill out this field.
+                        Bitte fülle dieses Feld aus.
                       </p>
                     ) : null}
                   </div>
@@ -610,7 +616,7 @@ const NewPoiPage = () => {
                     />
                     {descDeError ? (
                       <p className="text-red-800">
-                        Please fill out this field.
+                        Bitte fülle dieses Feld aus.
                       </p>
                     ) : null}
                   </div>
@@ -817,7 +823,7 @@ const NewPoiPage = () => {
                     />
                     {nameEnError ? (
                       <p className="text-red-800">
-                        Please fill out this field.
+                        Bitte fülle dieses Feld aus.
                       </p>
                     ) : null}
                   </div>
@@ -844,7 +850,7 @@ const NewPoiPage = () => {
                     />
                     {firstTextHeadingEnError ? (
                       <p className="text-red-800">
-                        Please fill out this field.
+                        Bitte fülle dieses Feld aus.
                       </p>
                     ) : null}
                   </div>
@@ -892,7 +898,7 @@ const NewPoiPage = () => {
                     />
                     {descEnError ? (
                       <p className="text-red-800">
-                        Please fill out this field.
+                        Bitte fülle dieses Feld aus.
                       </p>
                     ) : null}
                   </div>
@@ -1684,7 +1690,7 @@ const NewPoiPage = () => {
               }}
             />
             {GPSError ? (
-              <p className="text-red-800">Please fill out this field.</p>
+              <p className="text-red-800">Bitte fülle dieses Feld aus.</p>
             ) : null}
           </div>
         </div>

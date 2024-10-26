@@ -36,7 +36,12 @@ import {
   orderBy,
   deleteDoc,
 } from "firebase/firestore";
-import { db, auth, storage } from "../../config/firebase-config";
+import {
+  db,
+  auth,
+  storage,
+  prefix_storage,
+} from "../../config/firebase-config";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 const NewTourPage = () => {
   const navigate = useNavigate();
@@ -364,7 +369,8 @@ const NewTourPage = () => {
       const fileNameWithTimestamp = `${timestamp}_${file.name}`;
       const storageRef = ref(storage, fileNameWithTimestamp);
       await uploadBytes(storageRef, file);
-      return getDownloadURL(storageRef);
+      const gsUrl = `gs://${prefix_storage}/${fileNameWithTimestamp}`;
+      return gsUrl;
     };
 
     try {
@@ -399,7 +405,7 @@ const NewTourPage = () => {
       setArrayImageUrls(imageUrls);
 
       const formattedArray = selectedPois.map((poi, index) => ({
-        poi: `/poi/${poi.id}`,
+        poi: doc(db, "poi", poi.id),
         priority: index + 1,
       }));
 
@@ -514,7 +520,7 @@ const NewTourPage = () => {
                     />
                     {nameDeError ? (
                       <p className="text-red-800">
-                        Please fill out this field.
+                        Bitte fülle dieses Feld aus.
                       </p>
                     ) : null}
                   </div>
@@ -551,7 +557,7 @@ const NewTourPage = () => {
                     />
                     {descDeError ? (
                       <p className="text-red-800">
-                        Please fill out this field.
+                        Bitte fülle dieses Feld aus.
                       </p>
                     ) : null}
                   </div>
@@ -777,7 +783,7 @@ const NewTourPage = () => {
                     />
                     {nameEnError ? (
                       <p className="text-red-800">
-                        Please fill out this field.
+                        Bitte fülle dieses Feld aus.
                       </p>
                     ) : null}
                   </div>
@@ -804,7 +810,7 @@ const NewTourPage = () => {
                     />
                     {descEnError ? (
                       <p className="text-red-800">
-                        Please fill out this field.
+                        Bitte fülle dieses Feld aus.
                       </p>
                     ) : null}
                   </div>

@@ -34,7 +34,12 @@ import {
   orderBy,
   deleteDoc,
 } from "firebase/firestore";
-import { db, auth, storage } from "../../config/firebase-config";
+import {
+  db,
+  auth,
+  storage,
+  prefix_storage,
+} from "../../config/firebase-config";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 const NewExperience = () => {
   const navigate = useNavigate();
@@ -175,7 +180,8 @@ const NewExperience = () => {
       const storageRef = ref(storage, fileNameWithTimestamp);
       try {
         await uploadBytes(storageRef, file);
-        return await getDownloadURL(storageRef);
+        const gsUrl = `gs://${prefix_storage}/${fileNameWithTimestamp}`;
+        return gsUrl;
       } catch (error) {
         console.error("Error uploading file:", error);
         return null;
@@ -263,7 +269,7 @@ const NewExperience = () => {
                     />
                     {titleDeError ? (
                       <p className="text-red-800">
-                        Please fill out this field.
+                        Bitte fülle dieses Feld aus.
                       </p>
                     ) : null}
                   </div>
@@ -356,7 +362,7 @@ const NewExperience = () => {
                     />
                     {descDeError ? (
                       <p className="text-red-800">
-                        Please fill out this field.
+                        Bitte fülle dieses Feld aus.
                       </p>
                     ) : null}
                   </div>
@@ -463,7 +469,7 @@ const NewExperience = () => {
                     />
                     {titleEnError ? (
                       <p className="text-red-800">
-                        Please fill out this field.
+                        Bitte fülle dieses Feld aus.
                       </p>
                     ) : null}
                   </div>
@@ -536,7 +542,7 @@ const NewExperience = () => {
                     />
                     {descEnError ? (
                       <p className="text-red-800">
-                        Please fill out this field.
+                        Bitte fülle dieses Feld aus.
                       </p>
                     ) : null}
                   </div>

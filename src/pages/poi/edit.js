@@ -36,7 +36,12 @@ import {
   orderBy,
   deleteDoc,
 } from "firebase/firestore";
-import { db, auth, storage } from "../../config/firebase-config";
+import {
+  db,
+  auth,
+  storage,
+  prefix_storage,
+} from "../../config/firebase-config";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useDrag, useDrop } from "react-dnd";
 const ItemTypes = {
@@ -144,6 +149,7 @@ const EditPoiPage = () => {
     );
   };
   const navigate = useNavigate();
+  const [poiItem, setPoiItem] = useState({});
   const audioRefDe = useRef(null);
   const audioRefEn = useRef(null);
   const storyRefDe = useRef(null);
@@ -273,15 +279,8 @@ const EditPoiPage = () => {
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         const data = docSnap.data(); // Extracts the data
-        console.log(data);
+        setPoiItem(data);
 
-        setFileDeUrl(data.languages.de.firstAudio);
-        setFileEnUrl(data.languages.en.firstAudio);
-        setTipDeUrl(data.TipImage);
-        setStoryDeUrl(data.languages.de.audiostory);
-        setStoryEnUrl(data.languages.en.audiostory);
-        setThumbDeUrl(data.ThumbnailImage);
-        setFilePanoramaImageUrl(data.PanoramaImage);
         setFirstTextHeadingDe(data.languages.de.FirstTextHeading);
         setFirstTextHeadingEn(data.languages.en.FirstTextHeading);
         setNameDe(data.languages.de.name);
@@ -309,40 +308,117 @@ const EditPoiPage = () => {
         setVideoNameEn(data.languages.en.VideoName);
         setVideoLinkDe(data.languages.de.videoLink);
         setVideoLinkEn(data.languages.en.videoLink);
-        setFileARImageUrl(data.ARImage);
+
         if (data.ARImage) {
+          const storageRef = ref(
+            storage,
+            data.ARImage.replace("gs://" + prefix_storage + "/", "")
+          );
+          const url = await getDownloadURL(storageRef);
+          setFileARImageUrl(url);
           setIsFileARImage(true);
         }
         if (data.PanoramaImage) {
+          const storageRef = ref(
+            storage,
+            data.PanoramaImage.replace("gs://" + prefix_storage + "/", "")
+          );
+          const url = await getDownloadURL(storageRef);
+          setFilePanoramaImageUrl(url);
           setIsFilePanoramaImage(true);
         }
         if (data.ThumbnailImage) {
+          const storageRef = ref(
+            storage,
+            data.ThumbnailImage.replace("gs://" + prefix_storage + "/", "")
+          );
+          const url = await getDownloadURL(storageRef);
+          setThumbDeUrl(url);
           setIsThumbDe(true);
         }
         if (data.TipImage) {
+          const storageRef = ref(
+            storage,
+            data.TipImage.replace("gs://" + prefix_storage + "/", "")
+          );
+          const url = await getDownloadURL(storageRef);
+          setTipDeUrl(url);
           setIsTipDe(true);
         }
         if (data.languages.de.audiostory) {
+          const storageRef = ref(
+            storage,
+            data.languages.de.audiostory.replace(
+              "gs://" + prefix_storage + "/",
+              ""
+            )
+          );
+          const url = await getDownloadURL(storageRef);
+          setStoryDeUrl(url);
           setIsStoryDe(true);
         }
         if (data.languages.en.audiostory) {
+          const storageRef = ref(
+            storage,
+            data.languages.en.audiostory.replace(
+              "gs://" + prefix_storage + "/",
+              ""
+            )
+          );
+          const url = await getDownloadURL(storageRef);
+          setStoryEnUrl(url);
           setIsStoryEn(true);
         }
         if (data.languages.de.firstAudio) {
+          const storageRef = ref(
+            storage,
+            data.languages.de.firstAudio.replace(
+              "gs://" + prefix_storage + "/",
+              ""
+            )
+          );
+          const url = await getDownloadURL(storageRef);
+          setFileDeUrl(url);
           setIsFileDe(true);
         }
         if (data.languages.en.firstAudio) {
+          const storageRef = ref(
+            storage,
+            data.languages.en.firstAudio.replace(
+              "gs://" + prefix_storage + "/",
+              ""
+            )
+          );
+          const url = await getDownloadURL(storageRef);
+          setFileEnUrl(url);
           setIsFileEn(true);
         }
 
-        const backend_images = data.images.map((image, index) => ({
-          imageUrl: image,
-          imageFile: null,
-          imageDescriptionDe: data.languages.de.imagesDescription[index],
-          imageDescriptionEn: data.languages.en.imagesDescription[index],
-          isModalOpen: false,
-        }));
-        setOldImages(backend_images);
+        const fetchBackendImages = async (data) => {
+          const backend_images = await Promise.all(
+            data.images.map(async (image, index) => {
+              const storageRef = ref(
+                storage,
+                image.replace(`gs://${prefix_storage}/`, "")
+              );
+              const url = await getDownloadURL(storageRef);
+
+              return {
+                imageUrl: url,
+                imageFile: null,
+                imageDescriptionDe: data.languages.de.imagesDescription[index],
+                imageDescriptionEn: data.languages.en.imagesDescription[index],
+                isModalOpen: false,
+              };
+            })
+          );
+
+          // Set state with resolved image data
+          setOldImages(backend_images);
+        };
+
+        // Usage
+        fetchBackendImages(data);
       } else {
         console.log("No such document!");
       }
@@ -625,7 +701,9 @@ const EditPoiPage = () => {
       const fileNameWithTimestamp = `${timestamp}_${file.name}`;
       const storageRef = ref(storage, fileNameWithTimestamp);
       await uploadBytes(storageRef, file);
-      return await getDownloadURL(storageRef);
+      const gsUrl = `gs://${prefix_storage}/${fileNameWithTimestamp}`;
+
+      return gsUrl; // Return the gs:// URL
     };
 
     const imageUploadPromises = filteredImages.map(async (image) => {
@@ -674,11 +752,11 @@ const EditPoiPage = () => {
       ...imageDescriptionsEn,
     ];
     const poiData = {
-      ARImage: (await uploadFile(fileARImage)) ?? fileARImageUrl,
+      ARImage: (await uploadFile(fileARImage)) ?? poiItem.ARImage,
       PanoramaImage:
-        (await uploadFile(filePanoramaImage)) ?? filePanoramaImageUrl,
-      ThumbnailImage: (await uploadFile(thumbDe)) ?? thumbDeUrl,
-      TipImage: (await uploadFile(tipDe)) ?? tipDeUrl,
+        (await uploadFile(filePanoramaImage)) ?? poiItem.PanoramaImage,
+      ThumbnailImage: (await uploadFile(thumbDe)) ?? poiItem.ThumbnailImage,
+      TipImage: (await uploadFile(tipDe)) ?? poiItem.TipImage,
       arActive: isAR,
       arScenelsPanorama: isPanorama,
       gps: GPS,
@@ -691,8 +769,10 @@ const EditPoiPage = () => {
           TipDescription: tipDescDe,
           TipLink: tipLinkDe,
           VideoName: videoNameDe,
-          audiostory: (await uploadFile(storyDe)) ?? storyDeUrl,
-          firstAudio: (await uploadFile(fileDe)) ?? fileDeUrl,
+          audiostory:
+            (await uploadFile(storyDe)) ?? poiItem.languages.de.audiostory,
+          firstAudio:
+            (await uploadFile(fileDe)) ?? poiItem.languages.de.firstAudio,
           firstText: descDe,
           imagesDescription: newImageDescriptionsDe, // customize
           name: nameDe,
@@ -707,8 +787,10 @@ const EditPoiPage = () => {
           TipDescription: tipDescEn,
           TipLink: tipLinkEn,
           VideoName: videoNameEn,
-          audiostory: (await uploadFile(storyEn)) ?? storyEnUrl,
-          firstAudio: (await uploadFile(fileEn)) ?? fileEnUrl,
+          audiostory:
+            (await uploadFile(storyEn)) ?? poiItem.languages.en.audiostory,
+          firstAudio:
+            (await uploadFile(fileEn)) ?? poiItem.languages.en.firstAudio,
           firstText: descEn,
           imagesDescription: newImageDescriptionsEn, // customize
           name: nameEn,
@@ -779,7 +861,7 @@ const EditPoiPage = () => {
                       />
                       {nameDeError ? (
                         <p className="text-red-800">
-                          Please fill out this field.
+                          Bitte fülle dieses Feld aus.
                         </p>
                       ) : null}
                     </div>
@@ -816,7 +898,7 @@ const EditPoiPage = () => {
                       />
                       {firstTextHeadingDeError ? (
                         <p className="text-red-800">
-                          Please fill out this field.
+                          Bitte fülle dieses Feld aus.
                         </p>
                       ) : null}
                     </div>
@@ -884,7 +966,7 @@ const EditPoiPage = () => {
                       />
                       {descDeError ? (
                         <p className="text-red-800">
-                          Please fill out this field.
+                          Bitte fülle dieses Feld aus.
                         </p>
                       ) : null}
                     </div>
@@ -1200,7 +1282,7 @@ const EditPoiPage = () => {
                       />
                       {nameEnError ? (
                         <p className="text-red-800">
-                          Please fill out this field.
+                          Bitte fülle dieses Feld aus.
                         </p>
                       ) : null}
                     </div>
@@ -1227,7 +1309,7 @@ const EditPoiPage = () => {
                       />
                       {firstTextHeadingEnError ? (
                         <p className="text-red-800">
-                          Please fill out this field.
+                          Bitte fülle dieses Feld aus.
                         </p>
                       ) : null}
                     </div>
@@ -1275,7 +1357,7 @@ const EditPoiPage = () => {
                       />
                       {descEnError ? (
                         <p className="text-red-800">
-                          Please fill out this field.
+                          Bitte fülle dieses Feld aus.
                         </p>
                       ) : null}
                     </div>
@@ -2298,7 +2380,7 @@ const EditPoiPage = () => {
                 }}
               />
               {GPSError ? (
-                <p className="text-red-800">Please fill out this field.</p>
+                <p className="text-red-800">Bitte fülle dieses Feld aus.</p>
               ) : null}
             </div>
           </div>

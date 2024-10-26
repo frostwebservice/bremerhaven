@@ -35,10 +35,16 @@ import {
   orderBy,
   deleteDoc,
 } from "firebase/firestore";
-import { db, auth, storage } from "../../config/firebase-config";
+import {
+  db,
+  auth,
+  storage,
+  prefix_storage,
+} from "../../config/firebase-config";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 const EditEventPage = () => {
   const navigate = useNavigate();
+  const [eventItem, setEventItem] = useState({});
   const audioRefDe = useRef(null);
   const audioRefEn = useRef(null);
   const [audioSrcDe, setAudioSrcDe] = useState(null);
@@ -102,7 +108,7 @@ const EditEventPage = () => {
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         const data = docSnap.data(); // Extracts the data
-        console.log(data);
+        setEventItem(data);
         setTitleDe(data.languages.de.title);
         setTitleEn(data.languages.en.title);
         setDescEn(data.languages.en.description);
@@ -114,24 +120,43 @@ const EditEventPage = () => {
         setButtonLinkEn(data.languages.en.buttonLink);
         setEventCreated(data.createdAt);
 
-        setFileDeUrl(data.languages.de.audio);
-        setFileEnUrl(data.languages.en.audio);
-        setBildDeUrl(data.languages.de.image);
-        setBildEnUrl(data.languages.en.image);
-
         setPriority(data.priority);
 
         if (data.languages.de.audio) {
+          const storageRef = ref(
+            storage,
+            data.languages.de.audio.replace("gs://" + prefix_storage + "/", "")
+          );
+          const url = await getDownloadURL(storageRef);
+          setFileDeUrl(url);
           setIsDeAudio(true);
         }
         if (data.languages.en.audio) {
+          const storageRef = ref(
+            storage,
+            data.languages.en.audio.replace("gs://" + prefix_storage + "/", "")
+          );
+          const url = await getDownloadURL(storageRef);
+          setFileEnUrl(url);
           setIsEnAudio(true);
         }
 
         if (data.languages.de.image) {
+          const storageRef = ref(
+            storage,
+            data.languages.de.image.replace("gs://" + prefix_storage + "/", "")
+          );
+          const url = await getDownloadURL(storageRef);
+          setBildDeUrl(url);
           setIsDeBild(true);
         }
         if (data.languages.en.image) {
+          const storageRef = ref(
+            storage,
+            data.languages.en.image.replace("gs://" + prefix_storage + "/", "")
+          );
+          const url = await getDownloadURL(storageRef);
+          setBildEnUrl(url);
           setIsEnBild(true);
         }
       } else {
@@ -232,10 +257,10 @@ const EditEventPage = () => {
     setLoading(true);
 
     // Use basic URLs as defaults
-    let fileDeUrl = basicfileDeUrl;
-    let fileEnUrl = basicfileEnUrl;
-    let bildDeUrl = basicbildDeUrl;
-    let bildEnUrl = basicbildEnUrl;
+    let fileDeUrl = eventItem.languages.de.audio;
+    let fileEnUrl = eventItem.languages.en.audio;
+    let bildDeUrl = eventItem.languages.de.image;
+    let bildEnUrl = eventItem.languages.en.image;
 
     // Function to upload files and get URLs
     const uploadFile = async (file) => {
@@ -245,7 +270,8 @@ const EditEventPage = () => {
       const storageRef = ref(storage, fileNameWithTimestamp);
       try {
         await uploadBytes(storageRef, file);
-        return await getDownloadURL(storageRef);
+        const gsUrl = `gs://${prefix_storage}/${fileNameWithTimestamp}`;
+        return gsUrl;
       } catch (error) {
         console.error("Error uploading file:", error);
         return null;
@@ -345,7 +371,7 @@ const EditEventPage = () => {
                     />
                     {titleDeError ? (
                       <p className="text-red-800">
-                        Please fill out this field.
+                        Bitte fülle dieses Feld aus.
                       </p>
                     ) : null}
                   </div>
@@ -490,7 +516,7 @@ const EditEventPage = () => {
                     />
                     {descDeError ? (
                       <p className="text-red-800">
-                        Please fill out this field.
+                        Bitte fülle dieses Feld aus.
                       </p>
                     ) : null}
                   </div>
@@ -627,7 +653,7 @@ const EditEventPage = () => {
                     />
                     {titleEnError ? (
                       <p className="text-red-800">
-                        Please fill out this field.
+                        Bitte fülle dieses Feld aus.
                       </p>
                     ) : null}
                   </div>
@@ -752,7 +778,7 @@ const EditEventPage = () => {
                     />
                     {descEnError ? (
                       <p className="text-red-800">
-                        Please fill out this field.
+                        Bitte fülle dieses Feld aus.
                       </p>
                     ) : null}
                   </div>

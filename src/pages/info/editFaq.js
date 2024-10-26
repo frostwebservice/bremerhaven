@@ -35,12 +35,18 @@ import {
   orderBy,
   deleteDoc,
 } from "firebase/firestore";
-import { db, auth, storage } from "../../config/firebase-config";
+import {
+  db,
+  auth,
+  storage,
+  prefix_storage,
+} from "../../config/firebase-config";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 const EditFaqPage = () => {
   const navigate = useNavigate();
   const audioRefDe = useRef(null);
   const audioRefEn = useRef(null);
+  const [faqItem, setFaqItem] = useState({});
   const [audioSrcDe, setAudioSrcDe] = useState(null);
   const [audioSrcEn, setAudioSrcEn] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -73,7 +79,7 @@ const EditFaqPage = () => {
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         const data = docSnap.data(); // Extracts the data
-        console.log(data);
+        setFaqItem(data);
         setTitleDe(data.languages.de.title);
         setTitleEn(data.languages.en.title);
         setDescEn(data.languages.en.description);
@@ -81,13 +87,23 @@ const EditFaqPage = () => {
         setPublished(data.published);
         setLinksDe(data.languages.de.links);
         setLinksEn(data.languages.en.links);
-        setFileDeUrl(data.languages.de.audio);
-        setFileEnUrl(data.languages.en.audio);
         setPriority(data.priority);
         if (data.languages.de.audio) {
+          const storageRef = ref(
+            storage,
+            data.languages.de.audio.replace("gs://" + prefix_storage + "/", "")
+          );
+          const url = await getDownloadURL(storageRef);
+          setFileDeUrl(url);
           setIsDeAudio(true);
         }
         if (data.languages.en.audio) {
+          const storageRef = ref(
+            storage,
+            data.languages.en.audio.replace("gs://" + prefix_storage + "/", "")
+          );
+          const url = await getDownloadURL(storageRef);
+          setFileEnUrl(url);
           setIsEnAudio(true);
         }
       } else {
@@ -181,14 +197,15 @@ const EditFaqPage = () => {
       const fileNameWithTimestamp = `${timestamp}_${file.name}`;
       const storageRef = ref(storage, fileNameWithTimestamp);
       await uploadBytes(storageRef, file);
-      return getDownloadURL(storageRef);
+      const gsUrl = `gs://${prefix_storage}/${fileNameWithTimestamp}`;
+      return gsUrl;
     };
 
     try {
       // Use Promise.all to upload both files simultaneously
       const [fileDeUrl, fileEnUrl] = await Promise.all([
-        fileDe ? uploadFile(fileDe) : basicfileDeUrl,
-        fileEn ? uploadFile(fileEn) : basicfileEnUrl,
+        fileDe ? uploadFile(fileDe) : faqItem.languages.de.audio,
+        fileEn ? uploadFile(fileEn) : faqItem.languages.en.audio,
       ]);
 
       const faqData = {
@@ -276,7 +293,7 @@ const EditFaqPage = () => {
                     />
                     {titleDeError ? (
                       <p className="text-red-800">
-                        Please fill out this field.
+                        Bitte fülle dieses Feld aus.
                       </p>
                     ) : null}
                   </div>
@@ -313,7 +330,7 @@ const EditFaqPage = () => {
                     />
                     {descDeError ? (
                       <p className="text-red-800">
-                        Please fill out this field.
+                        Bitte fülle dieses Feld aus.
                       </p>
                     ) : null}
                   </div>
@@ -463,7 +480,7 @@ const EditFaqPage = () => {
                     />
                     {titleEnError ? (
                       <p className="text-red-800">
-                        Please fill out this field.
+                        Bitte fülle dieses Feld aus.
                       </p>
                     ) : null}
                   </div>
@@ -490,7 +507,7 @@ const EditFaqPage = () => {
                     />
                     {descEnError ? (
                       <p className="text-red-800">
-                        Please fill out this field.
+                        Bitte fülle dieses Feld aus.
                       </p>
                     ) : null}
                   </div>

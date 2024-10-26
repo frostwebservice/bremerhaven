@@ -203,7 +203,7 @@ const ContactPage = () => {
                     }}
                   />
                   {addressError ? (
-                    <p className="text-red-800">Please fill out this field.</p>
+                    <p className="text-red-800">Bitte fülle dieses Feld aus.</p>
                   ) : null}
                 </div>
               </div>
@@ -227,7 +227,7 @@ const ContactPage = () => {
                     }}
                   />
                   {personError ? (
-                    <p className="text-red-800">Please fill out this field.</p>
+                    <p className="text-red-800">Bitte fülle dieses Feld aus.</p>
                   ) : null}
                 </div>
               </div>
@@ -277,7 +277,7 @@ const ContactPage = () => {
                     }}
                   />
                   {faxError ? (
-                    <p className="text-red-800">Please fill out this field.</p>
+                    <p className="text-red-800">Bitte fülle dieses Feld aus.</p>
                   ) : null}
                 </div>
               </div>
@@ -301,7 +301,7 @@ const ContactPage = () => {
                     }}
                   />
                   {phoneError ? (
-                    <p className="text-red-800">Please fill out this field.</p>
+                    <p className="text-red-800">Bitte fülle dieses Feld aus.</p>
                   ) : null}
                 </div>
               </div>

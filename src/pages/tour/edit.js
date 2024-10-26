@@ -39,7 +39,12 @@ import {
   orderBy,
   deleteDoc,
 } from "firebase/firestore";
-import { db, auth, storage } from "../../config/firebase-config";
+import {
+  db,
+  auth,
+  storage,
+  prefix_storage,
+} from "../../config/firebase-config";
 import { useDrag, useDrop } from "react-dnd";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 const ItemTypes = {
@@ -210,9 +215,12 @@ const EditTourPage = () => {
   const plusNewPoi = () => {
     if (selectedPoi == "") return;
     const selectedPoiTemp = pois.find((poi) => poi.id === selectedPoi); // Find selected POI from the list
-
+    const selectedPoiWithRef = {
+      ...selectedPoiTemp,
+      poi: doc(db, "poi", selectedPoiTemp.id), // Add reference to the POI document
+    };
     // if (selectedPoiTemp && !selectedPois.includes(selectedPoiTemp)) {
-    setSelectedPois([...selectedPois, selectedPoiTemp]); // Add to selectedPois array
+    setSelectedPois([...selectedPois, selectedPoiWithRef]); // Add to selectedPois array
     // }
     setCanAddPoi(false);
     setAddCompleted(true);
@@ -290,6 +298,7 @@ const EditTourPage = () => {
   const [isModalOpenThumb, setIsModalOpenThumb] = useState(false);
   const [bgImageSrcDe, setBgImageSrcDe] = useState(null);
   const [isModalOpenBG, setIsModalOpenBG] = useState(false);
+  const [tour, setTour] = useState({});
 
   const [isModalOpenThumbBasic, setIsModalOpenThumbBasic] = useState(false);
   const [isModalOpenBGBasic, setIsModalOpenBGBasic] = useState(false);
@@ -307,6 +316,7 @@ const EditTourPage = () => {
     newImages[index].isModalOpen = isOpen;
     setOldImages(newImages);
   };
+
   useEffect(() => {
     const fetchPois = async () => {
       try {
@@ -316,9 +326,10 @@ const EditTourPage = () => {
         );
         const querySnapshot = await getDocs(q);
 
-        const fetchedData = querySnapshot.docs.map((doc) => ({
-          id: doc.id, // Include document ID if needed
-          ...doc.data(), // Spread document data
+        const fetchedData = querySnapshot.docs.map((i_doc) => ({
+          poi: doc(db, "poi", i_doc.id),
+          id: i_doc.id, // Include document ID if needed
+          ...i_doc.data(), // Spread document data
         }));
         setPois(fetchedData);
 
@@ -337,23 +348,51 @@ const EditTourPage = () => {
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         const data = docSnap.data(); // Extracts the data
+        setTour(data);
         const poiProperties = data.pois;
-        const poiIds = poiProperties.map((item) => item.poi.split("/").pop());
+        const poiIds = poiProperties.map((item) => item.poi.id);
         const priorityMap = poiProperties.reduce((acc, item) => {
-          const id = item.poi.split("/").pop();
+          const id = item.poi.id;
           acc[id] = item.priority;
           return acc;
         }, {});
+        // const newPois = fetchedPois
+        //   .filter((poi) => poiIds.includes(poi.id))
+        //   .sort((a, b) => priorityMap[a.id] - priorityMap[b.id]);
+        // setSelectedPois(newPois);
         const newPois = fetchedPois
-          .filter((poi) => poiIds.includes(poi.id))
-          .sort((a, b) => priorityMap[a.id] - priorityMap[b.id]);
+          .filter((poi) => poiIds.includes(poi.id)) // Filter based on poiIds
+          .sort((a, b) => priorityMap[a.id] - priorityMap[b.id]) // Sort based on priority
+          .map((poi) => ({
+            ...poi,
+            poi: doc(db, "poi", poi.id), // Add the Firestore document reference for each POI
+          }));
         setSelectedPois(newPois);
-        const newOldImages = data.images.map((url) => ({
-          imageUrl: url,
-          isModalOpen: false,
-        }));
-        // Set other data as before
-        setOldImages(newOldImages);
+
+        const fetchBackendImages = async (data) => {
+          const backend_images = await Promise.all(
+            data.images.map(async (image, index) => {
+              const storageRef = ref(
+                storage,
+                image.replace(`gs://${prefix_storage}/`, "")
+              );
+              const url = await getDownloadURL(storageRef);
+
+              return {
+                imageUrl: url,
+
+                isModalOpen: false,
+              };
+            })
+          );
+
+          // Set state with resolved image data
+          setOldImages(backend_images);
+        };
+
+        // Usage
+        fetchBackendImages(data);
+
         setNameDe(data.languages.de.name);
         setNameEn(data.languages.en.name);
         setDescDe(data.languages.de.description);
@@ -369,35 +408,93 @@ const EditTourPage = () => {
         setDurationTime(data.durationTime);
         setPriority(data.priority);
         if (data.languages.de.DescriptionAudio) {
-          setDescAudioFileDeUrl(data.languages.de.DescriptionAudio);
+          const storageRef = ref(
+            storage,
+            data.languages.de.DescriptionAudio.replace(
+              "gs://" + prefix_storage + "/",
+              ""
+            )
+          );
+          const url = await getDownloadURL(storageRef);
+          setDescAudioFileDeUrl(url);
           setIsDescAudioFileDe(true);
         }
         if (data.languages.en.DescriptionAudio) {
-          setDescAudioFileEnUrl(data.languages.en.DescriptionAudio);
+          const storageRef = ref(
+            storage,
+            data.languages.en.DescriptionAudio.replace(
+              "gs://" + prefix_storage + "/",
+              ""
+            )
+          );
+          const url = await getDownloadURL(storageRef);
+          setDescAudioFileEnUrl(url);
           setIsDescAudioFileEn(true);
         }
         if (data.languages.de.firstAudio) {
-          setFirstAudioFileDeUrl(data.languages.de.firstAudio);
+          const storageRef = ref(
+            storage,
+            data.languages.de.firstAudio.replace(
+              "gs://" + prefix_storage + "/",
+              ""
+            )
+          );
+          const url = await getDownloadURL(storageRef);
+          setFirstAudioFileDeUrl(url);
           setIsFirstAudioFileDe(true);
         }
         if (data.languages.en.firstAudio) {
-          setFirstAudioFileEnUrl(data.languages.en.firstAudio);
+          const storageRef = ref(
+            storage,
+            data.languages.en.firstAudio.replace(
+              "gs://" + prefix_storage + "/",
+              ""
+            )
+          );
+          const url = await getDownloadURL(storageRef);
+          setFirstAudioFileEnUrl(url);
           setIsFirstAudioFileEn(true);
         }
         if (data.languages.de.audiostory) {
-          setStoryFileDeUrl(data.languages.de.audiostory);
+          const storageRef = ref(
+            storage,
+            data.languages.de.audiostory.replace(
+              "gs://" + prefix_storage + "/",
+              ""
+            )
+          );
+          const url = await getDownloadURL(storageRef);
+          setStoryFileDeUrl(url);
           setIsStoryFileDe(true);
         }
         if (data.languages.en.audiostory) {
-          setStoryFileEnUrl(data.languages.en.audiostory);
+          const storageRef = ref(
+            storage,
+            data.languages.en.audiostory.replace(
+              "gs://" + prefix_storage + "/",
+              ""
+            )
+          );
+          const url = await getDownloadURL(storageRef);
+          setStoryFileEnUrl(url);
           setIsStoryFileEn(true);
         }
         if (data.ThumbnailImage) {
-          setThumbFileUrl(data.ThumbnailImage);
+          const storageRef = ref(
+            storage,
+            data.ThumbnailImage.replace("gs://" + prefix_storage + "/", "")
+          );
+          const url = await getDownloadURL(storageRef);
+          setThumbFileUrl(url);
           setIsThumbFile(true);
         }
         if (data.TourBGImage) {
-          setTourBGFileUrl(data.TourBGImage);
+          const storageRef = ref(
+            storage,
+            data.TourBGImage.replace("gs://" + prefix_storage + "/", "")
+          );
+          const url = await getDownloadURL(storageRef);
+          setTourBGFileUrl(url);
           setIsTourBGFile(true);
         }
       } else {
@@ -630,11 +727,18 @@ const EditTourPage = () => {
     const uploadFile = async (file) => {
       const timestamp = Date.now(); // Get the current timestamp
       const fileNameWithTimestamp = `${timestamp}_${file.name}`;
-      const storageRef = ref(storage, fileNameWithTimestamp);
-      await uploadBytes(storageRef, file);
-      return getDownloadURL(storageRef);
-    };
 
+      // Create a reference to the storage location
+      const storageRef = ref(storage, fileNameWithTimestamp);
+
+      // Upload the file
+      await uploadBytes(storageRef, file);
+
+      // Construct the gs:// URL
+      const gsUrl = `gs://${prefix_storage}/${fileNameWithTimestamp}`;
+
+      return gsUrl; // Return the gs:// URL
+    };
     try {
       // Parallel uploading of all images and files using Promise.all
       const imageUploadPromises = filteredImages.map(async (image) => {
@@ -643,14 +747,14 @@ const EditTourPage = () => {
       });
 
       const [
-        audiostoryUrl = storyFileDeUrl,
-        audiostoryUrlEn = storyFileEnUrl,
-        firstAudioUrl = firstAudioFileDeUrl,
-        firstAudioUrlEn = firstAudioFileEnUrl,
-        descAudioDeUrl = descAudioFileDeUrl,
-        descAudioEnUrl = descAudioFileEnUrl,
-        ThumbnailImageUrl = thumbFileUrl,
-        TourBGImageUrl = tourBGFileUrl,
+        audiostoryUrl = tour.languages.de.audiostory,
+        audiostoryUrlEn = tour.languages.en.audiostory,
+        firstAudioUrl = tour.languages.de.firstAudio,
+        firstAudioUrlEn = tour.languages.en.firstAudio,
+        descAudioDeUrl = tour.languages.de.DescriptionAudio,
+        descAudioEnUrl = tour.languages.en.DescriptionAudio,
+        ThumbnailImageUrl = tour.ThumbnailImage,
+        TourBGImageUrl = tour.TourBGImage,
       ] = await Promise.all([
         storyDe && uploadFile(storyDe),
         storyEn && uploadFile(storyEn),
@@ -667,7 +771,7 @@ const EditTourPage = () => {
       const originalImageUrls = oldImages.map((item) => item.imageUrl);
       const newImages = [...originalImageUrls, ...imageUrls];
       const formattedArray = selectedPois.map((poi, index) => ({
-        poi: `/poi/${poi.id}`,
+        poi: doc(db, "poi", poi.id),
         priority: index + 1,
       }));
 
@@ -770,7 +874,7 @@ const EditTourPage = () => {
                       />
                       {nameDeError ? (
                         <p className="text-red-800">
-                          Please fill out this field.
+                          Bitte fülle dieses Feld aus.
                         </p>
                       ) : null}
                     </div>
@@ -807,7 +911,7 @@ const EditTourPage = () => {
                       />
                       {descDeError ? (
                         <p className="text-red-800">
-                          Please fill out this field.
+                          Bitte fülle dieses Feld aus.
                         </p>
                       ) : null}
                     </div>
@@ -1126,7 +1230,7 @@ const EditTourPage = () => {
                       />
                       {nameEnError ? (
                         <p className="text-red-800">
-                          Please fill out this field.
+                          Bitte fülle dieses Feld aus.
                         </p>
                       ) : null}
                     </div>
@@ -1153,7 +1257,7 @@ const EditTourPage = () => {
                       />
                       {descEnError ? (
                         <p className="text-red-800">
-                          Please fill out this field.
+                          Bitte fülle dieses Feld aus.
                         </p>
                       ) : null}
                     </div>
@@ -1421,7 +1525,12 @@ const EditTourPage = () => {
                         onChange={(value) => handleSelectChange(value)}
                       >
                         {pois
-                          .filter((poi) => !selectedPois.includes(poi))
+                          .filter(
+                            (poi) =>
+                              !selectedPois.some(
+                                (selected) => selected.poi.id === poi.id
+                              )
+                          )
                           .map((poi, index) => (
                             <Option key={index} value={poi.id}>
                               {poi.languages.de.name}

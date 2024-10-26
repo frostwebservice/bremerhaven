@@ -27,7 +27,7 @@ const Login = () => {
     e.preventDefault();
     if (!email || !password) {
       setIsError(true);
-      setErrorMsg("Provide Eamil and Password!");
+      setErrorMsg("⁠Bitte trage E-Mail-Adresse und Passwort ein.");
       return;
     }
     try {
@@ -47,7 +47,7 @@ const Login = () => {
       const errorMessage = error.message;
       setIsError(true);
 
-      setErrorMsg("Invalid Email or Password! Try again!");
+      setErrorMsg("Falsche E-Mail-Adresse oder Passwort. Versuche es noch einmal.");
       // console.log("errorCode:", errorCode, "errorMessage:", errorMessage);
     }
   };

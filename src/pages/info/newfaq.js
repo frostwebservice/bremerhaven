@@ -34,7 +34,12 @@ import {
   orderBy,
   deleteDoc,
 } from "firebase/firestore";
-import { db, auth, storage } from "../../config/firebase-config";
+import {
+  db,
+  auth,
+  storage,
+  prefix_storage,
+} from "../../config/firebase-config";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 const NewFaqPage = () => {
   const navigate = useNavigate();
@@ -151,7 +156,8 @@ const NewFaqPage = () => {
         const fileNameWithTimestamp = `${timestamp}_${file.name}`;
         const storageRef = ref(storage, fileNameWithTimestamp);
         await uploadBytes(storageRef, file);
-        return getDownloadURL(storageRef);
+        const gsUrl = `gs://${prefix_storage}/${fileNameWithTimestamp}`;
+        return gsUrl;
       };
 
       // Upload files in parallel using Promise.all
@@ -243,7 +249,7 @@ const NewFaqPage = () => {
                     />
                     {titleDeError ? (
                       <p className="text-red-800">
-                        Please fill out this field.
+                        Bitte fülle dieses Feld aus.
                       </p>
                     ) : null}
                   </div>
@@ -280,7 +286,7 @@ const NewFaqPage = () => {
                     />
                     {descDeError ? (
                       <p className="text-red-800">
-                        Please fill out this field.
+                        Bitte fülle dieses Feld aus.
                       </p>
                     ) : null}
                   </div>
@@ -400,7 +406,7 @@ const NewFaqPage = () => {
                     />
                     {titleEnError ? (
                       <p className="text-red-800">
-                        Please fill out this field.
+                        Bitte fülle dieses Feld aus.
                       </p>
                     ) : null}
                   </div>
@@ -427,7 +433,7 @@ const NewFaqPage = () => {
                     />
                     {descEnError ? (
                       <p className="text-red-800">
-                        Please fill out this field.
+                        Bitte fülle dieses Feld aus.
                       </p>
                     ) : null}
                   </div>

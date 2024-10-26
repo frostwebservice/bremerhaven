@@ -35,10 +35,16 @@ import {
   orderBy,
   deleteDoc,
 } from "firebase/firestore";
-import { db, auth, storage } from "../../config/firebase-config";
+import {
+  db,
+  auth,
+  storage,
+  prefix_storage,
+} from "../../config/firebase-config";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 const EditExperiencePage = () => {
   const navigate = useNavigate();
+  const [experienceItem, setExperienceItem] = useState({});
   const audioRefDe = useRef(null);
   const audioRefEn = useRef(null);
   const [audioSrcDe, setAudioSrcDe] = useState(null);
@@ -104,7 +110,7 @@ const EditExperiencePage = () => {
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         const data = docSnap.data(); // Extracts the data
-        console.log(data);
+        setExperienceItem(data);
         setTitleDe(data.languages.de.title);
         setTitleEn(data.languages.en.title);
         setDescEn(data.languages.en.description);
@@ -116,24 +122,43 @@ const EditExperiencePage = () => {
         setButtonLinkEn(data.languages.en.buttonLink);
         setExperienceCreated(data.createdAt);
 
-        setFileDeUrl(data.languages.de.audio);
-        setFileEnUrl(data.languages.en.audio);
-        setBildDeUrl(data.languages.de.image);
-        setBildEnUrl(data.languages.en.image);
-
         setPriority(data.priority);
 
         if (data.languages.de.audio) {
+          const storageRef = ref(
+            storage,
+            data.languages.de.audio.replace("gs://" + prefix_storage + "/", "")
+          );
+          const url = await getDownloadURL(storageRef);
+          setFileDeUrl(url);
           setIsDeAudio(true);
         }
         if (data.languages.en.audio) {
+          const storageRef = ref(
+            storage,
+            data.languages.en.audio.replace("gs://" + prefix_storage + "/", "")
+          );
+          const url = await getDownloadURL(storageRef);
+          setFileEnUrl(url);
           setIsEnAudio(true);
         }
 
         if (data.languages.de.image) {
+          const storageRef = ref(
+            storage,
+            data.languages.de.image.replace("gs://" + prefix_storage + "/", "")
+          );
+          const url = await getDownloadURL(storageRef);
+          setBildDeUrl(url);
           setIsDeBild(true);
         }
         if (data.languages.en.image) {
+          const storageRef = ref(
+            storage,
+            data.languages.en.image.replace("gs://" + prefix_storage + "/", "")
+          );
+          const url = await getDownloadURL(storageRef);
+          setBildEnUrl(url);
           setIsEnBild(true);
         }
       } else {
@@ -235,10 +260,10 @@ const EditExperiencePage = () => {
     setLoading(true);
 
     // Use basic URLs as defaults
-    let fileDeUrl = basicfileDeUrl;
-    let fileEnUrl = basicfileEnUrl;
-    let bildDeUrl = basicbildDeUrl;
-    let bildEnUrl = basicbildEnUrl;
+    let fileDeUrl = experienceItem.languages.de.audio;
+    let fileEnUrl = experienceItem.languages.en.audio;
+    let bildDeUrl = experienceItem.languages.de.image;
+    let bildEnUrl = experienceItem.languages.en.image;
 
     // Function to upload files and get URLs
     const uploadFile = async (file) => {
@@ -248,7 +273,8 @@ const EditExperiencePage = () => {
       const storageRef = ref(storage, fileNameWithTimestamp);
       try {
         await uploadBytes(storageRef, file);
-        return await getDownloadURL(storageRef);
+        const gsUrl = `gs://${prefix_storage}/${fileNameWithTimestamp}`;
+        return gsUrl;
       } catch (error) {
         console.error("Error uploading file:", error);
         return null;
@@ -348,7 +374,7 @@ const EditExperiencePage = () => {
                     />
                     {titleDeError ? (
                       <p className="text-red-800">
-                        Please fill out this field.
+                        Bitte fülle dieses Feld aus.
                       </p>
                     ) : null}
                   </div>
@@ -493,7 +519,7 @@ const EditExperiencePage = () => {
                     />
                     {descDeError ? (
                       <p className="text-red-800">
-                        Please fill out this field.
+                        Bitte fülle dieses Feld aus.
                       </p>
                     ) : null}
                   </div>
@@ -630,7 +656,7 @@ const EditExperiencePage = () => {
                     />
                     {titleEnError ? (
                       <p className="text-red-800">
-                        Please fill out this field.
+                        Bitte fülle dieses Feld aus.
                       </p>
                     ) : null}
                   </div>
@@ -755,7 +781,7 @@ const EditExperiencePage = () => {
                     />
                     {descEnError ? (
                       <p className="text-red-800">
-                        Please fill out this field.
+                        Bitte fülle dieses Feld aus.
                       </p>
                     ) : null}
                   </div>

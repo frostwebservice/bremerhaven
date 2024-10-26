@@ -4,14 +4,14 @@ import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 const firebaseConfig = {
-  apiKey: "AIzaSyAKiPW-prVCWq2x3aGlYsvVP8O2ORbF0T8",
-  authDomain: "bremengo-staging.firebaseapp.com",
-  projectId: "bremengo-staging",
-  storageBucket: "bremengo-staging.appspot.com",
-  messagingSenderId: "242550789124",
-  appId: "1:242550789124:web:fff6fd37081a6e5b07d151",
+  apiKey: "AIzaSyB8nmk0SmB4JtdPP3fBVnZk8YqvVtwLc3I",
+  authDomain: "bremencityar-16a5d.firebaseapp.com",
+  projectId: "bremencityar-16a5d",
+  storageBucket: "bremencityar-16a5d.appspot.com",
+  messagingSenderId: "120922141950",
+  appId: "1:120922141950:web:b8035f8a8d60705bd061af",
 };
-
+export const prefix_storage = firebaseConfig.storageBucket;
 const app = initializeApp(firebaseConfig);
 export const storage = getStorage(app);
 export const db = getFirestore(app);
